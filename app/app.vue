@@ -1,10 +1,20 @@
 <script setup>
 import { useSmoother } from '~/composables/useSmoother'
+
 const { gsap, ScrollSmoother } = useGsap()
 const { locale } = useI18n()
 const smoother = useSmoother()
+const isLoading = ref(true);
+const preloaderRef = ref(null);
 
 let ctx = null
+
+const onPreloaderLoaded = () => {
+  if (preloaderRef.value) {
+    preloaderRef.value.playPreloader();
+  }
+  // Здесь можно оставить isLoading = false, если нужно для других целей,
+};
 
 function updateSmoother() {
   if (smoother.value) smoother.value.kill()
@@ -19,13 +29,19 @@ function updateSmoother() {
         smooth: 1,
         effects: true,
       });
+
+      // if (isLoading.value && smoother.value) {
+      //   smoother.value.paused(true);
+      // }
     });
   }, 100)
 }
 
 watch(() => locale.value, () => { updateSmoother() })
+onMounted(() => { 
+  updateSmoother()
+})
 
-onMounted(() => { updateSmoother() })
 onUnmounted(() => {
   if (smoother.value) smoother.value.kill()
   if (ctx) ctx.revert()
@@ -33,7 +49,10 @@ onUnmounted(() => {
 </script>
 <template>
   <UApp>
-    <div id="smooth-wrapper" class="flex flex-col min-h-screen overflow-hidden text-black bg-gray-200 bg-top bg-fixed bg-[url(/img/bg-1.jpg)] bg-no-repeat bg-cover w-full z-0">
+
+    <!-- <Preloader v-if="isLoading" ref="preloaderRef" @loaded="onPreloaderLoaded" /> -->
+
+    <div id="smooth-wrapper" :class="`bg-[url(/img/bg-1.jpg)]`" class="flex flex-col min-h-screen overflow-hidden text-black bg-gray-200 bg-top bg-fixed bg-no-repeat bg-cover w-full z-0">
       <Headers />
       <div id="smooth-content" class="flex-grow overflow-visible w-full">
         <NuxtLayout>

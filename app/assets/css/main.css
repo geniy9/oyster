@@ -91,10 +91,10 @@
   }
 
   .zooming_img {
-    @apply absolute top-1/2 left-1/2 -translate-1/2 w-full h-full object-cover; 
+    @apply absolute top-1/2 left-1/2 -translate-1/2 w-full h-full bg-cover; 
   }
   .cutting_gate {
-    @apply relative w-1/2 h-full overflow-hidden bg-primary; 
+    @apply relative w-1/2 h-full overflow-hidden bg-primary z-10; 
   }
   .cutting_gate h2 {
     @apply absolute top-1/2 -translate-y-1/2 text-center font-bold w-screen text-7xl; 

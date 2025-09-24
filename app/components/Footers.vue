@@ -4,9 +4,10 @@ const { menuSecond } = useMenu()
 </script>
 <template>
   <footer class="relative h-screen">
+
     <div class="flex flex-col fixed md:bottom-0 right-0 p-2 z-20">
       <div class="flex justify-center">
-        <img src="/logo_3d.png" alt="Logo" class="w-20">
+        <img src="/logo_3d.png" alt="Logo" class="w-10">
       </div>
       <div class="backdrop-blur-md bg-white/20 px-2 py-4">
         <ul class="flex flex-col items-start gap-1">
@@ -19,5 +20,6 @@ const { menuSecond } = useMenu()
         </ul>
       </div>
     </div>
+
   </footer>
 </template>

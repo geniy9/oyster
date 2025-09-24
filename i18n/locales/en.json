@@ -1,0 +1,27 @@
+{
+  "nav": {
+    "navigation": "Navigation",
+    "introduction": "introduction",
+    "about": "About",
+    "cases": "Cases",
+    "services": "Services",
+    "partnership": "Partnership",
+    "team": "Team",
+    "contact": "Contact",
+    "web_development": "Web Development",
+    "lidogenation": "Lidogeneration",
+    "automation": "Automation",
+    "web_design": "Web Design",
+    "consulting": "Consulting"
+  },
+  "title": {
+    "internet": "Internet",
+    "marketing": "Marketing",
+    "for_your_business": "For your business and personal brand",
+    "advertising_agency": "Advertising Agency <br \\/> Full Cycle"
+  },
+  "text": {
+    "close": "Close",
+    "lets_discuss": "Let's discuss"
+  }
+}

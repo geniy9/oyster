@@ -1,0 +1,116 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@tailwind utilities;
+@config "../../tailwind.config.js";
+
+@font-face {
+  font-family: 'light';
+  src: url('/fonts/HelveticaNeueCyr-Light.woff2') format('woff2'), url('/fonts/HelveticaNeueCyr-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'regular';
+  src: url('/fonts/HelveticaNeueCyr-Roman.woff2') format('woff2'), url('/fonts/HelveticaNeueCyr-Roman.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'medium';
+  src: url('/fonts/HelveticaNeueCyr-Medium.woff2') format('woff2'), url('/fonts/HelveticaNeueCyr-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'bold';
+  src: url('/fonts/HelveticaNeueCyr-Bold.woff2') format('woff2'), url('/fonts/HelveticaNeueCyr-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'black';
+  src: url('/fonts/HelveticaNeueCyr-Black.woff2') format('woff2'), url('/fonts/HelveticaNeueCyr-Black.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --ui-text-dimmed: var(--ui-color-neutral-400);
+  --ui-text-muted: var(--ui-color-neutral-500);
+  --ui-text-toned: var(--ui-color-neutral-600);
+  --ui-text: var(--ui-color-neutral-700);
+  --ui-text-highlighted: var(--ui-color-neutral-900);
+  --ui-text-inverted: var(--color-white);
+
+  --ui-bg: var(--color-white);
+  --ui-bg-muted: var(--ui-color-neutral-50);
+  --ui-bg-elevated: var(--ui-color-neutral-100);
+  --ui-bg-accented: var(--ui-color-neutral-200);
+  --ui-bg-inverted: var(--ui-color-neutral-900);
+
+  --ui-border: var(--ui-color-neutral-200);
+  --ui-border-muted: var(--ui-color-neutral-200);
+  --ui-border-accented: var(--ui-color-neutral-300);
+  --ui-border-inverted: var(--ui-color-neutral-900);
+}
+.dark {
+  --ui-text-dimmed: var(--ui-color-neutral-500);
+  --ui-text-muted: var(--ui-color-neutral-400);
+  --ui-text-toned: var(--ui-color-neutral-300);
+  --ui-text: var(--ui-color-neutral-200);
+  --ui-text-highlighted: var(--color-white);
+  --ui-text-inverted: var(--ui-color-neutral-900);
+
+  --ui-bg: var(--ui-color-neutral-900);
+  --ui-bg-muted: var(--ui-color-neutral-800);
+  --ui-bg-elevated: var(--ui-color-neutral-800);
+  --ui-bg-accented: var(--ui-color-neutral-700);
+  --ui-bg-inverted: var(--color-white);
+
+  --ui-border: var(--ui-color-neutral-800);
+  --ui-border-muted: var(--ui-color-neutral-700);
+  --ui-border-accented: var(--ui-color-neutral-700);
+  --ui-border-inverted: var(--color-white);
+}
+
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  .section {
+    @apply relative w-full xs:max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto px-4 xs:px-6 lg:px-0;
+  }
+  .main_title {
+    @apply text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase;
+  }
+
+  .zooming_img {
+    @apply absolute top-1/2 left-1/2 -translate-1/2 w-full h-full object-cover; 
+  }
+  .cutting_gate {
+    @apply relative w-1/2 h-full overflow-hidden bg-primary; 
+  }
+  .cutting_gate h2 {
+    @apply absolute top-1/2 -translate-y-1/2 text-center font-bold w-screen text-7xl; 
+  }
+
+  /* #smooth-content {
+    overflow: visible;
+    width: 100%;
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.07) 2px,
+        transparent 2px
+      ),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.07) 2px, transparent 2px),
+      linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+  } */
+}

@@ -1,0 +1,27 @@
+{
+  "nav": {
+    "navigation": "Навигация",
+    "introduction": "Вступление",
+    "about": "О нас",
+    "cases": "Кейсы",
+    "services": "Сервисы",
+    "partnership": "Партнерство",
+    "team": "Команда",
+    "contact": "Контакты",
+    "web_development": "Разработка сайтов",
+    "lidogenation": "Лидогенерация",
+    "automation": "Автоматизация",
+    "web_design": "Веб-дизайн",
+    "consulting": "Консалтинг"
+  },
+  "title": {
+    "internet": "Интернет",
+    "marketing": "Маркетинг",
+    "for_your_business": "Для Вашего бизнеса и личного бренда",
+    "advertising_agency": "Рекламное Агентство <br \\/>Полного Цикла"
+  },
+  "text": {
+    "close": "Закрыть",
+    "lets_discuss": "Давайте обсудим"
+  }
+}

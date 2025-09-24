@@ -66,7 +66,7 @@ function initGsap() {
       scrollTrigger: {
         trigger: "#zooming_section",
         start: "top top",
-        end: "+=200%",
+        end: "+=300%",
         scrub: 1,
         pin: true,
       }
@@ -74,8 +74,8 @@ function initGsap() {
     gsap.set(zoomingImgs.value, { scale: 0 });
     gsap.set(cuttingContainer.value, { scale: 0 });
 
-    const imageAnimDuration = 2;
-    const splitDuration = 2;
+    const imageAnimDuration = 1;
+    const splitDuration = 1;
 
     zoomingImgs.value.forEach((img, index) => {
       imgScalingTL.to(img, {

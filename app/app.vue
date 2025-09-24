@@ -50,7 +50,7 @@ onUnmounted(() => {
 <template>
   <UApp>
 
-    <!-- <Preloader v-if="isLoading" ref="preloaderRef" @loaded="onPreloaderLoaded" /> -->
+    <Preloader v-if="isLoading" ref="preloaderRef" @loaded="onPreloaderLoaded" />
 
     <div id="smooth-wrapper" :class="`bg-[url(/img/bg-1.jpg)]`" class="flex flex-col min-h-screen overflow-hidden text-black bg-gray-200 bg-top bg-fixed bg-no-repeat bg-cover w-full z-0">
       <Headers />

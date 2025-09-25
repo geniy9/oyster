@@ -3,9 +3,12 @@ import { useSmoother } from '~/composables/useSmoother';
 
 const { gsap, SplitText } = useGsap()
 const smoother = useSmoother()
+const { shifterBg } = useConfig();
 
 let ctx = null
 const splitTitle = ref(null)
+const waveText = ref(null)
+
 const leftCurtain = ref(null) 
 const rightCurtain = ref(null)
 const zoomingImgs = ref([])
@@ -16,9 +19,11 @@ const zoomingImages = [
   '/img/identity_tech.jpg',
 ]
 const cuttingContainer = ref(null);
-const aboutContainer = ref(null);
 const leftPanel = ref(null);
 const rightPanel = ref(null);
+
+const aboutFrame1 = ref(null);
+
 
 onBeforeUpdate(() => {
   zoomingImgs.value = []
@@ -28,10 +33,7 @@ function initGsap() {
   ctx = gsap.context(() => {
     const titles = gsap.utils.toArray("#text_separate h1");
     gsap.set(titles, { overflow: 'hidden' });
-    splitTitle.value = new SplitText(titles, {
-      type: "lines",
-      linesClass: "line-child"
-    });
+    splitTitle.value = new SplitText(titles, { type: "lines", linesClass: "line-child" });
 
     // всплытие заголовка
     gsap.from(splitTitle.value.lines, {
@@ -43,12 +45,20 @@ function initGsap() {
     });
     gsap.set("#text_separate", { yPercent: 0, opacity: 1, stagger: 0.5, zIndex: 0 })
 
+    waveText.value = new SplitText("#split_stagger", { type: "words,chars" });
+    if(smoother.value) {
+      smoother.value.effects(waveText.value.chars, {
+        speed: 1,
+        lag: (i) => (i + 1) * 0.1,
+      });
+    }
+
     // линия и шторки
     const curtainTL = gsap.timeline({
       scrollTrigger: {
         trigger: "#curtain_container",
         start: "top top", 
-        end: "+=180%",
+        end: "+=200%",
         scrub: 1,
         pin: true,
       }
@@ -57,7 +67,7 @@ function initGsap() {
       height: "100vh", duration: 1, ease: "none", zIndex: 10
     });
     curtainTL.to([leftCurtain.value, rightCurtain.value], {
-      width: "50vw", duration: 1, ease: "none", zIndex: 0
+      width: "50vw", duration: 1, ease: "none"
     });
 
     // зуминг изображений
@@ -65,7 +75,7 @@ function initGsap() {
       scrollTrigger: {
         trigger: "#zooming_section",
         start: "top top",
-        end: "+=200%",
+        end: "+=300%",
         scrub: 1,
         pin: true,
       }
@@ -73,14 +83,19 @@ function initGsap() {
     gsap.set(zoomingImgs.value, { scale: 0 });
     gsap.set(cuttingContainer.value, { scale: 0 });
 
-    const scalingDuration = 1;
+    curtainTL.to([leftCurtain.value, rightCurtain.value], { opacity: 0, duration: 0.1 });
 
+    gsap.set(aboutFrame1.value, { yPercent: 100, opacity: 0, zIndex: 4 });
+
+    const scalingDuration = 1;
     zoomingImgs.value.forEach((img, index) => {
       scalingTL.to(img, {
         scale: 1,
         duration: scalingDuration,
         ease: 'none',
-        delay: 0.5
+        delay: 0.5,
+        onComplete: () => shifterBg.value = 'none',
+        onReverseComplete: () => shifterBg.value = '/img/bg-1.jpg',
       },
       index * (scalingDuration / 4)
       );
@@ -93,32 +108,30 @@ function initGsap() {
       ease: 'ease',
       delay: 0.5
     }, 1.25);
-    
-    scalingTL.to(leftPanel.value, { x: '-50vw', duration: 1.5, ease: 'none', zIndex: 5 });
-    scalingTL.to(rightPanel.value, { x: '50vw', duration: 1.5, ease: 'none', zIndex: 5 }, '<');
-    scalingTL.to(cuttingContainer.value, { backgroundColor: 'white', duration: 0, ease: 'none' }, '<');
-    zoomingImgs.value.forEach((img) => {
-      scalingTL.to(img, { opacity: 0, duration: 0, ease: 'none' }, '<');
+
+    scalingTL.to([leftPanel.value, rightPanel.value], {
+      x: (i) => i === 0 ? '-50vw' : '50vw',
+      duration: 1.5,
+      ease: 'none',
     });
+
+    scalingTL.to(aboutFrame1.value, { opacity: 1, duration: 0.1, ease: 'none'}, "<");
+    scalingTL.to(aboutFrame1.value, { yPercent: 0, duration: 2, ease: 'none' }, "<");
+    
+    scalingTL.to(zoomingImgs.value, { opacity: 0, duration: 0.1 }, '<', '-=0.2'); 
+    scalingTL.to(cuttingContainer.value, { backgroundColor: 'transparent', duration: 0 }, '<', '-=0.2');
 
     // about
-    const aboutTL = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#about_section",
-        start: "top top",
-        // end: "+=200%",
-        scrub: 1,
-        pin: true,
-      }
-    });
-    gsap.set(aboutContainer.value, { top: '-20%' });
+    // const aboutTL = gsap.timeline({
+    //   scrollTrigger: {
+    //     trigger: "#about_section",
+    //     start: "top top",
+    //     end: "+=100%",
+    //     scrub: 1,
+    //     // pin: true,
+    //   }
+    // });
 
-    // aboutTL.to(aboutContainer.value, {
-    //   top: '-50%',
-    //   ease: "power3.out",
-    //   stagger: 0.2,
-    //   duration: 1,
-    // }, '-=2.5');
     
     
   })
@@ -127,6 +140,7 @@ function initGsap() {
 function cleanGsap() {
   if (ctx) ctx.revert()
   if (splitTitle.value) splitTitle.value.revert()
+  if (waveText.value) waveText.value.revert()
   ctx = null
   splitTitle.value = null
   zoomingImgs.value = []
@@ -135,6 +149,8 @@ function cleanGsap() {
   rightCurtain.value = null
   leftPanel.value = null
   rightPanel.value = null
+  aboutFrame1.value = null
+  
 }
 
 watch(() => smoother.value, (newSmooth, oldSmooth) => {
@@ -148,7 +164,7 @@ watch(() => smoother.value, (newSmooth, oldSmooth) => {
 onUnmounted(() => { cleanGsap() })
 </script>
 <template>
-  <div class="w-full">
+  <div class="w-full relative">
 
     <div class="relative flex flex-col justify-center items-center h-screen">
       <div id="text_separate" class="fixed opacity-0 lg:min-w-lg xl:min-w-2xl text-bold z-10" aria-hidden="true">
@@ -161,7 +177,7 @@ onUnmounted(() => { cleanGsap() })
           </span>
         </h1>
         <div class="text-xs xs:text-base sm:text-lg font-bold uppercase relative z-10">
-          <p>{{ $t('title.for_your_business') }}</p>
+          <p id="split_stagger">{{ $t('title.for_your_business') }}</p>
         </div>
       </div>
       <div id="curtain_container" class="absolute w-screen h-screen overflow-hidden">
@@ -181,6 +197,19 @@ onUnmounted(() => { cleanGsap() })
           class="zooming_img"
           :style="{ zIndex: index + 1 }" 
         />
+
+        <div ref="aboutFrame1" class="absolute top-0 left-0 w-full h-full bg-white py-8">
+          <div class="section">
+            <h2 class="main_title z-0">
+              {{ $t('title.about_1.name') }}
+            </h2>
+            <p class="text-lg ml-10 md:ml-20">
+              {{ $t('title.about_1.description') }}
+            </p>
+            <div class="bg-[url(/img/bg_about_1.jpg)] bg-no-repeat bg-contain pb-[56.25%]"></div>
+          </div>
+        </div>
+
         <div ref="cuttingContainer" class="absolute top-0 left-0 w-screen h-screen flex overflow-hidden z-[5]">
           <div ref="leftPanel" class="cutting_gate z-[5]">
             <h2 class="left-full -translate-x-1/2" v-html="$t('title.advertising_agency')"></h2>
@@ -193,10 +222,47 @@ onUnmounted(() => { cleanGsap() })
     </section>
 
     <section id="about_section" class="relative w-full bg-white z-0">
-      <div ref="aboutContainer" class="section z-0">
-        <h2 class="main_title">О нас</h2>
-        <p class="text-lg">Мы — маркетинговое агентство полного цикла. Наша команда соединяет стратегию, креатив и аналитику, чтобы ваш бизнес развивался быстрее конкурентов. Мы понимаем рынок и говорим на языке цифр, а не обещаний.</p>
-        <div class="bg-[url(/img/tooth_paste.jpg)] bg-no-repeat bg-contain pb-[56.25%]"></div>
+      <div ref="aboutFrame2" class="bg-[url(/img/bg_about_2.jpg)] bg-no-repeat">
+        <div>8</div>
+        <h2 class="main_title">
+          8 {{ $t('text.year', 2) }}
+        </h2>
+        <h3 class="text-lg">
+          {{ $t('title.about_2.name') }}
+        </h3>
+        <div class="">
+          <p class="text-lg">
+            {{ $t('title.about_2.description') }}
+          </p>
+        </div>
+      </div>
+      <div ref="aboutFrame3" class="bg-[url(/img/bg_about_3.jpg)] bg-no-repeat">
+        <div>200</div>
+        <h2 class="main_title">
+          200+
+        </h2>
+        <h3 class="text-lg">
+          {{ $t('title.about_3.name') }}
+        </h3>
+        <div class="">
+          <p class="text-lg">
+            {{ $t('title.about_3.description') }}
+          </p>
+        </div>
+      </div>
+      <div ref="aboutFrame3" class="bg-[url(/img/bg_about_4.jpg)] bg-no-repeat">
+        <div>97</div>
+        <h2 class="main_title text-primary">
+          97.1%
+        </h2>
+        <h3 class="text-lg">
+          {{ $t('title.about_4.name') }}
+        </h3>
+        <div class="">
+          <p class="text-lg">
+            {{ $t('title.about_4.description') }}
+          </p>
+        </div>
       </div>
     </section>
 

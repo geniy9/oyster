@@ -18,10 +18,28 @@
     "internet": "Internet",
     "marketing": "Marketing",
     "for_your_business": "For your business and personal brand",
-    "advertising_agency": "Advertising Agency <br \\/> Full Cycle"
+    "advertising_agency": "Advertising Agency <br \\/> Full Cycle",
+    "about_1": {
+      "name": "About us",
+      "description": "We are a full-service marketing agency. Our team combines strategy, creativity, and analytics to help your business grow faster than the competition. We understand the market and speak the language of numbers, not promises."
+    },
+    "about_2": {
+      "name": "In the digital industry",
+      "description": "This is our foundation. We have walked the path with the market, from the first SMM experiments to advanced analytics and automation. Now this experience works for you."
+    },
+    "about_3": {
+      "name": "Completed projects in 5 countries",
+      "description": "Over this time, we have accumulated practical experience working in various niches and with companies of all sizes—from local startups to international brands."
+    },
+    "about_4": {
+      "name": "Customer Satisfaction Index *",
+      "description": "This isn't just a number, but confirmation that we understand business needs and translate them into results.",
+      "notice": "* according to research conducted by Oyster Computer on November 24, 2023"
+    }
   },
   "text": {
     "close": "Close",
-    "lets_discuss": "Let's discuss"
+    "lets_discuss": "Let's discuss",
+    "year": "Year | Years"
   }
 }

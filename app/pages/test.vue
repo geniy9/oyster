@@ -48,18 +48,6 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section> -->
 
-    <!-- <section class="title section flow--lg min-h-screen space-y-8">
-      <h1 class="text-center mx-auto text-[clamp(12px,8vw,100px)] leading-[0.67]">
-        <span class="eyebrow font-sans font-normal text-[clamp(12px,3vw,40px)]" aria-hidden="true">with </span>
-        scrollsmoother
-      </h1>
-      <p class="text-3xl font-medium">
-        Seamlessly integrated with GSAP.
-        Leveraging native scrolling - no "fake" scrollbars or
-        event hijacking.
-      </p>
-    </section> -->
-
     <!-- <section class="bars section flex flex-wrap gap-x-16 min-h-screen">
       <div class="bars-text flex-1 basis-[300px] flex flex-col items-start justify-center">
         <div class="flow content space-y-4 border-l border-solid border-white py-2 px-8">

@@ -359,6 +359,33 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
+    <section class="relative grid grid-cols-4 gap-[0.2rem] mx-auto pt-[10vh] z-[-1] h-screen w-full bg-contain bg-top bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)] p-2">
+      <div class="relative aspect-video overflow-hidden rounded-xl col-start-1 row-start-1" data-speed="0.8">
+        <img data-speed="auto" src="/img/case/1.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
+      </div>
+      <div class="relative aspect-video overflow-hidden rounded-xl col-start-2 row-start-2" data-speed="1">
+        <img data-speed="auto" src="/img/case/2.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
+      </div>
+      <div class="relative aspect-video overflow-hidden rounded-xl col-start-3 row-start-3" data-speed="1.2">
+        <img data-speed="auto" src="/img/case/3.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
+      </div>
+      <div class="relative aspect-video overflow-hidden rounded-xl col-start-4 row-start-4" data-speed="0.9">
+        <img data-speed="auto" src="/img/case/4.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
+      </div>
+      <div class="relative aspect-video overflow-hidden rounded-xl col-start-1 row-start-5" data-speed="1.1">
+        <img data-speed="auto" src="/img/case/5.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
+      </div>
+      <div class="relative aspect-video overflow-hidden rounded-xl col-start-2 row-start-6" data-speed="0.8">
+        <img data-speed="auto" src="/img/case/6.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
+      </div>
+      <div class="relative aspect-video overflow-hidden rounded-xl col-start-3 row-start-7" data-speed="1.2">
+        <img data-speed="auto" src="/img/case/7.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
+      </div>
+      <div class="relative aspect-video overflow-hidden rounded-xl col-start-4 row-start-8" data-speed="0.7">
+        <img data-speed="auto" src="/img/case/8.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
+      </div>
+    </section>
+
     
 
   </div>

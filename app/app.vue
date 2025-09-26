@@ -1,6 +1,6 @@
 <script setup>
 import { useSmoother } from '~/composables/useSmoother'
-const { shifterBg } = useConfig();
+const { shifterBg, bgVisible } = useConfig();
 
 const { gsap, ScrollSmoother } = useGsap()
 const { locale } = useI18n()
@@ -50,10 +50,12 @@ onUnmounted(() => {
 </script>
 <template>
   <UApp>
-
     <!-- <Preloader v-if="isLoading" ref="preloaderRef" @loaded="onPreloaderLoaded" /> -->
+     
+    <div :style="{ backgroundImage: bgVisible ? `url(${shifterBg})` : 'none' }" 
+      class="fixed inset-0 bg-white bg-fixed bg-no-repeat bg-cover w-full z-0 transition-all duration-500"></div>
 
-    <div id="smooth-wrapper" :style="{ backgroundImage: `url(${shifterBg})` }" class="flex flex-col min-h-screen overflow-hidden text-black bg-white bg-fixed bg-no-repeat bg-cover w-full z-0">
+    <div id="smooth-wrapper" class="flex flex-col min-h-screen overflow-hidden text-black">
       <Headers />
       <div id="smooth-content" class="flex-grow overflow-visible w-full">
         <NuxtLayout>

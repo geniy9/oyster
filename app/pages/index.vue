@@ -1,9 +1,10 @@
 <script setup>
 import { useSmoother } from '~/composables/useSmoother';
 
+const { t } = useI18n()
 const { gsap, SplitText } = useGsap()
 const smoother = useSmoother()
-const { shifterBg } = useConfig();
+const { shifterBg, bgVisible } = useConfig();
 
 let ctx = null
 const splitTitle = ref(null)
@@ -22,11 +23,37 @@ const cuttingContainer = ref(null);
 const leftPanel = ref(null);
 const rightPanel = ref(null);
 
-const aboutFrame1 = ref(null);
+const aboutNitro = ref(null);
 
+const aboutContainer = ref(null);
+const aboutFrames = ref([]);
+const aboutTextContainers = ref([]);
+let aboutSplits = [];
+// const aboutFrame1 = ref(null);
+// const aboutFrame2 = ref(null);
+// const aboutFrame3 = ref(null);
+
+const aboutItems = [{ 
+  digit: 8,
+  progress: 8 + ' ' + t('text.year', 2),
+  name: t('title.about_1.name'),
+  description: t('title.about_1.description')
+},{ 
+  digit: 200,
+  progress: '200+',
+  name: t('title.about_2.name'),
+  description: t('title.about_2.description')
+},{ 
+  digit: 97,
+  progress: '97.1%',
+  name: t('title.about_3.name'),
+  description: t('title.about_3.description')
+}]
 
 onBeforeUpdate(() => {
   zoomingImgs.value = []
+  aboutFrames.value = []
+  aboutTextContainers.value = []
 })
 
 function initGsap() {
@@ -85,54 +112,120 @@ function initGsap() {
 
     curtainTL.to([leftCurtain.value, rightCurtain.value], { opacity: 0, duration: 0.1 });
 
-    gsap.set(aboutFrame1.value, { yPercent: 100, opacity: 0, zIndex: 4 });
+    gsap.set(aboutNitro.value, { yPercent: 100, opacity: 0, zIndex: 4 });
 
-    const scalingDuration = 1;
     zoomingImgs.value.forEach((img, index) => {
       scalingTL.to(img, {
         scale: 1,
-        duration: scalingDuration,
+        duration: 1,
         ease: 'none',
         delay: 0.5,
-        onComplete: () => shifterBg.value = 'none',
-        onReverseComplete: () => shifterBg.value = '/img/bg-1.jpg',
+        onComplete: () => bgVisible.value = false,
+        onReverseComplete: () => bgVisible.value = true,
       },
-      index * (scalingDuration / 4)
+      index * (1 / 4)
       );
     });
 
     // контейнер с текстом
     scalingTL.to(cuttingContainer.value, {
       scale: 1,
-      duration: scalingDuration,
+      duration: 1,
       ease: 'ease',
       delay: 0.5
     }, 1.25);
 
+    // открываем шторки, разрезая текст
     scalingTL.to([leftPanel.value, rightPanel.value], {
       x: (i) => i === 0 ? '-50vw' : '50vw',
       duration: 1.5,
       ease: 'none',
     });
-
-    scalingTL.to(aboutFrame1.value, { opacity: 1, duration: 0.1, ease: 'none'}, "<");
-    scalingTL.to(aboutFrame1.value, { yPercent: 0, duration: 2, ease: 'none' }, "<");
+    scalingTL.to(zoomingImgs.value, { opacity: 0, duration: 0.1 }, '<', '-=0.2');
+    scalingTL.fromTo(aboutNitro.value, 
+      { opacity: 1, duration: 0.1, ease: 'none'},
+      { yPercent: 0, duration: 2, ease: 'none' }, "<");
     
-    scalingTL.to(zoomingImgs.value, { opacity: 0, duration: 0.1 }, '<', '-=0.2'); 
-    scalingTL.to(cuttingContainer.value, { backgroundColor: 'transparent', duration: 0 }, '<', '-=0.2');
 
     // about
-    // const aboutTL = gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: "#about_section",
-    //     start: "top top",
-    //     end: "+=100%",
-    //     scrub: 1,
-    //     // pin: true,
-    //   }
-    // });
+    aboutTextContainers.value.forEach(container => {
+      const numberTargets = container.querySelectorAll('[data-split-number]');
+      const textTargets = container.querySelectorAll('[data-split-text]');
+      
+      const numberSplit = new SplitText(numberTargets, { 
+        type: "lines", 
+        linesClass: "split-line",
+      });
+      const textSplit = new SplitText(textTargets, { 
+        type: "words", 
+        wordsClass: "split-word", 
+      });
+      aboutSplits.push({ numbers: numberSplit, text: textSplit });
+    });
 
-    
+    aboutSplits.forEach((split, index) => {
+      if (index > 0) {
+        gsap.set(split.numbers.lines, { yPercent: 100, autoAlpha: 1 });
+        gsap.set(split.text.words, { yPercent: 100, autoAlpha: 0 });
+      }
+    });
+    gsap.set(aboutFrames.value.slice(1), { autoAlpha: 0, scale: 1.05 });
+    gsap.set(aboutFrames.value[0], { autoAlpha: 1, scale: 1 });
+
+    const aboutTL = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#about_section",
+        start: "top top",
+        end: `+=${aboutItems.length * 100}%`,
+        scrub: 1,
+        pin: true,
+      }
+    });
+
+    aboutItems.forEach((_, i) => {
+      if (i < aboutItems.length - 1) {
+        aboutTL.to(aboutSplits[i].numbers.lines, {
+          yPercent: -100,
+          duration: 1.5,
+          ease: "power2.in",
+        }, `+=${i === 0 ? 0 : 0.5}`);
+
+        aboutTL.to(aboutSplits[i].text.words, {
+          yPercent: -100,
+          autoAlpha: 0,
+          stagger: 0.03,
+          duration: 1.5,
+        }, `<`);
+
+        aboutTL.to(aboutFrames.value[i], {
+          scale: 1.05,
+          autoAlpha: 1,
+          duration: 1.5,
+          ease: "power2.in"
+        }, "<");
+
+        aboutTL.to(aboutFrames.value[i + 1], {
+          scale: 1,
+          autoAlpha: 1,
+          duration: 1.5,
+          ease: "power2.in"
+        }, "<");
+
+        aboutTL.to(aboutSplits[i + 1].numbers.lines, {
+          yPercent: 0,
+          duration: 0.8,
+          ease: "power2.out",
+        }, "<+=0.5");
+
+        aboutTL.to(aboutSplits[i + 1].text.words, {
+          yPercent: 0,
+          autoAlpha: 1, 
+          stagger: 0.03,
+          duration: 1,
+        }, "<");
+      }
+    });
+
     
   })
 }
@@ -141,6 +234,13 @@ function cleanGsap() {
   if (ctx) ctx.revert()
   if (splitTitle.value) splitTitle.value.revert()
   if (waveText.value) waveText.value.revert()
+  if (aboutSplits.length) {
+    aboutSplits.forEach(split => {
+        if(split.numbers) split.numbers.revert();
+        if(split.text) split.text.revert();
+    });
+    aboutSplits = [];
+  }
   ctx = null
   splitTitle.value = null
   zoomingImgs.value = []
@@ -149,7 +249,11 @@ function cleanGsap() {
   rightCurtain.value = null
   leftPanel.value = null
   rightPanel.value = null
-  aboutFrame1.value = null
+  aboutNitro.value = null
+
+  aboutContainer.value = null
+  aboutFrames.value = []
+  aboutTextContainers.value = []
   
 }
 
@@ -198,15 +302,15 @@ onUnmounted(() => { cleanGsap() })
           :style="{ zIndex: index + 1 }" 
         />
 
-        <div ref="aboutFrame1" class="absolute top-0 left-0 w-full h-full bg-white py-8">
+        <div ref="aboutNitro" class="absolute top-0 left-0 w-full h-full bg-white py-8">
           <div class="section">
             <h2 class="main_title z-0">
-              {{ $t('title.about_1.name') }}
+              {{ $t('title.about.name') }}
             </h2>
-            <p class="text-lg ml-10 md:ml-20">
-              {{ $t('title.about_1.description') }}
+            <p class="text-xl ml-10 md:ml-20">
+              {{ $t('title.about.description') }}
             </p>
-            <div class="bg-[url(/img/bg_about_1.jpg)] bg-no-repeat bg-contain pb-[56.25%]"></div>
+            <div class="bg-[url(/img/bg_about.jpg)] bg-no-repeat bg-contain pb-[56.25%]"></div>
           </div>
         </div>
 
@@ -221,50 +325,41 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section id="about_section" class="relative w-full bg-white z-0">
-      <div ref="aboutFrame2" class="bg-[url(/img/bg_about_2.jpg)] bg-no-repeat">
-        <div>8</div>
-        <h2 class="main_title">
-          8 {{ $t('text.year', 2) }}
-        </h2>
-        <h3 class="text-lg">
-          {{ $t('title.about_2.name') }}
-        </h3>
-        <div class="">
-          <p class="text-lg">
-            {{ $t('title.about_2.description') }}
-          </p>
-        </div>
-      </div>
-      <div ref="aboutFrame3" class="bg-[url(/img/bg_about_3.jpg)] bg-no-repeat">
-        <div>200</div>
-        <h2 class="main_title">
-          200+
-        </h2>
-        <h3 class="text-lg">
-          {{ $t('title.about_3.name') }}
-        </h3>
-        <div class="">
-          <p class="text-lg">
-            {{ $t('title.about_3.description') }}
-          </p>
-        </div>
-      </div>
-      <div ref="aboutFrame3" class="bg-[url(/img/bg_about_4.jpg)] bg-no-repeat">
-        <div>97</div>
-        <h2 class="main_title text-primary">
-          97.1%
-        </h2>
-        <h3 class="text-lg">
-          {{ $t('title.about_4.name') }}
-        </h3>
-        <div class="">
-          <p class="text-lg">
-            {{ $t('title.about_4.description') }}
-          </p>
+    <section id="about_section" class="relative">
+      <div ref="aboutContainer" class="sticky top-0 h-screen w-full overflow-hidden">
+        <div v-for="(item, i) in aboutItems" :key="i" 
+          :ref="el => { if(el) aboutFrames[i] = el }"
+          class="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          :style="{ backgroundImage: `url(/img/bg_about_${i + 1}.jpg)` }">
+          <div :ref="el => { if(el) aboutTextContainers[i] = el }" class="relative w-full h-full p-2">
+            <div class="absolute top-0 left-0 z-0">
+              <div class="overflow-hidden">
+                <h2 data-split-number class="text-white/30 text-[20rem] leading-60 font-black">
+                  {{ item.digit }}
+                </h2>
+              </div>
+            </div>
+            <div class="relative flex flex-col items-stretch justify-evenly h-full max-w-3xl mx-auto text-center z-5">
+              <div class="flex flex-col gap-4 items-center">
+                <div class="overflow-hidden">
+                  <h2 data-split-number class="text-9xl font-bold text-center uppercase text-primary">
+                    {{ item.progress }}
+                  </h2>
+                </div>
+                <h3 data-split-text class="text-3xl font-light uppercase text-white">
+                  {{ item.name }}
+                </h3>
+              </div>
+              <p data-split-text class="text-xl font-light text-white">
+                {{ item.description }}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+
+    
 
   </div>
 </template>

@@ -5,7 +5,7 @@ const { menuSecond } = useMenu()
 <template>
   <footer class="relative h-screen">
 
-    <div class="flex flex-col fixed md:bottom-0 right-0 p-2 z-20">
+    <div class="flex flex-col fixed md:bottom-0 right-0 px-4 z-20">
       <div class="flex justify-center">
         <img src="/logo_3d.png" alt="Logo" class="w-10">
       </div>

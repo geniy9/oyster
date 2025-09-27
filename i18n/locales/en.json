@@ -35,6 +35,38 @@
       "name": "Customer Satisfaction Index *",
       "description": "This isn't just a number, but confirmation that we understand business needs and translate them into results.",
       "notice": "* according to research conducted by Oyster Computer on November 24, 2023"
+    },
+    "case_1": {
+      "name": "WATCHBOX Middle East",
+      "description": "Lead generation via Instagram / Facebook Ads (Middle East)"
+    },
+    "case_2": {
+      "name": "YouDo",
+      "description": "Software development. Participation in mobile app development"
+    },
+    "case_3": {
+      "name": "CETUS Protocol",
+      "description": "Conducting a marketing campaign with user onboarding elements"
+    },
+    "case_4": {
+      "name": "ALLU Auction United Arab Emirates",
+      "description": "Lead generation using Google Ads contextual advertising (UAE and Hong Kong)"
+    },
+    "case_5": {
+      "name": "OKX Crypto Exchange",
+      "description": "Participation in platform redesign"
+    },
+    "case_6": {
+      "name": "T-BANK",
+      "description": "Creating financial product presentations"
+    },
+    "case_7": {
+      "name": "WISE TRANSFER",
+      "description": "Participating in online resource redesign"
+    },
+    "case_8": {
+      "name": "AX CAPITAL",
+      "description": "Conducting a marketing campaign for regular customers (Russia and the UAE)"
     }
   },
   "text": {

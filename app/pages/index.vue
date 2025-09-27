@@ -29,10 +29,6 @@ const aboutContainer = ref(null);
 const aboutFrames = ref([]);
 const aboutTextContainers = ref([]);
 let aboutSplits = [];
-// const aboutFrame1 = ref(null);
-// const aboutFrame2 = ref(null);
-// const aboutFrame3 = ref(null);
-
 const aboutItems = [{ 
   digit: 8,
   progress: 8 + ' ' + t('text.year', 2),
@@ -50,10 +46,49 @@ const aboutItems = [{
   description: t('title.about_3.description')
 }]
 
+const caseSection = ref(null);
+const caseBg = ref(null);
+const caseGrid = ref(null);
+const caseItems = ref([]);
+const caseImages = [{
+  img: '/img/case/1.jpg',
+  name: t('title.case_1.name'),
+  description: t('title.case_1.description')
+},{
+  img: '/img/case/2.jpg',
+  name: t('title.case_2.name'),
+  description: t('title.case_2.description')
+},{
+  img: '/img/case/3.jpg',
+  name: t('title.case_3.name'),
+  description: t('title.case_3.description')
+},{
+  img: '/img/case/4.jpg',
+  name: t('title.case_4.name'),
+  description: t('title.case_4.description')
+},{
+  img: '/img/case/5.jpg',
+  name: t('title.case_5.name'),
+  description: t('title.case_5.description')
+},{
+  img: '/img/case/6.jpg',
+  name: t('title.case_6.name'),
+  description: t('title.case_6.description')
+},{
+  img: '/img/case/7.jpg',
+  name: t('title.case_7.name'),
+  description: t('title.case_7.description')
+},{
+  img: '/img/case/8.jpg',
+  name: t('title.case_8.name'),
+  description: t('title.case_8.description')
+}];
+
 onBeforeUpdate(() => {
   zoomingImgs.value = []
   aboutFrames.value = []
   aboutTextContainers.value = []
+  caseItems.value = [];
 })
 
 function initGsap() {
@@ -226,6 +261,41 @@ function initGsap() {
       }
     });
 
+    // CASES
+    const transitionTL = gsap.timeline({
+      scrollTrigger: {
+        trigger: caseSection.value,
+        start: "top bottom",
+        end: "top top",
+        scrub: 1,
+      }
+    });
+    transitionTL.to(aboutFrames.value[aboutFrames.value.length - 1], { autoAlpha: 0, ease: "none" }, 0);
+    transitionTL.to(caseSection.value, { autoAlpha: 1, ease: "none" }, 0);
+
+    gsap.set(caseBg.value, { backgroundColor: 'rgba(0,0,0,0)', });
+    gsap.set(caseItems.value.map(item => item.querySelector('.case_item')), {
+      yPercent: (i) => (i * 10) + 100,
+      autoAlpha: 0
+    });
+    
+    const casesTL = gsap.timeline({
+      scrollTrigger: {
+        trigger: caseSection.value,
+        start: "top top",
+        end: "+=200%",
+        pin: true,
+        scrub: 1,
+      }
+    });
+    casesTL.to(caseBg.value, { backgroundColor: 'rgba(0,0,0,0.2)', duration: 1, ease: "power2.in" });
+    casesTL.to(caseItems.value.map(item => item.querySelector('.case_item')), {
+      autoAlpha: 1,
+      yPercent: 0,
+      stagger: 0.15,
+      ease: "power1.inOut",
+    });
+
     
   })
 }
@@ -254,6 +324,11 @@ function cleanGsap() {
   aboutContainer.value = null
   aboutFrames.value = []
   aboutTextContainers.value = []
+
+  caseSection.value = null;
+  caseGrid.value = null;
+  caseBg.value = null;
+  caseItems.value = [];
   
 }
 
@@ -331,8 +406,8 @@ onUnmounted(() => { cleanGsap() })
           :ref="el => { if(el) aboutFrames[i] = el }"
           class="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat"
           :style="{ backgroundImage: `url(/img/bg_about_${i + 1}.jpg)` }">
-          <div :ref="el => { if(el) aboutTextContainers[i] = el }" class="relative w-full h-full p-2">
-            <div class="absolute top-0 left-0 z-0">
+          <div :ref="el => { if(el) aboutTextContainers[i] = el }" class="relative w-full h-full p-4">
+            <div class="absolute top-4 left-4 z-0">
               <div class="overflow-hidden">
                 <h2 data-split-number class="text-white/30 text-[20rem] leading-60 font-black">
                   {{ item.digit }}
@@ -359,34 +434,27 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section class="relative grid grid-cols-4 gap-[0.2rem] mx-auto pt-[10vh] z-[-1] h-screen w-full bg-contain bg-top bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)] p-2">
-      <div class="relative aspect-video overflow-hidden rounded-xl col-start-1 row-start-1" data-speed="0.8">
-        <img data-speed="auto" src="/img/case/1.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
-      </div>
-      <div class="relative aspect-video overflow-hidden rounded-xl col-start-2 row-start-2" data-speed="1">
-        <img data-speed="auto" src="/img/case/2.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
-      </div>
-      <div class="relative aspect-video overflow-hidden rounded-xl col-start-3 row-start-3" data-speed="1.2">
-        <img data-speed="auto" src="/img/case/3.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
-      </div>
-      <div class="relative aspect-video overflow-hidden rounded-xl col-start-4 row-start-4" data-speed="0.9">
-        <img data-speed="auto" src="/img/case/4.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
-      </div>
-      <div class="relative aspect-video overflow-hidden rounded-xl col-start-1 row-start-5" data-speed="1.1">
-        <img data-speed="auto" src="/img/case/5.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
-      </div>
-      <div class="relative aspect-video overflow-hidden rounded-xl col-start-2 row-start-6" data-speed="0.8">
-        <img data-speed="auto" src="/img/case/6.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
-      </div>
-      <div class="relative aspect-video overflow-hidden rounded-xl col-start-3 row-start-7" data-speed="1.2">
-        <img data-speed="auto" src="/img/case/7.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
-      </div>
-      <div class="relative aspect-video overflow-hidden rounded-xl col-start-4 row-start-8" data-speed="0.7">
-        <img data-speed="auto" src="/img/case/8.jpg" class="absolute top-0 w-full h-[140%] object-cover" />
+    <section ref="caseSection" id="case_section" class="relative h-screen opacity-0 bg-cover bg-center bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)]">
+      <div ref="caseBg" class="sticky top-0 h-screen w-full flex items-center justify-center p-4">
+        <div ref="caseGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-8 w-full h-full">
+          <div v-for="(item, i) in caseImages" 
+            :key="i"
+            :ref="el => { if (el) caseItems[i] = el }"
+            class="relative">
+            <div class="case_item absolute min-h-80 top-0 left-0 flex flex-col gap-2">
+              <div>
+                <img :src="item.img" class="w-full h-full object-cover rounded-xl" />
+              </div>
+              <div>
+                <h2 class="uppercase font-bold">{{ item.name }}</h2>
+                <p class="font-light text-sm">{{ item.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    
 
   </div>
 </template>

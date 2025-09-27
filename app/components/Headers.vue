@@ -4,7 +4,7 @@ const isOpen = ref(false)
 
 </script>
 <template>
-  <header class="fixed left-0 top:0 md:top-1/2 -translate-y-1/2 p-2 z-10">
+  <header class="fixed left-0 top:0 md:top-1/2 -translate-y-1/2 p-4 z-10">
     <div class="flex flex-col items-stretch">
         
       <div class="flex md:hidden">

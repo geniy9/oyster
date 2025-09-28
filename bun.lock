@@ -19,6 +19,8 @@
       "devDependencies": {
         "@iconify-json/hugeicons": "^1.2.16",
         "@iconify-json/material-symbols": "^1.2.36",
+        "@iconify-json/mynaui": "^1.2.16",
+        "@iconify-json/tabler": "^1.2.23",
         "@nuxtjs/i18n": "^10.1.0",
         "@nuxtjs/tailwindcss": "^6.14.0",
         "@tailwindcss/postcss": "^4.1.13",
@@ -195,6 +197,10 @@
     "@iconify-json/hugeicons": ["@iconify-json/hugeicons@1.2.16", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-Ow0ig3yNY1VPZLBYYNVAAHA2jvSUoHbmtHzo87SnvA5rpDZVH6FMONeyro8LO31ReVwbaTVv9Mnd7yUXMFRufA=="],
 
     "@iconify-json/material-symbols": ["@iconify-json/material-symbols@1.2.36", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-PDz2D/nD8PsqEnNrwoKd139Ni2zXvAtz4kYHR+fCDdk62lnDQhxSQzDJ34a/gDnugiQJbEpv5RlyjZ3SgJSdmg=="],
+
+    "@iconify-json/mynaui": ["@iconify-json/mynaui@1.2.16", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-SG50s+eHl+p19y+kntFTTt/erSiiBDgBIAMr9IxRSoOxwS9Sx06lFNDfa+RUAhEiKkjf4qBX3xK3lz8wiBhNBw=="],
+
+    "@iconify-json/tabler": ["@iconify-json/tabler@1.2.23", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-Knb8ykgMwB5uSoqrDv1xIdJYM03OP06OXjN6QvGXaTNtdHkW9ciKA+aftz6lwM2jwJA+bsUWeDzLBlPt2uJm4w=="],
 
     "@iconify/collections": ["@iconify/collections@1.0.593", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-EbJRw0csHM0Vpsbk9HUVJGIeVP5JuUnZxI5bmWwoPHGPusA+m8wkKuXX79yVLSmL/8OWfL6ZKCB7fYS4x9PVQQ=="],
 

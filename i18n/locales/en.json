@@ -67,6 +67,86 @@
     "case_8": {
       "name": "AX CAPITAL",
       "description": "Conducting a marketing campaign for regular customers (Russia and the UAE)"
+    },
+    "service": {
+      "name": "Services",
+      "description": "A complete list of marketing tools and practices to scaling your business and promoting a personal brand"
+    },
+    "seo_1": {
+      "name": "SEO",
+      "description": "Promote your website in Yandex and Google search results"
+    },
+    "seo_2": {
+      "name": "Contextual Advertising",
+      "description": "Use the most effective advertising tool for lead generation with Yandex.Direct and Google Ads"
+    },
+    "seo_3": {
+      "name": "Social Media",
+      "description": "Promotion on Instagram / TikTok / VK / Zen / YouTube / RuTube / Snapchat / X (ex-Twitter)"
+    },
+    "seo_4": {
+      "name": "Instagram / Facebook Ads",
+      "description": "Run Instagram / Facebook ads to quickly generate high-quality leads and new customers"
+    },
+    "seo_5": {
+      "name": "SEO",
+      "description": "Promote your website in Yandex and Google search results"
+    },
+    "seo_6": {
+      "name": "Telegram Ads",
+      "description": "Promote your channel. Run ads in Telegram Ads or on major popular channels."
+    },
+    "seo_7": {
+      "name": "SERM",
+      "description": "Manage your business's online reputation. We'll post positive reviews about you on 100+ platforms."
+    },
+    "seo_8": {
+      "name": "Marketplace",
+      "description": "Promote your store on major marketplaces. Avito / Ozon / Wildberries."
+    },
+    "seo_9": {
+      "name": "Crypto Marketing",
+      "description": "Generate interest in your project among the most engaged and solvent audience in the crypto community."
+    },
+    "seo_10": {
+      "name": "Influencers",
+      "description": "Order advertising for your business from popular bloggers and influencers. Invite them to shoot your content."
+    },
+    "seo_11": {
+      "name": "PR",
+      "description": "Increase brand awareness through media. Get featured in major online publications."
+    },
+    "seo_12": {
+      "name": "Content",
+      "description": "Order media content creation for your website and social media. Reels / Videos / Memes."
+    },
+    "seo_13": {
+      "name": "Newsletters",
+      "description": "Launch an email/SMS/Telegram newsletter to inform potential clients of important news."
+    },
+    "seo_14": {
+      "name": "Facebook",
+      "description": "Has your advertising account been blocked or isn't working? We'll solve problems with the FB ecosystem. Pay-per-results."
+    },
+    "dev_1": {
+      "name": "Websites",
+      "description": "Order website or landing page development of any complexity."
+    },
+    "dev_2": {
+      "name": "Mobile Apps",
+      "description": "Expand your business ecosystem with a mobile app for iOS/Android."
+    },
+    "dev_3": {
+      "name": "Telegram Bots",
+      "description": "Use Telegram functionality to optimize your business processes. Order creation A bot for any purpose"
+    },
+    "dev_4": {
+      "name": "Design",
+      "description": "A full range of web design services for your business: from logo creation to branding of products and services"
+    },
+    "dev_5": {
+      "name": "Presentations",
+      "description": "Order a professional presentation of your business/products/services"
     }
   },
   "text": {

@@ -29,60 +29,35 @@ const aboutContainer = ref(null);
 const aboutFrames = ref([]);
 const aboutTextContainers = ref([]);
 let aboutSplits = [];
-const aboutItems = [{ 
-  digit: 8,
-  progress: 8 + ' ' + t('text.year', 2),
-  name: t('title.about_1.name'),
-  description: t('title.about_1.description')
-},{ 
-  digit: 200,
-  progress: '200+',
-  name: t('title.about_2.name'),
-  description: t('title.about_2.description')
-},{ 
-  digit: 97,
-  progress: '97.1%',
-  name: t('title.about_3.name'),
-  description: t('title.about_3.description')
-}]
+const aboutItems = [
+  { digit: 8, progress: 8 + ' ' + t('text.year', 2) },
+  { digit: 200, progress: '200+'},
+  { digit: 97, progress: '97.1%' }
+]
 
 const caseSection = ref(null);
 const caseBg = ref(null);
 const caseGrid = ref(null);
 const caseItems = ref([]);
-const caseImages = [{
-  img: '/img/case/1.jpg',
-  name: t('title.case_1.name'),
-  description: t('title.case_1.description')
-},{
-  img: '/img/case/2.jpg',
-  name: t('title.case_2.name'),
-  description: t('title.case_2.description')
-},{
-  img: '/img/case/3.jpg',
-  name: t('title.case_3.name'),
-  description: t('title.case_3.description')
-},{
-  img: '/img/case/4.jpg',
-  name: t('title.case_4.name'),
-  description: t('title.case_4.description')
-},{
-  img: '/img/case/5.jpg',
-  name: t('title.case_5.name'),
-  description: t('title.case_5.description')
-},{
-  img: '/img/case/6.jpg',
-  name: t('title.case_6.name'),
-  description: t('title.case_6.description')
-},{
-  img: '/img/case/7.jpg',
-  name: t('title.case_7.name'),
-  description: t('title.case_7.description')
-},{
-  img: '/img/case/8.jpg',
-  name: t('title.case_8.name'),
-  description: t('title.case_8.description')
-}];
+
+const seoData = [{ 
+  name: t('title.seo_1.name'),
+  description: t('title.seo_1.description'),
+  img: '/img/service/seo_1.jpg',
+},{ 
+  name: t('title.seo_2.name'),
+  description: t('title.seo_2.description'),
+  img: '/img/service/seo_1.jpg',
+}]
+const devData = [{ 
+  name: t('title.dev_1.name'),
+  description: t('title.dev_1.description'),
+  img: '/img/service/dev_1.jpg',
+},{ 
+  name: t('title.dev_2.name'),
+  description: t('title.dev_2.description'),
+  img: '/img/service/dev_1.jpg',
+}]
 
 onBeforeUpdate(() => {
   zoomingImgs.value = []
@@ -273,7 +248,7 @@ function initGsap() {
     transitionTL.to(aboutFrames.value[aboutFrames.value.length - 1], { autoAlpha: 0, ease: "none" }, 0);
     transitionTL.to(caseSection.value, { autoAlpha: 1, ease: "none" }, 0);
 
-    gsap.set(caseBg.value, { backgroundColor: 'rgba(0,0,0,0)', });
+    // gsap.set(caseBg.value, { backgroundColor: 'rgba(0,0,0,0)', });
     gsap.set(caseItems.value.map(item => item.querySelector('.case_item')), {
       yPercent: (i) => (i * 10) + 100,
       autoAlpha: 0
@@ -288,7 +263,7 @@ function initGsap() {
         scrub: 1,
       }
     });
-    casesTL.to(caseBg.value, { backgroundColor: 'rgba(0,0,0,0.2)', duration: 1, ease: "power2.in" });
+    // casesTL.to(caseBg.value, { backgroundColor: 'rgba(0,0,0,0.2)', duration: 0.2, ease: "power2.in" });
     casesTL.to(caseItems.value.map(item => item.querySelector('.case_item')), {
       autoAlpha: 1,
       yPercent: 0,
@@ -422,11 +397,11 @@ onUnmounted(() => { cleanGsap() })
                   </h2>
                 </div>
                 <h3 data-split-text class="text-3xl font-light uppercase text-white">
-                  {{ item.name }}
+                  {{ $t(`title.about_${i + 1}.name`) }}
                 </h3>
               </div>
               <p data-split-text class="text-xl font-light text-white">
-                {{ item.description }}
+                {{ $t(`title.about_${i + 1}.description`) }}
               </p>
             </div>
           </div>
@@ -437,20 +412,45 @@ onUnmounted(() => { cleanGsap() })
     <section ref="caseSection" id="case_section" class="relative h-screen opacity-0 bg-cover bg-center bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)]">
       <div ref="caseBg" class="sticky top-0 h-screen w-full flex items-center justify-center p-4">
         <div ref="caseGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-8 w-full h-full">
-          <div v-for="(item, i) in caseImages" 
-            :key="i"
-            :ref="el => { if (el) caseItems[i] = el }"
+          <div v-for="i in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }"
             class="relative">
             <div class="case_item absolute min-h-80 top-0 left-0 flex flex-col gap-2">
               <div>
-                <img :src="item.img" class="w-full h-full object-cover rounded-xl" />
+                <img :src="`/img/case/${i}.jpg`" class="w-full h-full object-cover rounded-xl" />
               </div>
               <div>
-                <h2 class="uppercase font-bold">{{ item.name }}</h2>
-                <p class="font-light text-sm">{{ item.description }}</p>
+                <h2 class="uppercase font-bold">
+                  {{ $t(`title.case_${i}.name`) }}
+                </h2>
+                <p class="font-light text-sm">
+                  {{ $t(`title.case_${i}.description`) }}
+                </p>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section ref="serviceSection" id="service_section" class="relative min-h-screen py-8">
+      <div class="py-4">
+        <div class="bg-primary px-4">
+          <h1 class="text-2xl font-bold uppercase">
+            {{ $t('title.service.name') }}
+          </h1>
+        </div>
+        <div class="px-4 font-regular">
+          <p>{{ $t('title.service.description') }}</p>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row gap-4 items-start justify-evenly">
+        <div class="flex flex-col items-start justify-start w-90">
+          <h2 class="uppercase text-2xl">Продвижение</h2>
+          <Slider v-if="seoData" :items="seoData" />
+        </div>
+        <div class="flex flex-col items-start justify-start w-90">
+          <h2 class="uppercase text-2xl">Разработка</h2>
+          <Slider v-if="devData" :items="devData" />
         </div>
       </div>
     </section>

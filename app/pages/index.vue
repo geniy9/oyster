@@ -85,10 +85,10 @@ function initGsap() {
     waveText.value = new SplitText("#split_stagger", { type: "words,chars" });
     if(smoother.value) {
       smoother.value.effects(waveText.value.chars, {
-        speed: 1,
-        lag: (i) => (i + 1) * 0.1,
+        speed: 1, lag: (i) => (i + 1) * 0.1,
       });
     }
+    // id="split_stagger"
 
     // линия и шторки
     const curtainTL = gsap.timeline({
@@ -331,7 +331,7 @@ onUnmounted(() => { cleanGsap() })
           </span>
         </h1>
         <div class="text-xs xs:text-base sm:text-lg font-bold uppercase relative z-10">
-          <p id="split_stagger">{{ $t('title.for_your_business') }}</p>
+          <p>{{ $t('title.for_your_business') }}</p>
         </div>
       </div>
       <div id="curtain_container" class="absolute w-screen h-screen overflow-hidden">

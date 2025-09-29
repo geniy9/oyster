@@ -68,10 +68,8 @@ function initGsap() {
       smoother.value.effects(waveText.value.chars, {
         speed: 1, lag: (i) => (i + 1) * 0.1,
       });
-    }
-    // id="split_stagger"
+    } // id="split_stagger"
 
-    // линия и шторки
     const curtainTL = gsap.timeline({
       scrollTrigger: {
         trigger: "#curtain_container",
@@ -88,7 +86,7 @@ function initGsap() {
       width: "50vw", duration: 1, ease: "none"
     });
 
-    // зуминг изображений
+    // zooming
     const scalingTL = gsap.timeline({
       scrollTrigger: {
         trigger: "#zooming_section",
@@ -118,15 +116,14 @@ function initGsap() {
       );
     });
 
-    // контейнер с текстом
+    // big title for cutting
     scalingTL.to(cuttingContainer.value, {
       scale: 1,
       duration: 1,
       ease: 'ease',
       delay: 0.5
     }, 1.25);
-
-    // открываем шторки, разрезая текст
+    // open panels & cut text
     scalingTL.to([leftPanel.value, rightPanel.value], {
       x: (i) => i === 0 ? '-50vw' : '50vw',
       duration: 1.5,
@@ -137,8 +134,7 @@ function initGsap() {
       { opacity: 1, duration: 0.1, ease: 'none'},
       { yPercent: 0, duration: 2, ease: 'none' }, "<");
     
-
-    // about
+    // ABOUT
     aboutTextContainers.value.forEach(container => {
       const numberTargets = container.querySelectorAll('[data-split-number]');
       const textTargets = container.querySelectorAll('[data-split-text]');

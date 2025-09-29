@@ -40,25 +40,6 @@ const caseBg = ref(null);
 const caseGrid = ref(null);
 const caseItems = ref([]);
 
-const seoData = [{ 
-  name: t('title.seo_1.name'),
-  description: t('title.seo_1.description'),
-  img: '/img/service/seo_1.jpg',
-},{ 
-  name: t('title.seo_2.name'),
-  description: t('title.seo_2.description'),
-  img: '/img/service/seo_1.jpg',
-}]
-const devData = [{ 
-  name: t('title.dev_1.name'),
-  description: t('title.dev_1.description'),
-  img: '/img/service/dev_1.jpg',
-},{ 
-  name: t('title.dev_2.name'),
-  description: t('title.dev_2.description'),
-  img: '/img/service/dev_1.jpg',
-}]
-
 onBeforeUpdate(() => {
   zoomingImgs.value = []
   aboutFrames.value = []
@@ -445,12 +426,12 @@ onUnmounted(() => { cleanGsap() })
       </div>
       <div class="flex flex-col md:flex-row gap-4 items-start justify-evenly">
         <div class="flex flex-col items-start justify-start w-90">
-          <h2 class="uppercase text-2xl">Продвижение</h2>
-          <Slider v-if="seoData" :items="seoData" />
+          <h2 class="uppercase text-2xl">{{ $t('text.promotion') }}</h2>
+          <Slider service="seo" :qty="14" />
         </div>
         <div class="flex flex-col items-start justify-start w-90">
-          <h2 class="uppercase text-2xl">Разработка</h2>
-          <Slider v-if="devData" :items="devData" />
+          <h2 class="uppercase text-2xl">{{ $t('text.development') }}</h2>
+          <Slider service="dev" :qty="5" />
         </div>
       </div>
     </section>

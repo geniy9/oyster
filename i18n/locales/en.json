@@ -152,6 +152,10 @@
   "text": {
     "close": "Close",
     "lets_discuss": "Let's discuss",
+    "promotion": "Promotion",
+    "development": "Development",
+    "back": "назад",
+    "forward": "вперед",
     "year": "Year | Years"
   }
 }

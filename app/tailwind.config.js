@@ -76,7 +76,7 @@ module.exports = {
         'scroll-down': {
           from: { 'background-position-y': '0' },
           to: { 'background-position-y': '1200px' },
-        },
+        }
       },
       animation: {
         'scroll-up': 'scroll-up 64s linear infinite',

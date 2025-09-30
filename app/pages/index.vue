@@ -41,6 +41,7 @@ const caseGrid = ref(null);
 const caseItems = ref([]);
 
 const priceSection = ref(null);
+const priceTitleKey = ref('price.seo');
 const priceItems = ref([]);
 
 onBeforeUpdate(() => {
@@ -253,22 +254,41 @@ function initGsap() {
     });
 
     if (priceItems.value.length) {
-      const firstBatch = priceItems.value.slice(0, 6);
-      const secondBatch = priceItems.value.slice(6);
+      const price1 = priceItems.value.slice(0, 6);
+      const price2 = priceItems.value.slice(6, 13);
+      const price3 = priceItems.value.slice(13);
 
-      gsap.set(secondBatch, { yPercent: 100 });
+      gsap.set(price2, { yPercent: 100 });
+      gsap.set(price3, { yPercent: 100 });
+      gsap.set('#priceBg', { xPercent: 100 });
 
       const priceTL = gsap.timeline({
         scrollTrigger: {
           trigger: priceSection.value,
           start: "top top",
-          end: "+=80%",
+          end: "+=140%",
           pin: true,
-          scrub: 1,
+          scrub: 1.5,
         }
       });
-      priceTL.to(firstBatch, { yPercent: -100, stagger: 0.01, delay: 0.5, ease: "power1.in" });
-      priceTL.to(secondBatch, { yPercent: 0, stagger: 0.01, ease: "power1.out" });
+      priceTL.to(price1, { yPercent: -100, stagger: 0.05, delay: 0.5, ease: "power1.in" });
+      priceTL.to(price2, { yPercent: 0, stagger: 0.05, ease: "power1.out" }, "<");
+      priceTL.to(price2, { yPercent: -100, stagger: 0.05, ease: "power1.in" });
+      priceTL.to(price3, { yPercent: 0, stagger: 0.01, ease: "power1.out" }, "<");
+      priceTL.to([price2, price3], { color: 'black', stagger: 0.01, ease: "power1.out" }, "<");
+      priceTL.to('#price_title_text', {
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power1.in',
+        onComplete: () => { priceTitleKey.value = 'price.dev'; },
+        onReverseComplete: () => { priceTitleKey.value = 'price.seo'; }
+      }, "<");
+      priceTL.to('#price_title_text', { opacity: 1, duration: 0.5, ease: 'power1.out' }, "<");
+      priceTL.to('#price_title', { backgroundColor: '#47E29F', stagger: 0.01, ease: "power1.out" }, "<");
+      priceTL.to('#bg_blured', { backgroundColor: 'transparent', backdropFilter: 'none', ease: "power1.out" }, "<");
+      priceTL.to('#bg_vscode_1', { xPercent: -100, stagger: 0.05, ease: "ease" }, "<");
+      priceTL.to('#bg_vscode_2', { xPercent: 100, stagger: 0.05, ease: "power1.out" }, "<");
+      priceTL.to('#priceBg', { xPercent: 0, duration: 1, ease: "power1.in" }, "<");
     }
 
     
@@ -452,24 +472,29 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section ref="priceSection" id="seo_price_section" class="relative min-h-screen overflow-hidden">
-      <div class="absolute inset-0 z-0 bg-repeat-y bg-center bg-[length:100%_auto] animate-scroll-up xl:w-1/2 xl:bg-left-top xl:bg-[length:100%_auto] xl:animate-scroll-down"
+    <section ref="priceSection" 
+      class="relative min-h-screen overflow-hidden bg-[#d7dee8]">
+      <div id="priceBg" 
+        class="absolute inset-0 z-0 bg-cover bg-center scale-110" 
+        style="background-image: url('/img/hyper_cube.jpg');">
+      </div>
+      <div id="bg_vscode_1" class="absolute inset-0 z-0 bg-repeat-y bg-center bg-[length:100%_auto] animate-scroll-up xl:w-1/2 xl:bg-left-top xl:bg-[length:100%_auto] xl:animate-scroll-down"
         style="background-image: url('/img/bg_vscode.jpg');">
       </div>
-      <div class="hidden xl:block absolute top-0 right-0 z-0 w-1/2 h-full bg-repeat-y bg-right-top bg-[length:100%_auto] animate-scroll-up"
+      <div id="bg_vscode_2" class="hidden xl:block absolute top-0 right-0 z-0 w-1/2 h-full bg-repeat-y bg-right-top bg-[length:100%_auto] animate-scroll-up"
         style="background-image: url('/img/bg_vscode.jpg');">
       </div>
       
-      <div class="relative z-10 bg-emerald-900/30 backdrop-blur-[2px] h-screen w-full">
-        <div class="py-8">
-          <div class="bg-white px-4">
-            <h1 class="text-2xl font-bold uppercase">
-              {{ $t('price.seo') }}
+      <div id="bg_blured" class="relative z-10 bg-emerald-900/30 backdrop-blur-[2px] h-screen w-full flex-col justify-center">
+        <div class="pt-8">
+          <div id="price_title" class="bg-white px-4">
+            <h1 id="price_title_text" class="text-2xl font-bold uppercase">
+              {{ $t(priceTitleKey) }}
             </h1>
           </div>
         </div>
 
-        <div class="relative max-w-3xl mx-auto w-full px-4 h-112 flex items-center">
+        <div class="relative max-w-3xl mx-auto w-full h-full flex items-center">
           <div class="absolute w-full">
             <div v-for="i in 6" :key="`batch1-${i}`" class="overflow-hidden w-full">
               <div :ref="el => { if (el) priceItems[i-1] = el }" class="flex items-center justify-between w-full py-2 font-bold text-white text-2xl">
@@ -486,15 +511,14 @@ onUnmounted(() => { cleanGsap() })
               </div>
             </div>
           </div>
-
-          <!-- <div class="absolute w-full">
-            <div v-for="i in 6" :key="`batch3-${i}`" class="overflow-hidden w-full">
-              <div :ref="el => { if (el) priceItems[i-1+6] = el }" class="flex items-center justify-between w-full py-3 font-bold text-white text-2xl">
-                <div class="uppercase">{{ $t(`price.seo_${i+6}.name`) }}</div>
-                <div class="">{{ $t(`price.seo_${i+6}.total`) }}</div>
+          <div class="absolute w-full">
+            <div v-for="i in 5" :key="`batch3-${i}`" class="overflow-hidden w-full">
+              <div :ref="el => { if (el) priceItems[i-1+13] = el }" class="flex items-center justify-between w-full py-3 font-bold text-white text-2xl">
+                <div class="uppercase">{{ $t(`price.dev_${i}.name`) }}</div>
+                <div class="">{{ $t(`price.dev_${i}.total`) }}</div>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
 
       </div>

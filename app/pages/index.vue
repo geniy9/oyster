@@ -40,11 +40,15 @@ const caseBg = ref(null);
 const caseGrid = ref(null);
 const caseItems = ref([]);
 
+const priceSection = ref(null);
+const priceItems = ref([]);
+
 onBeforeUpdate(() => {
   zoomingImgs.value = []
   aboutFrames.value = []
   aboutTextContainers.value = []
   caseItems.value = [];
+  priceItems.value = []
 })
 
 function initGsap() {
@@ -248,6 +252,25 @@ function initGsap() {
       ease: "power1.inOut",
     });
 
+    if (priceItems.value.length) {
+      const firstBatch = priceItems.value.slice(0, 6);
+      const secondBatch = priceItems.value.slice(6);
+
+      gsap.set(secondBatch, { yPercent: 100 });
+
+      const priceTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: priceSection.value,
+          start: "top top",
+          end: "+=80%",
+          pin: true,
+          scrub: 1,
+        }
+      });
+      priceTL.to(firstBatch, { yPercent: -100, stagger: 0.01, delay: 0.5, ease: "power1.in" });
+      priceTL.to(secondBatch, { yPercent: 0, stagger: 0.01, ease: "power1.out" });
+    }
+
     
   })
 }
@@ -281,6 +304,9 @@ function cleanGsap() {
   caseGrid.value = null;
   caseBg.value = null;
   caseItems.value = [];
+
+  priceSection.value = null; 
+  priceItems.value = [];
   
 }
 
@@ -386,22 +412,16 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section ref="caseSection" id="case_section" class="relative h-screen opacity-0 bg-cover bg-center bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)]">
+    <section ref="caseSection" id="case_section" class="relative opacity-0 bg-cover bg-center bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)]">
       <div ref="caseBg" class="sticky top-0 h-screen w-full flex items-center justify-center p-4">
         <div ref="caseGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-8 w-full h-full">
           <div v-for="i in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }"
             class="relative">
             <div class="case_item absolute min-h-80 top-0 left-0 flex flex-col gap-2">
+              <img :src="`/img/case/${i}.jpg`" class="w-full h-full object-cover rounded-xl" />
               <div>
-                <img :src="`/img/case/${i}.jpg`" class="w-full h-full object-cover rounded-xl" />
-              </div>
-              <div>
-                <h2 class="uppercase font-bold">
-                  {{ $t(`title.case_${i}.name`) }}
-                </h2>
-                <p class="font-light text-sm">
-                  {{ $t(`title.case_${i}.description`) }}
-                </p>
+                <h2 class="uppercase font-bold">{{ $t(`title.case_${i}.name`) }}</h2>
+                <p class="font-light text-sm">{{ $t(`title.case_${i}.description`) }}</p>
               </div>
             </div>
           </div>
@@ -409,8 +429,8 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section ref="serviceSection" id="service_section" class="relative min-h-screen py-8">
-      <div class="py-4">
+    <section ref="serviceSection" id="service_section" class="relative min-h-screen">
+      <div class="py-8">
         <div class="bg-primary px-4">
           <h1 class="text-2xl font-bold uppercase">
             {{ $t('title.service.name') }}
@@ -429,6 +449,54 @@ onUnmounted(() => { cleanGsap() })
           <h2 class="uppercase text-2xl">{{ $t('text.development') }}</h2>
           <Slider service="dev" :qty="5" />
         </div>
+      </div>
+    </section>
+
+    <section ref="priceSection" id="seo_price_section" class="relative min-h-screen overflow-hidden">
+      <div class="absolute inset-0 z-0 bg-repeat-y bg-center bg-[length:100%_auto] animate-scroll-up xl:w-1/2 xl:bg-left-top xl:bg-[length:100%_auto] xl:animate-scroll-down"
+        style="background-image: url('/img/bg_vscode.jpg');">
+      </div>
+      <div class="hidden xl:block absolute top-0 right-0 z-0 w-1/2 h-full bg-repeat-y bg-right-top bg-[length:100%_auto] animate-scroll-up"
+        style="background-image: url('/img/bg_vscode.jpg');">
+      </div>
+      
+      <div class="relative z-10 bg-emerald-900/30 backdrop-blur-[2px] h-screen w-full">
+        <div class="py-8">
+          <div class="bg-white px-4">
+            <h1 class="text-2xl font-bold uppercase">
+              {{ $t('price.seo') }}
+            </h1>
+          </div>
+        </div>
+
+        <div class="relative max-w-3xl mx-auto w-full px-4 h-112 flex items-center">
+          <div class="absolute w-full">
+            <div v-for="i in 6" :key="`batch1-${i}`" class="overflow-hidden w-full">
+              <div :ref="el => { if (el) priceItems[i-1] = el }" class="flex items-center justify-between w-full py-2 font-bold text-white text-2xl">
+                <div class="uppercase">{{ $t(`price.seo_${i}.name`) }}</div>
+                <div class="">{{ $t(`price.seo_${i}.total`) }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="absolute w-full">
+            <div v-for="i in 7" :key="`batch2-${i}`" class="overflow-hidden w-full">
+              <div :ref="el => { if (el) priceItems[i-1+6] = el }" class="flex items-center justify-between w-full py-2 font-bold text-white text-2xl">
+                <div class="uppercase">{{ $t(`price.seo_${i+6}.name`) }}</div>
+                <div class="">{{ $t(`price.seo_${i+6}.total`) }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="absolute w-full">
+            <div v-for="i in 6" :key="`batch3-${i}`" class="overflow-hidden w-full">
+              <div :ref="el => { if (el) priceItems[i-1+6] = el }" class="flex items-center justify-between w-full py-3 font-bold text-white text-2xl">
+                <div class="uppercase">{{ $t(`price.seo_${i+6}.name`) }}</div>
+                <div class="">{{ $t(`price.seo_${i+6}.total`) }}</div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+
       </div>
     </section>
 

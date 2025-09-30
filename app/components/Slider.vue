@@ -111,7 +111,7 @@ function onClickNext() { carousel.value?.emblaApi?.scrollNext() }
           :alt="$t(`title.${service}_${index + 1}.name`)" 
           class="w-60 h-90 object-cover origin-center" />
       </div>
-      <div class="flex flex-col h-36">
+      <div class="flex flex-col h-32">
         <div class="overflow-hidden">
           <h3 :ref="el => { if(el) titleRefs[index] = el }" class="uppercase font-bold text-lg leading-5">
             {{ $t(`title.${service}_${index + 1}.name`) }}
@@ -125,7 +125,7 @@ function onClickNext() { carousel.value?.emblaApi?.scrollNext() }
       </div>
     </UCarousel>
 
-    <div class="flex flex-col justify-start gap-2 mb-40">
+    <div class="flex flex-col justify-start gap-2 mb-36">
       <div @click="onClickPrev" class="group flex items-center justify-center gap-2 p-1 w-32 rounded-full border border-black cursor-pointer">
         <UIcon name="mynaui:arrow-long-left" 
           class="h-6 w-6 group-hover:-translate-x-2 duration-300 transition-all" />

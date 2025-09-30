@@ -69,32 +69,18 @@ module.exports = {
         '16000': '32000ms',
       },
       keyframes: {
-        'pan-image': {
-          '0%': { objectPosition: '0% 50%' },
-          '100%': { objectPosition: '100% 50%' },
+        'scroll-up': {
+          from: { 'background-position-y': '0' },
+          to: { 'background-position-y': '-1200px' },
         },
-        "accordion-down": {
-          from: { height: 0 },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
-        },
-        "collapsible-down": {
-          from: { height: 0 },
-          to: { height: 'var(--radix-collapsible-content-height)' },
-        },
-        "collapsible-up": {
-          from: { height: 'var(--radix-collapsible-content-height)' },
-          to: { height: 0 },
+        'scroll-down': {
+          from: { 'background-position-y': '0' },
+          to: { 'background-position-y': '1200px' },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "collapsible-down": "collapsible-down 0.2s ease-out",
-        "collapsible-up": "collapsible-up 0.2s ease-out",
+        'scroll-up': 'scroll-up 64s linear infinite',
+        'scroll-down': 'scroll-down 64s linear infinite',
       },
       fontFamily: {
         black: ['black', 'sans-serif'],

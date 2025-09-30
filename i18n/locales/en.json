@@ -149,6 +149,82 @@
       "description": "Order a professional presentation of your business/products/services"
     }
   },
+  "price": {
+    "seo": "Promotion Pricing",
+    "dev": "Development Pricing",
+    "seo_1": {
+      "name": "SEO website promotion",
+      "total": "from 70,000 RUB"
+    },
+    "seo_2": {
+      "name": "PPC advertising",
+      "total": "from 65,000 RUB"
+    },
+    "seo_3": {
+      "name": "Social media promotion (SMM)",
+      "total": "from 60,000 RUB"
+    },
+    "seo_4": {
+      "name": "Instagram / Facebook Ads",
+      "total": "from 80,000 RUB"
+    },
+    "seo_5": {
+      "name": "Telegram Ads",
+      "total": "from 60,000 RUB"
+    },
+    "seo_6": {
+      "name": "SERM reputation management",
+      "total": "from 55,000 RUB"
+    },
+    "seo_7": {
+      "name": "Marketplace promotion",
+      "total": "from 60,000 RUB"
+    },
+    "seo_8": {
+      "name": "Crypto Marketing",
+      "total": "from 110,000 RUB"
+    },
+    "seo_9": {
+      "name": "Influencer marketing",
+      "total": "from 60,000 RUB"
+    },
+    "seo_10": {
+      "name": "PR events",
+      "total": "from 60,000 RUB"
+    },
+    "seo_11": {
+      "name": "Media content creation",
+      "total": "from 40,000 RUB"
+    },
+    "seo_12": {
+      "name": "Email marketing",
+      "total": "from 25,000 RUB"
+    },
+    "seo_13": {
+      "name": "Facebook ecosystem assistance",
+      "total": "from 30,000 RUB"
+    },
+    "dev_1": {
+      "name": "Website development",
+      "total": "from 120,000 RUB"
+    },
+    "dev_2": {
+      "name": "Mobile app development",
+      "total": "from 350,000 RUB"
+    },
+    "dev_3": {
+      "name": "Telegram bot development",
+      "total": "from 40,000 RUB"
+    },
+    "dev_4": {
+      "name": "Web design",
+      "total": "from 30,000 RUB"
+    },
+    "dev_5": {
+      "name": "Presentation design",
+      "total": "from 40,000 RUB"
+    }
+  },
   "text": {
     "close": "Close",
     "lets_discuss": "Let's discuss",

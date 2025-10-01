@@ -44,12 +44,26 @@ const priceSection = ref(null);
 const priceTitleKey = ref('price.seo');
 const priceItems = ref([]);
 
+const advantageSection = ref(null);
+const advantageTitles = ref(null);
+const leftAdvantage = ref(null);
+const rightAdvantage = ref(null);
+const rotatingImage = ref(null);
+const advantageTextSlides = ref([]);
+const advantageImages = [
+  '/img/advantage/1.jpg',
+  '/img/advantage/2.jpg',
+  '/img/advantage/3.jpg',
+  '/img/advantage/4.jpg',
+];
+
 onBeforeUpdate(() => {
   zoomingImgs.value = []
   aboutFrames.value = []
   aboutTextContainers.value = []
   caseItems.value = [];
   priceItems.value = []
+  advantageTextSlides.value = [];
 })
 
 function initGsap() {
@@ -58,7 +72,6 @@ function initGsap() {
     gsap.set(titles, { overflow: 'hidden' });
     splitTitle.value = new SplitText(titles, { type: "lines", linesClass: "line-child" });
 
-    // всплытие заголовка
     gsap.from(splitTitle.value.lines, {
       duration: 1,
       yPercent: 100,
@@ -70,9 +83,7 @@ function initGsap() {
 
     waveText.value = new SplitText("#split_stagger", { type: "words,chars" });
     if(smoother.value) {
-      smoother.value.effects(waveText.value.chars, {
-        speed: 1, lag: (i) => (i + 1) * 0.1,
-      });
+      smoother.value.effects(waveText.value.chars, { speed: 1, lag: (i) => (i + 1) * 0.1 });
     } // id="split_stagger"
 
     const curtainTL = gsap.timeline({
@@ -91,7 +102,6 @@ function initGsap() {
       width: "50vw", duration: 1, ease: "none"
     });
 
-    // zooming
     const scalingTL = gsap.timeline({
       scrollTrigger: {
         trigger: "#zooming_section",
@@ -121,14 +131,7 @@ function initGsap() {
       );
     });
 
-    // big title for cutting
-    scalingTL.to(cuttingContainer.value, {
-      scale: 1,
-      duration: 1,
-      ease: 'ease',
-      delay: 0.5
-    }, 1.25);
-    // open panels & cut text
+    scalingTL.to(cuttingContainer.value, { scale: 1, duration: 1, ease: 'ease', delay: 0.5 }, 1.25);
     scalingTL.to([leftPanel.value, rightPanel.value], {
       x: (i) => i === 0 ? '-50vw' : '50vw',
       duration: 1.5,
@@ -230,7 +233,6 @@ function initGsap() {
     transitionTL.to(aboutFrames.value[aboutFrames.value.length - 1], { autoAlpha: 0, ease: "none" }, 0);
     transitionTL.to(caseSection.value, { autoAlpha: 1, ease: "none" }, 0);
 
-    // gsap.set(caseBg.value, { backgroundColor: 'rgba(0,0,0,0)', });
     gsap.set(caseItems.value.map(item => item.querySelector('.case_item')), {
       yPercent: (i) => (i * 10) + 100,
       autoAlpha: 0
@@ -245,7 +247,6 @@ function initGsap() {
         scrub: 1,
       }
     });
-    // casesTL.to(caseBg.value, { backgroundColor: 'rgba(0,0,0,0.2)', duration: 0.2, ease: "power2.in" });
     casesTL.to(caseItems.value.map(item => item.querySelector('.case_item')), {
       autoAlpha: 1,
       yPercent: 0,
@@ -291,7 +292,41 @@ function initGsap() {
       priceTL.to('#priceBg', { xPercent: 0, duration: 1, ease: "power1.in" }, "<");
     }
 
-    
+    // ADVANTAGE
+    if (advantageSection.value && advantageTextSlides.value.length) {
+      const titles = advantageTitles.value;
+      if (titles.children.length === 5) {
+        const titlesContent = titles.innerHTML;
+        titles.innerHTML += titlesContent;
+      }
+      gsap.to(titles, { xPercent: -50, ease: "none", duration: 30, repeat: -1 });
+
+      const totalSlides = advantageTextSlides.value.length;
+      const totalTurns = totalSlides - 1;
+      const slideDuration = 1 / totalSlides
+
+      const advantageTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: advantageSection.value,
+          start: "top top",
+          end: `+=${totalSlides * 100}%`,
+          scrub: 1,
+          pin: rightAdvantage.value,
+          anticipatePin: 1,
+        }
+      });
+      advantageTL.set(leftAdvantage.value, { backgroundImage: 'none' });
+
+      for (let i = 0; i < totalTurns; i++) {
+        advantageTL.to(rotatingImage.value, { rotationY: `+=${180}`, ease: 'none', }, `startTurn${i}` );
+        advantageTL.set(rotatingImage.value, { attr: { src: advantageImages[i + 1] }}, `<50%`);
+      }
+      advantageTL.to(leftAdvantage.value, {
+        backgroundImage: 'url(/img/team/1.jpg)',
+        backgroundSize: '100% 100vh',
+        duration: 0.1
+      }, slideDuration * 3);
+    }
   })
 }
 
@@ -301,8 +336,8 @@ function cleanGsap() {
   if (waveText.value) waveText.value.revert()
   if (aboutSplits.length) {
     aboutSplits.forEach(split => {
-        if(split.numbers) split.numbers.revert();
-        if(split.text) split.text.revert();
+      if(split.numbers) split.numbers.revert();
+      if(split.text) split.text.revert();
     });
     aboutSplits = [];
   }
@@ -327,7 +362,13 @@ function cleanGsap() {
 
   priceSection.value = null; 
   priceItems.value = [];
-  
+
+  advantageSection.value = null;
+  advantageTitles.value = null;
+  rightAdvantage.value = null;
+  leftAdvantage.value = null;
+  rotatingImage.value = null;
+  advantageTextSlides.value = [];  
 }
 
 watch(() => smoother.value, (newSmooth, oldSmooth) => {
@@ -343,7 +384,7 @@ onUnmounted(() => { cleanGsap() })
 <template>
   <div class="w-full relative">
 
-    <div class="relative flex flex-col justify-center items-center h-screen">
+    <section class="relative flex flex-col justify-center items-center h-screen">
       <div id="text_separate" class="fixed opacity-0 lg:min-w-lg xl:min-w-2xl text-bold z-10" aria-hidden="true">
         <h1 class="text-4xl xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase h-20 xs:h-24 sm:h-28 lg:h-36 xl:h-48">
           <span class="block">
@@ -363,7 +404,7 @@ onUnmounted(() => { cleanGsap() })
         <div ref="rightCurtain" class="fixed top-1/2 left-1/2 h-0 w-2 -ml-0.5 -translate-y-1/2 bg-primary">
         </div>
       </div>
-    </div>
+    </section>
 
     <section id="zooming_section" class="">
       <div class="relative w-screen h-screen overflow-hidden">
@@ -472,17 +513,12 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section ref="priceSection" 
-      class="relative min-h-screen overflow-hidden bg-[#d7dee8]">
-      <div id="priceBg" 
-        class="absolute inset-0 z-0 bg-cover bg-center scale-110" 
-        style="background-image: url('/img/hyper_cube.jpg');">
+    <section ref="priceSection" class="relative min-h-screen overflow-hidden bg-[#d7dee8]">
+      <div id="priceBg" class="absolute inset-0 z-0 bg-cover bg-center scale-110" style="background-image: url('/img/hyper_cube.jpg');">
       </div>
-      <div id="bg_vscode_1" class="absolute inset-0 z-0 bg-repeat-y bg-center bg-[length:100%_auto] animate-scroll-up xl:w-1/2 xl:bg-left-top xl:bg-[length:100%_auto] xl:animate-scroll-down"
-        style="background-image: url('/img/bg_vscode.jpg');">
+      <div id="bg_vscode_1" class="absolute inset-0 z-0 bg-repeat-y bg-center bg-[length:100%_auto] animate-scroll-up xl:w-1/2 xl:bg-left-top xl:bg-[length:100%_auto] xl:animate-scroll-down" style="background-image: url('/img/bg_vscode.jpg');">
       </div>
-      <div id="bg_vscode_2" class="hidden xl:block absolute top-0 right-0 z-0 w-1/2 h-full bg-repeat-y bg-right-top bg-[length:100%_auto] animate-scroll-up"
-        style="background-image: url('/img/bg_vscode.jpg');">
+      <div id="bg_vscode_2" class="hidden xl:block absolute top-0 right-0 z-0 w-1/2 h-full bg-repeat-y bg-right-top bg-[length:100%_auto] animate-scroll-up" style="background-image: url('/img/bg_vscode.jpg');">
       </div>
       
       <div id="bg_blured" class="relative z-10 bg-emerald-900/30 backdrop-blur-[2px] h-screen w-full flex-col justify-center">
@@ -493,7 +529,6 @@ onUnmounted(() => { cleanGsap() })
             </h1>
           </div>
         </div>
-
         <div class="relative max-w-3xl mx-auto w-full h-full flex items-center">
           <div class="absolute w-full">
             <div v-for="i in 6" :key="`batch1-${i}`" class="overflow-hidden w-full">
@@ -520,7 +555,54 @@ onUnmounted(() => { cleanGsap() })
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
+    <section ref="advantageSection" class="relative overflow-hidden">
+      <div class="bg-white py-10 whitespace-nowrap absolute top-0 left-0 w-full z-10">
+        <div ref="advantageTitles" class="flex items-center gap-12 text-3xl font-bold">
+          <p>{{ $t('text.design') }}</p>
+          <p class="text-primary">{{ $t('text.development') }}</p>
+          <p>{{ $t('text.promotion') }}</p>
+          <p class="text-primary">{{ $t('text.content') }}</p>
+          <p>{{ $t('text.targeted_advertising') }}</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 relative">
+        <div ref="leftAdvantage" 
+          class="col-span-1 relative z-5 bg-gray-200 bg-no-repeat bg-bottom" 
+          style="background-image: url('url(/img/team/1.jpg)');">
+          <div :ref="el => { if(el) advantageTextSlides[0] = el }" class="h-screen flex items-center justify-center">
+            <div class="max-w-80">
+              <h1 class="text-3xl font-bold uppercase">{{ $t('partner.frame_1.name') }}</h1>
+              <p class="font-regular">{{ $t('partner.frame_1.desc') }}</p>
+            </div>
+          </div>
+          <div :ref="el => { if(el) advantageTextSlides[1] = el }" class="h-screen flex items-center justify-end">
+            <div class="max-w-80 lg:max-w-96 pr-10">
+              <h1 class="text-3xl font-bold uppercase">{{ $t('partner.frame_2.name') }}</h1>
+              <p class="font-regular">{{ $t('partner.frame_2.desc') }}</p>
+            </div>
+          </div>
+          <div :ref="el => { if(el) advantageTextSlides[2] = el }" class="h-screen flex items-center justify-start">
+            <div class="max-w-80 lg:max-w-96 pl-10">
+              <h1 class="text-3xl font-bold uppercase">{{ $t('partner.frame_3.name') }}</h1>
+              <p class="font-regular">{{ $t('partner.frame_3.desc') }}</p>
+            </div>
+          </div>
+          <div :ref="el => { if(el) advantageTextSlides[3] = el }" class="h-screen flex items-center justify-end">
+            <div class="max-w-80 lg:max-w-96 pr-10">
+              <h1 class="text-3xl font-bold uppercase">{{ $t('partner.frame_4.name') }}</h1>
+              <p class="font-regular">{{ $t('partner.frame_4.desc') }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div ref="rightAdvantage" class="pr-20 top-0 h-screen flex items-center justify-center border-l border-gray-400 bg-gray-200">
+          <div style="perspective: 1000px;">
+            <img ref="rotatingImage" :src="advantageImages[0]" alt="Advantage Image" class="max-w-60 2xl:w-80" style="transform-style: preserve-3d;" />
+          </div>
+        </div>
       </div>
     </section>
 

@@ -225,13 +225,56 @@
       "total": "from 40,000 RUB"
     }
   },
+  "partner": {
+    "frame_1": {
+      "name": "Why Choose Us",
+      "desc": "Oyster Computer works with both large companies and startups."
+    },
+    "frame_2": {
+      "name": "Comprehensive Approach",
+      "desc": "From strategy and branding to ad launches and analytics, we cover the full digital marketing cycle. You don't need to search for different contractors; everything is under one roof."
+    },
+    "frame_3": {
+      "name": "Transparency and Control",
+      "desc": "You always know where the budget is going and what results each channel delivers. We provide clear reports and performance metrics."
+    },
+    "frame_4": {
+      "name": "Tailored Solutions",
+      "desc": "Every project is unique. We don't use template-based approaches; instead, we develop a strategy that works specifically for your business."
+    }
+  },
+  "team": {
+    "slide_1": {
+      "title": "Join the team",
+      "name": "",
+      "desc": "Our expertise in digital marketing allows us to make decisions quickly and demonstrate significant results. We have open positions. Apply on our website with your contact details to learn more."
+    },
+    "slide_2": {
+      "title": "Join the team",
+      "name": "Opportunity",
+      "desc": "A candidate's appearance, age, location, or views don't matter to us. What's important is talent, a strong work ethic, a desire to grow, and the ability to always stay connected."
+    },
+    "slide_3": {
+      "title": "Join the team",
+      "name": "Growth and Training",
+      "desc": "A lack of knowledge or experience in a particular field is not an obstacle, but an incentive to master a new area. We provide training based on real case studies and help you develop your skills."
+    },
+    "slide_4": {
+      "title": "Join the team",
+      "name": "Great Compensation",
+      "desc": "We will cover the cost of any tools, services, and neural networks for a comfortable workflow, provide an above-market salary, and offer numerous bonus opportunities. We respect your work, which is why we even pay for test assignments."
+    }
+  },
   "text": {
     "close": "Close",
     "lets_discuss": "Let's discuss",
     "promotion": "Promotion",
     "development": "Development",
-    "back": "назад",
-    "forward": "вперед",
-    "year": "Year | Years"
+    "back": "back",
+    "forward": "forward",
+    "year": "Year | Years",
+    "design": "Design",
+    "content": "Content",
+    "targeted_advertising": "Targeted advertising"
   }
 }

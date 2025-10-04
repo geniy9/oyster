@@ -45,7 +45,7 @@ defineExpose({ playPreloader });
 <template>
   <div ref="preloaderRef" class="fixed inset-0 w-screen h-screen bg-black z-[999] text-white">
     
-    <div ref="navEl" class="fixed top-1/2 left-full -translate-y-1/2 opacity-0 p-2 z-[1000]">
+    <div ref="navEl" class="fixed top-1/2 left-full -translate-y-1/2 opacity-0 p-4 z-[1000]">
       <UButton
         :label="'[ _ ] ' + $t('nav.navigation')"
         color="primary"
@@ -56,7 +56,7 @@ defineExpose({ playPreloader });
     </div>
 
     <div ref="discussEl" 
-      class="fixed top-1/2 left-0 -translate-y-1/2 text-nowrap text-lg opacity-0 p-2 z-[1000]">
+      class="lets_discuss left-0 opacity-0 z-[1000]">
       <p>{{ $t('text.lets_discuss') }}</p>
     </div>
 

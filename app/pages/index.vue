@@ -4,11 +4,11 @@ import { useSmoother } from '~/composables/useSmoother';
 const { t } = useI18n()
 const { gsap, SplitText } = useGsap()
 const smoother = useSmoother()
-const { shifterBg, bgVisible } = useConfig();
+const { shifterBg, bgVisible, footerNav } = useConfig();
 
 let ctx = null
 const splitTitle = ref(null)
-const waveText = ref(null)
+// const waveText = ref(null)
 
 const leftLineGrow = ref(null) 
 const rightLineGrow = ref(null)
@@ -25,7 +25,6 @@ const rightCurtain = ref(null);
 
 const aboutNitro = ref(null);
 
-const aboutContainer = ref(null);
 const aboutFrames = ref([]);
 const aboutTextContainers = ref([]);
 let aboutSplits = [];
@@ -83,12 +82,13 @@ function initGsap() {
       ease: "power3.out",
       stagger: 0.2,
     });
-    gsap.set("#text_separate", { yPercent: 0, opacity: 1, stagger: 0.5, zIndex: 0 })
+    gsap.to("#text_separate", { yPercent: 0, opacity: 1, stagger: 0.5, zIndex: 0 })
 
-    waveText.value = new SplitText("#split_stagger", { type: "words,chars" });
-    if(smoother.value) {
-      smoother.value.effects(waveText.value.chars, { speed: 1, lag: (i) => (i + 1) * 0.1 });
-    } // id="split_stagger"
+    // waveText.value = new SplitText("#split_stagger", { type: "words,chars" });
+    // if(smoother.value) {
+    //   smoother.value.effects(waveText.value.chars, { speed: 1, lag: (i) => (i + 1) * 0.1 });
+    // } 
+    // id="split_stagger"
 
     const curtainTL = gsap.timeline({
       scrollTrigger: {
@@ -97,11 +97,13 @@ function initGsap() {
         end: "+=200%",
         scrub: 1,
         pin: true,
-      }
+      },
     });
     curtainTL.to([leftLineGrow.value, rightLineGrow.value], {
-      height: "100vh", duration: 1, ease: "none", zIndex: 10
+      height: "100vh", duration: 1, ease: "none", zIndex: 10,
     });
+    curtainTL.call(() => { footerNav.value = true; }, [], ">");
+    curtainTL.call(() => { footerNav.value = false; }, [], ">");
     curtainTL.to([leftLineGrow.value, rightLineGrow.value], {
       width: "50vw", duration: 1, ease: "none"
     });
@@ -171,7 +173,7 @@ function initGsap() {
 
     const aboutTL = gsap.timeline({
       scrollTrigger: {
-        trigger: "#about_section",
+        trigger: "#digital_section",
         start: "top top",
         end: `+=${aboutItems.length * 100}%`,
         scrub: 1,
@@ -358,7 +360,7 @@ function initGsap() {
 function cleanGsap() {
   if (ctx) ctx.revert()
   if (splitTitle.value) splitTitle.value.revert()
-  if (waveText.value) waveText.value.revert()
+  // if (waveText.value) waveText.value.revert()
   if (aboutSplits.length) {
     aboutSplits.forEach(split => {
       if(split.numbers) split.numbers.revert()
@@ -376,7 +378,6 @@ function cleanGsap() {
   rightCurtain.value = null
   aboutNitro.value = null
 
-  aboutContainer.value = null
   aboutFrames.value = []
   aboutTextContainers.value = []
 
@@ -414,7 +415,7 @@ onUnmounted(() => { cleanGsap() })
 <template>
   <div class="w-full relative">
 
-    <section class="relative flex flex-col justify-center items-center h-screen">
+    <section id="introduction" class="relative flex flex-col justify-center items-center h-screen">
       <div id="text_separate" class="fixed opacity-0 lg:min-w-lg xl:min-w-2xl text-bold z-10" aria-hidden="true">
         <h1 class="text-4xl xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase h-20 xs:h-24 sm:h-28 lg:h-36 xl:h-48">
           <span class="block">
@@ -446,7 +447,7 @@ onUnmounted(() => { cleanGsap() })
           :style="{ zIndex: index + 1 }" 
         />
 
-        <div ref="aboutNitro" class="absolute top-0 left-0 w-full h-full bg-white py-8">
+        <div id="about" ref="aboutNitro" class="absolute top-0 left-0 w-full h-full bg-white py-8">
           <div class="section">
             <h2 class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase z-0">
               {{ $t('title.about.name') }}
@@ -469,8 +470,8 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section id="about_section" class="relative">
-      <div ref="aboutContainer" class="sticky top-0 h-screen w-full overflow-hidden">
+    <section id="digital_section" class="relative">
+      <div class="sticky top-0 h-screen w-full overflow-hidden">
         <div v-for="(item, i) in aboutItems" :key="i" 
           :ref="el => { if(el) aboutFrames[i] = el }"
           class="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -503,7 +504,7 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section ref="caseSection" id="case_section" class="relative opacity-0 bg-cover bg-center bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)]">
+    <section id="cases" ref="caseSection" class="relative opacity-0 bg-cover bg-center bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)]">
       <div ref="caseBg" class="sticky top-0 h-screen w-full flex items-center justify-center p-4">
         <div ref="caseGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-8 w-full h-full">
           <div v-for="i in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }"
@@ -520,7 +521,7 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section ref="serviceSection" id="service_section" class="relative min-h-screen">
+    <section id="services" ref="serviceSection" class="relative min-h-screen">
       <div class="py-8">
         <div class="bg-primary px-4">
           <h1 class="text-2xl font-bold uppercase">
@@ -588,7 +589,7 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section ref="advantageSection" class="relative overflow-hidden">
+    <section id="partnership" ref="advantageSection" class="relative overflow-hidden">
       <div class="bg-white py-10 whitespace-nowrap absolute top-0 left-0 w-full z-10">
         <div ref="advantageTitles" class="flex items-center gap-12 text-3xl font-bold">
           <p>{{ $t('text.design') }}</p>
@@ -636,7 +637,7 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section ref="feedbackSection" class="relative">
+    <section id="team" ref="feedbackSection" class="relative">
       <div class="sticky top-0 h-screen w-full overflow-hidden bg-primary">
         <div class="absolute top-0 left-0 w-full h-screen flex z-5">
           <div ref="leftGate" class="gate bg-cover bg-center bg-no-repeat bg-[url(/img/team/1.jpg)] border-r border-gray-300 flex justify-center items-start">
@@ -649,9 +650,9 @@ onUnmounted(() => { cleanGsap() })
           </div>
         </div>
 
-        <div ref="feedbackNitro" class="absolute top-0 left-0 w-full h-full py-8">
+        <div id="contacts" ref="feedbackNitro" class="absolute top-0 left-0 w-full h-full py-8">
           <div class="section">
-            <div class="flex flex-col items-center text-center">
+            <div class="flex flex-col items-center text-center mb-4">
               <h2 class="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase z-0">
                 {{ $t('feedback.title') }}
               </h2>

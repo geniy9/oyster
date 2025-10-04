@@ -79,7 +79,7 @@ async function onSubmit(event) {
         type="submit" 
         :loading="loading" 
         size="lg" 
-        class="bg-black text-white rounded-full uppercase">
+        class="bg-black text-white text-xs tracking-wider rounded-full uppercase transition-all duration-300 hover:bg-black px-6 py-3 hover:px-12">
         {{ $t('feedback.form.send') }}
       </UButton>
     </UForm>

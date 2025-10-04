@@ -14,7 +14,7 @@ const onPreloaderLoaded = () => {
   if (preloaderRef.value) {
     preloaderRef.value.playPreloader();
   }
-  // Здесь можно оставить isLoading = false, если нужно для других целей,
+  // isLoading = false, если нужно для других целей,
 };
 
 function updateSmoother() {
@@ -50,7 +50,7 @@ onUnmounted(() => {
 </script>
 <template>
   <UApp>
-    <!-- <Preloader v-if="isLoading" ref="preloaderRef" @loaded="onPreloaderLoaded" /> -->
+    <Preloader v-if="isLoading" ref="preloaderRef" @loaded="onPreloaderLoaded" />
      
     <div :style="{ backgroundImage: bgVisible ? `url(${shifterBg})` : 'none' }" 
       class="fixed inset-0 bg-white bg-fixed bg-no-repeat bg-cover w-full z-0 transition-all duration-500"></div>

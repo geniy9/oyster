@@ -10,8 +10,8 @@ let ctx = null
 const splitTitle = ref(null)
 const waveText = ref(null)
 
-const leftCurtain = ref(null) 
-const rightCurtain = ref(null)
+const leftLineGrow = ref(null) 
+const rightLineGrow = ref(null)
 const zoomingImgs = ref([])
 const zoomingImages = [
   '/img/blue_face.jpg',
@@ -20,8 +20,8 @@ const zoomingImages = [
   '/img/identity_tech.jpg',
 ]
 const cuttingContainer = ref(null);
-const leftPanel = ref(null);
-const rightPanel = ref(null);
+const leftCurtain = ref(null);
+const rightCurtain = ref(null);
 
 const aboutNitro = ref(null);
 
@@ -54,8 +54,12 @@ const advantageImages = [
   '/img/advantage/1.jpg',
   '/img/advantage/2.jpg',
   '/img/advantage/3.jpg',
-  '/img/advantage/4.jpg',
+  '/img/team/team_1.jpg',
 ];
+const feedbackSection = ref(null);
+const leftGate = ref(null);
+const rightGate = ref(null);
+const feedbackNitro = ref(null);
 
 onBeforeUpdate(() => {
   zoomingImgs.value = []
@@ -88,17 +92,17 @@ function initGsap() {
 
     const curtainTL = gsap.timeline({
       scrollTrigger: {
-        trigger: "#curtain_container",
+        trigger: "#line_container",
         start: "top top", 
         end: "+=200%",
         scrub: 1,
         pin: true,
       }
     });
-    curtainTL.to([leftCurtain.value, rightCurtain.value], {
+    curtainTL.to([leftLineGrow.value, rightLineGrow.value], {
       height: "100vh", duration: 1, ease: "none", zIndex: 10
     });
-    curtainTL.to([leftCurtain.value, rightCurtain.value], {
+    curtainTL.to([leftLineGrow.value, rightLineGrow.value], {
       width: "50vw", duration: 1, ease: "none"
     });
 
@@ -114,7 +118,7 @@ function initGsap() {
     gsap.set(zoomingImgs.value, { scale: 0 });
     gsap.set(cuttingContainer.value, { scale: 0 });
 
-    curtainTL.to([leftCurtain.value, rightCurtain.value], { opacity: 0, duration: 0.1 });
+    curtainTL.to([leftLineGrow.value, rightLineGrow.value], { opacity: 0, duration: 0.1 });
 
     gsap.set(aboutNitro.value, { yPercent: 100, opacity: 0, zIndex: 4 });
 
@@ -126,18 +130,16 @@ function initGsap() {
         delay: 0.5,
         onComplete: () => bgVisible.value = false,
         onReverseComplete: () => bgVisible.value = true,
-      },
-      index * (1 / 4)
-      );
+      }, index * (1 / 4));
     });
 
     scalingTL.to(cuttingContainer.value, { scale: 1, duration: 1, ease: 'ease', delay: 0.5 }, 1.25);
-    scalingTL.to([leftPanel.value, rightPanel.value], {
+    scalingTL.to([leftCurtain.value, rightCurtain.value], {
       x: (i) => i === 0 ? '-50vw' : '50vw',
       duration: 1.5,
       ease: 'none',
     });
-    scalingTL.to(zoomingImgs.value, { opacity: 0, duration: 0.1 }, '<', '-=0.2');
+    scalingTL.to(zoomingImgs.value, { opacity: 0, duration: 0.1 }, '<-=0.1');
     scalingTL.fromTo(aboutNitro.value, 
       { opacity: 1, duration: 0.1, ease: 'none'},
       { yPercent: 0, duration: 2, ease: 'none' }, "<");
@@ -261,7 +263,7 @@ function initGsap() {
 
       gsap.set(price2, { yPercent: 100 });
       gsap.set(price3, { yPercent: 100 });
-      gsap.set('#priceBg', { xPercent: 100 });
+      gsap.set('#hyper_cube', { xPercent: 20 });
 
       const priceTL = gsap.timeline({
         scrollTrigger: {
@@ -289,7 +291,7 @@ function initGsap() {
       priceTL.to('#bg_blured', { backgroundColor: 'transparent', backdropFilter: 'none', ease: "power1.out" }, "<");
       priceTL.to('#bg_vscode_1', { xPercent: -100, stagger: 0.05, ease: "ease" }, "<");
       priceTL.to('#bg_vscode_2', { xPercent: 100, stagger: 0.05, ease: "power1.out" }, "<");
-      priceTL.to('#priceBg', { xPercent: 0, duration: 1, ease: "power1.in" }, "<");
+      priceTL.to('#hyper_cube', { xPercent: 0, duration: 1, ease: "power1.in" }, "<");
     }
 
     // ADVANTAGE
@@ -303,30 +305,53 @@ function initGsap() {
 
       const totalSlides = advantageTextSlides.value.length;
       const totalTurns = totalSlides - 1;
-      const slideDuration = 1 / totalSlides
 
       const advantageTL = gsap.timeline({
         scrollTrigger: {
           trigger: advantageSection.value,
           start: "top top",
           end: `+=${totalSlides * 100}%`,
+          // end: `+=600%`,
+          // end: () => "+=" + (leftAdvantage.value.scrollHeight - window.innerHeight),
           scrub: 1,
           pin: rightAdvantage.value,
+          // pin: true,
           anticipatePin: 1,
         }
       });
-      advantageTL.set(leftAdvantage.value, { backgroundImage: 'none' });
 
       for (let i = 0; i < totalTurns; i++) {
         advantageTL.to(rotatingImage.value, { rotationY: `+=${180}`, ease: 'none', }, `startTurn${i}` );
         advantageTL.set(rotatingImage.value, { attr: { src: advantageImages[i + 1] }}, `<50%`);
       }
-      advantageTL.to(leftAdvantage.value, {
-        backgroundImage: 'url(/img/team/1.jpg)',
-        backgroundSize: '100% 100vh',
-        duration: 0.1
-      }, slideDuration * 3);
     }
+
+    // FEEDBACK
+    if (feedbackSection.value) {
+      gsap.set(feedbackNitro.value, { yPercent: 100, zIndex: 0 });
+
+      const feedbackTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: feedbackSection.value,
+          start: "top top",
+          end: "+=200%",
+          scrub: 1,
+          pin: true,
+        }
+      });
+      feedbackTL.to([leftGate.value, rightGate.value], {
+        x: (i) => (i === 0 ? '-50vw' : '50vw'),
+        duration: 1.5,
+        ease: 'none',
+      }, "+=0.5");
+      feedbackTL.to(feedbackNitro.value, { 
+        yPercent: 0, 
+        duration: 2,
+        zIndex: 7, 
+        ease: 'none'
+      }, "<"); 
+    }
+
   })
 }
 
@@ -336,39 +361,44 @@ function cleanGsap() {
   if (waveText.value) waveText.value.revert()
   if (aboutSplits.length) {
     aboutSplits.forEach(split => {
-      if(split.numbers) split.numbers.revert();
-      if(split.text) split.text.revert();
+      if(split.numbers) split.numbers.revert()
+      if(split.text) split.text.revert()
     });
-    aboutSplits = [];
+    aboutSplits = []
   }
   ctx = null
   splitTitle.value = null
   zoomingImgs.value = []
   cuttingContainer.value = null
+  leftLineGrow.value = null
+  rightLineGrow.value = null
   leftCurtain.value = null
   rightCurtain.value = null
-  leftPanel.value = null
-  rightPanel.value = null
   aboutNitro.value = null
 
   aboutContainer.value = null
   aboutFrames.value = []
   aboutTextContainers.value = []
 
-  caseSection.value = null;
-  caseGrid.value = null;
-  caseBg.value = null;
-  caseItems.value = [];
+  caseSection.value = null
+  caseGrid.value = null
+  caseBg.value = null
+  caseItems.value = []
 
-  priceSection.value = null; 
-  priceItems.value = [];
+  priceSection.value = null
+  priceItems.value = []
 
-  advantageSection.value = null;
-  advantageTitles.value = null;
-  rightAdvantage.value = null;
-  leftAdvantage.value = null;
-  rotatingImage.value = null;
-  advantageTextSlides.value = [];  
+  advantageSection.value = null
+  advantageTitles.value = null
+  rightAdvantage.value = null
+  leftAdvantage.value = null
+  rotatingImage.value = null
+  advantageTextSlides.value = []
+
+  feedbackSection.value = null;
+  leftGate.value = null;
+  rightGate.value = null;
+  feedbackNitro.value = null
 }
 
 watch(() => smoother.value, (newSmooth, oldSmooth) => {
@@ -398,15 +428,15 @@ onUnmounted(() => { cleanGsap() })
           <p>{{ $t('title.for_your_business') }}</p>
         </div>
       </div>
-      <div id="curtain_container" class="absolute w-screen h-screen overflow-hidden">
-        <div ref="leftCurtain" class="fixed top-1/2 left-1/2 h-0 w-2 -mr-0.5 -translate-y-1/2 -translate-x-full bg-primary">
+      <div id="line_container" class="absolute w-screen h-screen overflow-hidden">
+        <div ref="leftLineGrow" class="fixed top-1/2 left-1/2 h-0 w-2 -mr-0.5 -translate-y-1/2 -translate-x-full bg-primary">
         </div>
-        <div ref="rightCurtain" class="fixed top-1/2 left-1/2 h-0 w-2 -ml-0.5 -translate-y-1/2 bg-primary">
+        <div ref="rightLineGrow" class="fixed top-1/2 left-1/2 h-0 w-2 -ml-0.5 -translate-y-1/2 bg-primary">
         </div>
       </div>
     </section>
 
-    <section id="zooming_section" class="">
+    <section id="zooming_section">
       <div class="relative w-screen h-screen overflow-hidden">
         <img v-for="(image, index) in zoomingImages"
           :key="image"
@@ -418,21 +448,21 @@ onUnmounted(() => { cleanGsap() })
 
         <div ref="aboutNitro" class="absolute top-0 left-0 w-full h-full bg-white py-8">
           <div class="section">
-            <h2 class="main_title z-0">
+            <h2 class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase z-0">
               {{ $t('title.about.name') }}
             </h2>
             <p class="text-xl ml-10 md:ml-20">
-              {{ $t('title.about.description') }}
+              {{ $t('title.about.desc') }}
             </p>
             <div class="bg-[url(/img/bg_about.jpg)] bg-no-repeat bg-contain pb-[56.25%]"></div>
           </div>
         </div>
 
         <div ref="cuttingContainer" class="absolute top-0 left-0 w-screen h-screen flex overflow-hidden z-[5]">
-          <div ref="leftPanel" class="cutting_gate z-[5]">
+          <div ref="leftCurtain" class="gate z-[5]">
             <h2 class="left-full -translate-x-1/2" v-html="$t('title.advertising_agency')"></h2>
           </div>
-          <div ref="rightPanel" class="cutting_gate z-[5]">
+          <div ref="rightCurtain" class="gate z-[5]">
             <h2 class="right-full translate-x-1/2" v-html="$t('title.advertising_agency')"></h2>
           </div>
         </div>
@@ -465,7 +495,7 @@ onUnmounted(() => { cleanGsap() })
                 </h3>
               </div>
               <p data-split-text class="text-xl font-light text-white">
-                {{ $t(`title.about_${i + 1}.description`) }}
+                {{ $t(`title.about_${i + 1}.desc`) }}
               </p>
             </div>
           </div>
@@ -482,7 +512,7 @@ onUnmounted(() => { cleanGsap() })
               <img :src="`/img/case/${i}.jpg`" class="w-full h-full object-cover rounded-xl" />
               <div>
                 <h2 class="uppercase font-bold">{{ $t(`title.case_${i}.name`) }}</h2>
-                <p class="font-light text-sm">{{ $t(`title.case_${i}.description`) }}</p>
+                <p class="font-light text-sm">{{ $t(`title.case_${i}.desc`) }}</p>
               </div>
             </div>
           </div>
@@ -498,23 +528,23 @@ onUnmounted(() => { cleanGsap() })
           </h1>
         </div>
         <div class="px-4 font-regular">
-          <p>{{ $t('title.service.description') }}</p>
+          <p>{{ $t('title.service.desc') }}</p>
         </div>
       </div>
       <div class="flex flex-col md:flex-row gap-4 items-start justify-evenly">
         <div class="flex flex-col items-start justify-start w-90">
           <h2 class="uppercase text-2xl">{{ $t('text.promotion') }}</h2>
-          <Slider service="seo" :qty="14" />
+          <SliderService service="seo" :qty="14" />
         </div>
         <div class="flex flex-col items-start justify-start w-90">
           <h2 class="uppercase text-2xl">{{ $t('text.development') }}</h2>
-          <Slider service="dev" :qty="5" />
+          <SliderService service="dev" :qty="5" />
         </div>
       </div>
     </section>
 
     <section ref="priceSection" class="relative min-h-screen overflow-hidden bg-[#d7dee8]">
-      <div id="priceBg" class="absolute inset-0 z-0 bg-cover bg-center scale-110" style="background-image: url('/img/hyper_cube.jpg');">
+      <div id="hyper_cube" class="absolute inset-0 z-0 bg-cover bg-center scale-110" style="background-image: url('/img/hyper_cube.jpg');">
       </div>
       <div id="bg_vscode_1" class="absolute inset-0 z-0 bg-repeat-y bg-center bg-[length:100%_auto] animate-scroll-up xl:w-1/2 xl:bg-left-top xl:bg-[length:100%_auto] xl:animate-scroll-down" style="background-image: url('/img/bg_vscode.jpg');">
       </div>
@@ -568,10 +598,9 @@ onUnmounted(() => { cleanGsap() })
           <p>{{ $t('text.targeted_advertising') }}</p>
         </div>
       </div>
-      <div class="grid grid-cols-2 relative">
-        <div ref="leftAdvantage" 
-          class="col-span-1 relative z-5 bg-gray-200 bg-no-repeat bg-bottom" 
-          style="background-image: url('url(/img/team/1.jpg)');">
+
+      <div class="grid grid-cols-2 relative z-[5] bg-gray-200">
+        <div ref="leftAdvantage" class="col-span-1 relative z-5 bg-no-repeat bg-bottom border-r border-gray-300">
           <div :ref="el => { if(el) advantageTextSlides[0] = el }" class="h-screen flex items-center justify-center">
             <div class="max-w-80">
               <h1 class="text-3xl font-bold uppercase">{{ $t('partner.frame_1.name') }}</h1>
@@ -598,9 +627,39 @@ onUnmounted(() => { cleanGsap() })
           </div>
         </div>
 
-        <div ref="rightAdvantage" class="pr-20 top-0 h-screen flex items-center justify-center border-l border-gray-400 bg-gray-200">
+        <div ref="rightAdvantage" class="relative top-0 h-screen flex items-center justify-center border-l border-gray-300">
           <div style="perspective: 1000px;">
-            <img ref="rotatingImage" :src="advantageImages[0]" alt="Advantage Image" class="max-w-60 2xl:w-80" style="transform-style: preserve-3d;" />
+            <img ref="rotatingImage" :src="advantageImages[0]" alt="Advantage Image" 
+              class="w-60 2xl:w-80 scale-x-[-1]" style="transform-style: preserve-3d;" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section ref="feedbackSection" class="relative">
+      <div class="sticky top-0 h-screen w-full overflow-hidden bg-primary">
+        <div class="absolute top-0 left-0 w-full h-screen flex z-5">
+          <div ref="leftGate" class="gate bg-cover bg-center bg-no-repeat bg-[url(/img/team/1.jpg)] border-r border-gray-300 flex justify-center items-start">
+            <h1 class="mt-10 text-3xl font-bold uppercase">
+              {{ $t('title.team_1.title') }}
+            </h1>
+          </div>
+          <div ref="rightGate" class="gate bg-white flex items-center justify-center border-l border-gray-300">
+            <SliderTeam service="team" :qty="4" />
+          </div>
+        </div>
+
+        <div ref="feedbackNitro" class="absolute top-0 left-0 w-full h-full py-8">
+          <div class="section">
+            <div class="flex flex-col items-center text-center">
+              <h2 class="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase z-0">
+                {{ $t('feedback.title') }}
+              </h2>
+              <p class="max-w-xl">
+                {{ $t('feedback.desc') }}
+              </p>
+            </div>
+            <Feedback />
           </div>
         </div>
       </div>

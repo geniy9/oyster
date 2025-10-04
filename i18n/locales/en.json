@@ -21,132 +21,152 @@
     "advertising_agency": "Advertising Agency <br \\/> Full Cycle",
     "about": {
       "name": "About us",
-      "description": "We are a full-service marketing agency. Our team combines strategy, creativity, and analytics to help your business grow faster than the competition. We understand the market and speak the language of numbers, not promises."
+      "desc": "We are a full-service marketing agency. Our team combines strategy, creativity, and analytics to help your business grow faster than the competition. We understand the market and speak the language of numbers, not promises."
     },
     "about_1": {
       "name": "In the digital industry",
-      "description": "This is our foundation. We have walked the path with the market, from the first SMM experiments to advanced analytics and automation. Now this experience works for you."
+      "desc": "This is our foundation. We have walked the path with the market, from the first SMM experiments to advanced analytics and automation. Now this experience works for you."
     },
     "about_2": {
       "name": "Completed projects in 5 countries",
-      "description": "Over this time, we have accumulated practical experience working in various niches and with companies of all sizes—from local startups to international brands."
+      "desc": "Over this time, we have accumulated practical experience working in various niches and with companies of all sizes—from local startups to international brands."
     },
     "about_3": {
       "name": "Customer Satisfaction Index *",
-      "description": "This isn't just a number, but confirmation that we understand business needs and translate them into results.",
+      "desc": "This isn't just a number, but confirmation that we understand business needs and translate them into results.",
       "notice": "* according to research conducted by Oyster Computer on November 24, 2023"
     },
     "case_1": {
       "name": "WATCHBOX Middle East",
-      "description": "Lead generation via Instagram / Facebook Ads (Middle East)"
+      "desc": "Lead generation via Instagram / Facebook Ads (Middle East)"
     },
     "case_2": {
       "name": "YouDo",
-      "description": "Software development. Participation in mobile app development"
+      "desc": "Software development. Participation in mobile app development"
     },
     "case_3": {
       "name": "CETUS Protocol",
-      "description": "Conducting a marketing campaign with user onboarding elements"
+      "desc": "Conducting a marketing campaign with user onboarding elements"
     },
     "case_4": {
       "name": "ALLU Auction United Arab Emirates",
-      "description": "Lead generation using Google Ads contextual advertising (UAE and Hong Kong)"
+      "desc": "Lead generation using Google Ads contextual advertising (UAE and Hong Kong)"
     },
     "case_5": {
       "name": "OKX Crypto Exchange",
-      "description": "Participation in platform redesign"
+      "desc": "Participation in platform redesign"
     },
     "case_6": {
       "name": "T-BANK",
-      "description": "Creating financial product presentations"
+      "desc": "Creating financial product presentations"
     },
     "case_7": {
       "name": "WISE TRANSFER",
-      "description": "Participating in online resource redesign"
+      "desc": "Participating in online resource redesign"
     },
     "case_8": {
       "name": "AX CAPITAL",
-      "description": "Conducting a marketing campaign for regular customers (Russia and the UAE)"
+      "desc": "Conducting a marketing campaign for regular customers (Russia and the UAE)"
     },
     "service": {
       "name": "Services",
-      "description": "A complete list of marketing tools and practices to scaling your business and promoting a personal brand"
+      "desc": "A complete list of marketing tools and practices to scaling your business and promoting a personal brand"
     },
     "seo_1": {
       "name": "SEO",
-      "description": "Promote your website in Yandex and Google search results"
+      "desc": "Promote your website in Yandex and Google search results"
     },
     "seo_2": {
       "name": "Contextual Advertising",
-      "description": "Use the most effective advertising tool for lead generation with Yandex.Direct and Google Ads"
+      "desc": "Use the most effective advertising tool for lead generation with Yandex.Direct and Google Ads"
     },
     "seo_3": {
       "name": "Social Media",
-      "description": "Promotion on Instagram / TikTok / VK / Zen / YouTube / RuTube / Snapchat / X (ex-Twitter)"
+      "desc": "Promotion on Instagram / TikTok / VK / Zen / YouTube / RuTube / Snapchat / X (ex-Twitter)"
     },
     "seo_4": {
       "name": "Instagram / Facebook Ads",
-      "description": "Run Instagram / Facebook ads to quickly generate high-quality leads and new customers"
+      "desc": "Run Instagram / Facebook ads to quickly generate high-quality leads and new customers"
     },
     "seo_5": {
       "name": "SEO",
-      "description": "Promote your website in Yandex and Google search results"
+      "desc": "Promote your website in Yandex and Google search results"
     },
     "seo_6": {
       "name": "Telegram Ads",
-      "description": "Promote your channel. Run ads in Telegram Ads or on major popular channels."
+      "desc": "Promote your channel. Run ads in Telegram Ads or on major popular channels."
     },
     "seo_7": {
       "name": "SERM",
-      "description": "Manage your business's online reputation. We'll post positive reviews about you on 100+ platforms."
+      "desc": "Manage your business's online reputation. We'll post positive reviews about you on 100+ platforms."
     },
     "seo_8": {
       "name": "Marketplace",
-      "description": "Promote your store on major marketplaces. Avito / Ozon / Wildberries."
+      "desc": "Promote your store on major marketplaces. Avito / Ozon / Wildberries."
     },
     "seo_9": {
       "name": "Crypto Marketing",
-      "description": "Generate interest in your project among the most engaged and solvent audience in the crypto community."
+      "desc": "Generate interest in your project among the most engaged and solvent audience in the crypto community."
     },
     "seo_10": {
       "name": "Influencers",
-      "description": "Order advertising for your business from popular bloggers and influencers. Invite them to shoot your content."
+      "desc": "Order advertising for your business from popular bloggers and influencers. Invite them to shoot your content."
     },
     "seo_11": {
       "name": "PR",
-      "description": "Increase brand awareness through media. Get featured in major online publications."
+      "desc": "Increase brand awareness through media. Get featured in major online publications."
     },
     "seo_12": {
       "name": "Content",
-      "description": "Order media content creation for your website and social media. Reels / Videos / Memes."
+      "desc": "Order media content creation for your website and social media. Reels / Videos / Memes."
     },
     "seo_13": {
       "name": "Newsletters",
-      "description": "Launch an email/SMS/Telegram newsletter to inform potential clients of important news."
+      "desc": "Launch an email/SMS/Telegram newsletter to inform potential clients of important news."
     },
     "seo_14": {
       "name": "Facebook",
-      "description": "Has your advertising account been blocked or isn't working? We'll solve problems with the FB ecosystem. Pay-per-results."
+      "desc": "Has your advertising account been blocked or isn't working? We'll solve problems with the FB ecosystem. Pay-per-results."
     },
     "dev_1": {
       "name": "Websites",
-      "description": "Order website or landing page development of any complexity."
+      "desc": "Order website or landing page development of any complexity."
     },
     "dev_2": {
       "name": "Mobile Apps",
-      "description": "Expand your business ecosystem with a mobile app for iOS/Android."
+      "desc": "Expand your business ecosystem with a mobile app for iOS/Android."
     },
     "dev_3": {
       "name": "Telegram Bots",
-      "description": "Use Telegram functionality to optimize your business processes. Order creation A bot for any purpose"
+      "desc": "Use Telegram functionality to optimize your business processes. Order creation A bot for any purpose"
     },
     "dev_4": {
       "name": "Design",
-      "description": "A full range of web design services for your business: from logo creation to branding of products and services"
+      "desc": "A full range of web design services for your business: from logo creation to branding of products and services"
     },
     "dev_5": {
       "name": "Presentations",
-      "description": "Order a professional presentation of your business/products/services"
+      "desc": "Order a professional presentation of your business/products/services"
+    },
+    "team_1": {
+      "title": "Join the team",
+      "name": "",
+      "desc": "Our expertise in digital marketing allows us to make decisions quickly and demonstrate significant results. We have open positions. Apply on our website with your contact details to learn more."
+    },
+    "team_2": {
+      "title": "Join the team",
+      "name": "Opportunity",
+      "desc": "A candidate's appearance, age, location, or views don't matter to us. What's important is talent, a strong work ethic, a desire to grow, and the ability to always stay connected."
+    },
+    "team_3": {
+      "title": "Join the team",
+      "name": "Growth and Training",
+      "desc": "A lack of knowledge or experience in a particular field is not an obstacle, but an incentive to master a new area. We provide training based on real case studies and help you develop your skills."
+    },
+    "team_4": {
+      "title": "Join the team",
+      "name": "Great Compensation",
+      "desc": "We will cover the cost of any tools, services, and neural networks for a comfortable workflow, provide an above-market salary, and offer numerous bonus opportunities. We respect your work, which is why we even pay for test assignments."
     }
   },
   "price": {
@@ -243,26 +263,13 @@
       "desc": "Every project is unique. We don't use template-based approaches; instead, we develop a strategy that works specifically for your business."
     }
   },
-  "team": {
-    "slide_1": {
-      "title": "Join the team",
-      "name": "",
-      "desc": "Our expertise in digital marketing allows us to make decisions quickly and demonstrate significant results. We have open positions. Apply on our website with your contact details to learn more."
-    },
-    "slide_2": {
-      "title": "Join the team",
-      "name": "Opportunity",
-      "desc": "A candidate's appearance, age, location, or views don't matter to us. What's important is talent, a strong work ethic, a desire to grow, and the ability to always stay connected."
-    },
-    "slide_3": {
-      "title": "Join the team",
-      "name": "Growth and Training",
-      "desc": "A lack of knowledge or experience in a particular field is not an obstacle, but an incentive to master a new area. We provide training based on real case studies and help you develop your skills."
-    },
-    "slide_4": {
-      "title": "Join the team",
-      "name": "Great Compensation",
-      "desc": "We will cover the cost of any tools, services, and neural networks for a comfortable workflow, provide an above-market salary, and offer numerous bonus opportunities. We respect your work, which is why we even pay for test assignments."
+  "feedback": {
+    "title": "Fill out the form and we will contact you within 15 minutes",
+    "desc": "Fill out the short form, leave your phone number or Telegram username, and a personal assistant will contact you within 15 minutes",
+    "form": {
+      "name": "Your name",
+      "phone": "Your phone number",
+      "send": "Submit"
     }
   },
   "text": {

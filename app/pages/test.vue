@@ -36,6 +36,7 @@ onUnmounted(() => { cleanGsap() })
 </script>
 <template>
   <div class="w-full">
+    <Feedback />
     <!-- <section class="image-grid relative grid grid-cols-3 grid-rows-3 gap-[0.2rem] w-[80vw] mx-auto pt-[40vh] z-[-1] min-h-screen">
       <div class="image_cont relative aspect-square overflow-hidden col-start-1 row-start-1" data-speed="1">
         <img data-speed="auto" src="/img/case/1.png" class="absolute top-0 w-full h-[150%] object-cover" />

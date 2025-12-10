@@ -1,11 +1,10 @@
 {
   "nav": {
     "navigation": "Navigation",
-    "introduction": "introduction",
     "about": "About",
+    "numbers": "Numbers",
     "cases": "Cases",
     "services": "Services",
-    "partnership": "Partnership",
     "team": "Team",
     "contact": "Contact",
     "web_development": "Web Development",
@@ -18,7 +17,7 @@
     "internet": "Internet",
     "marketing": "Marketing",
     "for_your_business": "For your business and personal brand",
-    "advertising_agency": "Advertising Agency <br \\/> Full Cycle",
+    "advertising_agency": "We provide premium services <br \\/>In the field of Digital Marketing <br \\/>It’s a pleasure to work with us <br \\/>And earn money",
     "about": {
       "name": "About us",
       "desc": "We are a full-service marketing agency. Our team combines strategy, creativity, and analytics to help your business grow faster than the competition. We understand the market and speak the language of numbers, not promises."
@@ -32,29 +31,29 @@
       "desc": "Over this time, we have accumulated practical experience working in various niches and with companies of all sizes—from local startups to international brands."
     },
     "about_3": {
-      "name": "Customer Satisfaction Index *",
-      "desc": "This isn't just a number, but confirmation that we understand business needs and translate them into results.",
+      "name": "Customer Satisfaction Index",
+      "desc": "This indicator is the result of an individual approach and complete immersion in each project",
       "notice": "* according to research conducted by Oyster Computer on November 24, 2023"
     },
     "case_1": {
-      "name": "WATCHBOX Middle East",
-      "desc": "Lead generation via Instagram / Facebook Ads (Middle East)"
+      "name": "WATCHBOX",
+      "desc": "Lead generation (Middle East)"
     },
     "case_2": {
       "name": "YouDo",
-      "desc": "Software development. Participation in mobile app development"
+      "desc": "Software development"
     },
     "case_3": {
-      "name": "CETUS Protocol",
-      "desc": "Conducting a marketing campaign with user onboarding elements"
+      "name": "CETUS",
+      "desc": "Conducting a marketing campaign with onboarding elements"
     },
     "case_4": {
-      "name": "ALLU Auction United Arab Emirates",
-      "desc": "Lead generation using Google Ads contextual advertising (UAE and Hong Kong)"
+      "name": "ALLU Auction",
+      "desc": "Lead generation (UAE, Hong Kong)"
     },
     "case_5": {
-      "name": "OKX Crypto Exchange",
-      "desc": "Participation in platform redesign"
+      "name": "GATE",
+      "desc": "Conducting a marketing campaign"
     },
     "case_6": {
       "name": "T-BANK",
@@ -62,96 +61,96 @@
     },
     "case_7": {
       "name": "WISE TRANSFER",
-      "desc": "Participating in online resource redesign"
+      "desc": "Conducting a marketing campaign"
     },
     "case_8": {
       "name": "AX CAPITAL",
-      "desc": "Conducting a marketing campaign for regular customers (Russia and the UAE)"
+      "desc": "Lead generation (CIS countries)"
     },
     "service": {
       "name": "Services",
       "desc": "A complete list of marketing tools and practices to scaling your business and promoting a personal brand"
     },
-    "seo_1": {
+    "service_1": {
+      "name": "Online Promotion",
+      "desc": "Social media, lead generation, (PPC, targeted ads), online reputation management (ORM), PR, email marketing, and other tools"
+    },
+    "service_2": {
+      "name": "Full-Cycle Development",
+      "desc": "Websites, mobile apps, CRM systems, Telegram bots, web design, presentations"
+    },
+    "service_3": {
+      "name": "Original Content Creation",
+      "desc": "Thematic copywriting, photo/video content, AI-generated content"
+    },
+    "service_4": {
+      "name": "Digital Consulting",
+      "desc": "Marketing strategy, process automation, employee training"
+    },
+    "service_5": {
       "name": "SEO",
       "desc": "Promote your website in Yandex and Google search results"
     },
-    "seo_2": {
-      "name": "Contextual Advertising",
-      "desc": "Use the most effective advertising tool for lead generation with Yandex.Direct and Google Ads"
-    },
-    "seo_3": {
-      "name": "Social Media",
-      "desc": "Promotion on Instagram / TikTok / VK / Zen / YouTube / RuTube / Snapchat / X (ex-Twitter)"
-    },
-    "seo_4": {
-      "name": "Instagram / Facebook Ads",
-      "desc": "Run Instagram / Facebook ads to quickly generate high-quality leads and new customers"
-    },
-    "seo_5": {
-      "name": "SEO",
-      "desc": "Promote your website in Yandex and Google search results"
-    },
-    "seo_6": {
+    "service_6": {
       "name": "Telegram Ads",
       "desc": "Promote your channel. Run ads in Telegram Ads or on major popular channels."
     },
-    "seo_7": {
+    "service_7": {
       "name": "SERM",
       "desc": "Manage your business's online reputation. We'll post positive reviews about you on 100+ platforms."
     },
-    "seo_8": {
+    "service_8": {
       "name": "Marketplace",
       "desc": "Promote your store on major marketplaces. Avito / Ozon / Wildberries."
     },
-    "seo_9": {
+    "service_9": {
       "name": "Crypto Marketing",
       "desc": "Generate interest in your project among the most engaged and solvent audience in the crypto community."
     },
-    "seo_10": {
+    "service_10": {
       "name": "Influencers",
       "desc": "Order advertising for your business from popular bloggers and influencers. Invite them to shoot your content."
     },
-    "seo_11": {
+    "service_11": {
       "name": "PR",
       "desc": "Increase brand awareness through media. Get featured in major online publications."
     },
-    "seo_12": {
+    "service_12": {
       "name": "Content",
       "desc": "Order media content creation for your website and social media. Reels / Videos / Memes."
     },
-    "seo_13": {
+    "service_13": {
       "name": "Newsletters",
       "desc": "Launch an email/SMS/Telegram newsletter to inform potential clients of important news."
     },
-    "seo_14": {
+    "service_14": {
       "name": "Facebook",
       "desc": "Has your advertising account been blocked or isn't working? We'll solve problems with the FB ecosystem. Pay-per-results."
     },
-    "dev_1": {
+    "service_15": {
       "name": "Websites",
       "desc": "Order website or landing page development of any complexity."
     },
-    "dev_2": {
+    "service_16": {
       "name": "Mobile Apps",
       "desc": "Expand your business ecosystem with a mobile app for iOS/Android."
     },
-    "dev_3": {
+    "service_17": {
       "name": "Telegram Bots",
       "desc": "Use Telegram functionality to optimize your business processes. Order creation A bot for any purpose"
     },
-    "dev_4": {
+    "service_18": {
       "name": "Design",
       "desc": "A full range of web design services for your business: from logo creation to branding of products and services"
     },
-    "dev_5": {
+    "service_19": {
       "name": "Presentations",
       "desc": "Order a professional presentation of your business/products/services"
     },
     "team_1": {
       "title": "Join the team",
       "name": "",
-      "desc": "Our expertise in digital marketing allows us to make decisions quickly and demonstrate significant results. We have open positions. Apply on our website with your contact details to learn more."
+      "desc": "Our digital marketing expertise allows us to make quick decisions and deliver meaningful results. We have open vacancies. Leave a request with your contact details to find out more."
     },
     "team_2": {
       "title": "Join the team",
@@ -169,112 +168,42 @@
       "desc": "We will cover the cost of any tools, services, and neural networks for a comfortable workflow, provide an above-market salary, and offer numerous bonus opportunities. We respect your work, which is why we even pay for test assignments."
     }
   },
-  "price": {
-    "seo": "Promotion Pricing",
-    "dev": "Development Pricing",
-    "seo_1": {
-      "name": "SEO website promotion",
-      "total": "from 70,000 RUB"
-    },
-    "seo_2": {
-      "name": "PPC advertising",
-      "total": "from 65,000 RUB"
-    },
-    "seo_3": {
-      "name": "Social media promotion (SMM)",
-      "total": "from 60,000 RUB"
-    },
-    "seo_4": {
-      "name": "Instagram / Facebook Ads",
-      "total": "from 80,000 RUB"
-    },
-    "seo_5": {
-      "name": "Telegram Ads",
-      "total": "from 60,000 RUB"
-    },
-    "seo_6": {
-      "name": "SERM reputation management",
-      "total": "from 55,000 RUB"
-    },
-    "seo_7": {
-      "name": "Marketplace promotion",
-      "total": "from 60,000 RUB"
-    },
-    "seo_8": {
-      "name": "Crypto Marketing",
-      "total": "from 110,000 RUB"
-    },
-    "seo_9": {
-      "name": "Influencer marketing",
-      "total": "from 60,000 RUB"
-    },
-    "seo_10": {
-      "name": "PR events",
-      "total": "from 60,000 RUB"
-    },
-    "seo_11": {
-      "name": "Media content creation",
-      "total": "from 40,000 RUB"
-    },
-    "seo_12": {
-      "name": "Email marketing",
-      "total": "from 25,000 RUB"
-    },
-    "seo_13": {
-      "name": "Facebook ecosystem assistance",
-      "total": "from 30,000 RUB"
-    },
-    "dev_1": {
-      "name": "Website development",
-      "total": "from 120,000 RUB"
-    },
-    "dev_2": {
-      "name": "Mobile app development",
-      "total": "from 350,000 RUB"
-    },
-    "dev_3": {
-      "name": "Telegram bot development",
-      "total": "from 40,000 RUB"
-    },
-    "dev_4": {
-      "name": "Web design",
-      "total": "from 30,000 RUB"
-    },
-    "dev_5": {
-      "name": "Presentation design",
-      "total": "from 40,000 RUB"
-    }
-  },
   "partner": {
     "frame_1": {
-      "name": "Why Choose Us",
-      "desc": "Oyster Computer works with both large companies and startups."
+      "name": "Highly Recommended",
+      "desc": "We work with both large enterprises and startups."
     },
     "frame_2": {
       "name": "Comprehensive Approach",
-      "desc": "From strategy and branding to ad launches and analytics, we cover the full digital marketing cycle. You don't need to search for different contractors; everything is under one roof."
+      "desc": "From strategy and branding to lead generation and analytics — we cover the full digital marketing cycle."
     },
     "frame_3": {
-      "name": "Transparency and Control",
-      "desc": "You always know where the budget is going and what results each channel delivers. We provide clear reports and performance metrics."
+      "name": "Maximum Involvement",
+      "desc": "Complete immersion in your business niche for maximum effectiveness."
     },
     "frame_4": {
       "name": "Tailored Solutions",
-      "desc": "Every project is unique. We don't use template-based approaches; instead, we develop a strategy that works specifically for your business."
+      "desc": "Every project is unique. We avoid cookie-cutter solutions and develop a strategy that works specifically for your business."
     }
   },
   "feedback": {
-    "title": "Fill out the form and we will contact you within 15 minutes",
-    "desc": "Fill out the short form, leave your phone number or Telegram username, and a personal assistant will contact you within 15 minutes",
+    "title1": "Time to act",
+    "title2": "All we need is your number",
+    "desc": "Fill out the form and your personal assistant will contact you",
     "form": {
-      "name": "Your name",
-      "phone": "Your phone number",
+      "name": "YOUR NAME *",
+      "phone": "YOUR PHONE NUMBER *",
+      "agreement": "I CONSENT",
+      "agreement_desc": "FOR PROCESSING PERSONAL DATA",
       "send": "Submit"
     }
   },
   "text": {
     "close": "Close",
-    "lets_discuss": "Let's discuss",
+    "lets_discuss": "Contact us",
+    "write_to_us": "Write to us",
+    "privacy_policy": "Privacy Policy",
+    "consent_personal_data": "Consent to the processing of personal data",
     "promotion": "Promotion",
     "development": "Development",
     "back": "back",
@@ -282,6 +211,10 @@
     "year": "Year | Years",
     "design": "Design",
     "content": "Content",
-    "targeted_advertising": "Targeted advertising"
+    "leads": "Leads",
+    "consulting": "Consulting",
+    "research": "Research",
+    "automation": "Automation",
+    "target": "Target"
   }
 }

@@ -39,9 +39,17 @@ const caseBg = ref(null);
 const caseGrid = ref(null);
 const caseItems = ref([]);
 
-const priceSection = ref(null);
-const priceTitleKey = ref('price.seo');
-const priceItems = ref([]);
+const marqueeItems = [
+  'text.promotion', 
+  'text.design', 
+  'text.target', 
+  'text.leads', 
+  'text.content', 
+  'text.consulting', 
+  'text.automation', 
+  'text.research', 
+  'text.development'
+];
 
 const advantageSection = ref(null);
 const advantageTitles = ref(null);
@@ -258,52 +266,10 @@ function initGsap() {
       ease: "power1.inOut",
     });
 
-    if (priceItems.value.length) {
-      const price1 = priceItems.value.slice(0, 6);
-      const price2 = priceItems.value.slice(6, 13);
-      const price3 = priceItems.value.slice(13);
-
-      gsap.set(price2, { yPercent: 100 });
-      gsap.set(price3, { yPercent: 100 });
-      gsap.set('#hyper_cube', { xPercent: 20 });
-
-      const priceTL = gsap.timeline({
-        scrollTrigger: {
-          trigger: priceSection.value,
-          start: "top top",
-          end: "+=140%",
-          pin: true,
-          scrub: 1.5,
-        }
-      });
-      priceTL.to(price1, { yPercent: -100, stagger: 0.05, delay: 0.5, ease: "power1.in" });
-      priceTL.to(price2, { yPercent: 0, stagger: 0.05, ease: "power1.out" }, "<");
-      priceTL.to(price2, { yPercent: -100, stagger: 0.05, ease: "power1.in" });
-      priceTL.to(price3, { yPercent: 0, stagger: 0.01, ease: "power1.out" }, "<");
-      priceTL.to([price2, price3], { color: 'black', stagger: 0.01, ease: "power1.out" }, "<");
-      priceTL.to('#price_title_text', {
-        opacity: 0,
-        duration: 0.5,
-        ease: 'power1.in',
-        onComplete: () => { priceTitleKey.value = 'price.dev'; },
-        onReverseComplete: () => { priceTitleKey.value = 'price.seo'; }
-      }, "<");
-      priceTL.to('#price_title_text', { opacity: 1, duration: 0.5, ease: 'power1.out' }, "<");
-      priceTL.to('#price_title', { backgroundColor: '#47E29F', stagger: 0.01, ease: "power1.out" }, "<");
-      priceTL.to('#bg_blured', { backgroundColor: 'transparent', backdropFilter: 'none', ease: "power1.out" }, "<");
-      priceTL.to('#bg_vscode_1', { xPercent: -100, stagger: 0.05, ease: "ease" }, "<");
-      priceTL.to('#bg_vscode_2', { xPercent: 100, stagger: 0.05, ease: "power1.out" }, "<");
-      priceTL.to('#hyper_cube', { xPercent: 0, duration: 1, ease: "power1.in" }, "<");
-    }
-
     // ADVANTAGE
     if (advantageSection.value && advantageTextSlides.value.length) {
-      const titles = advantageTitles.value;
-      if (titles.children.length === 5) {
-        const titlesContent = titles.innerHTML;
-        titles.innerHTML += titlesContent;
-      }
-      gsap.to(titles, { xPercent: -50, ease: "none", duration: 30, repeat: -1 });
+      gsap.set(advantageTitles.value, { xPercent: 0 });
+      gsap.to(advantageTitles.value, { xPercent: -50, ease: "none", duration: 20, repeat: -1 });
 
       const totalSlides = advantageTextSlides.value.length;
       const totalTurns = totalSlides - 1;
@@ -386,11 +352,9 @@ function cleanGsap() {
   caseBg.value = null
   caseItems.value = []
 
-  priceSection.value = null
-  priceItems.value = []
-
   advantageSection.value = null
   advantageTitles.value = null
+
   rightAdvantage.value = null
   leftAdvantage.value = null
   rotatingImage.value = null
@@ -448,11 +412,11 @@ onUnmounted(() => { cleanGsap() })
         />
 
         <div id="about" ref="aboutNitro" class="absolute top-0 left-0 w-full h-full bg-white py-8">
-          <div class="section">
+          <div class="section px-32">
             <h2 class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase z-0">
               {{ $t('title.about.name') }}
             </h2>
-            <p class="text-xl ml-10 md:ml-20">
+            <p class="text-2xl ml-10 md:ml-20 uppercase">
               {{ $t('title.about.desc') }}
             </p>
             <div class="bg-[url(/img/bg_about.jpg)] bg-no-repeat bg-contain pb-[56.25%]"></div>
@@ -461,10 +425,10 @@ onUnmounted(() => { cleanGsap() })
 
         <div ref="cuttingContainer" class="absolute top-0 left-0 w-screen h-screen flex overflow-hidden z-[5]">
           <div ref="leftCurtain" class="gate z-[5]">
-            <h2 class="left-full -translate-x-1/2" v-html="$t('title.advertising_agency')"></h2>
+            <h2 class="left-full -translate-x-1/2 uppercase" v-html="$t('title.advertising_agency')"></h2>
           </div>
           <div ref="rightCurtain" class="gate z-[5]">
-            <h2 class="right-full translate-x-1/2" v-html="$t('title.advertising_agency')"></h2>
+            <h2 class="right-full translate-x-1/2 uppercase" v-html="$t('title.advertising_agency')"></h2>
           </div>
         </div>
       </div>
@@ -506,10 +470,10 @@ onUnmounted(() => { cleanGsap() })
 
     <section id="cases" ref="caseSection" class="relative opacity-0 bg-cover bg-center bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)]">
       <div ref="caseBg" class="sticky top-0 h-screen w-full flex items-center justify-center p-4">
-        <div ref="caseGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-8 w-full h-full">
+        <div ref="caseGrid" class="section grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-8 w-full h-full">
           <div v-for="i in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }"
             class="relative">
-            <div class="case_item absolute min-h-80 top-0 left-0 flex flex-col gap-2">
+            <div class="case_item absolute w-52 top-0 left-0 flex flex-col gap-2">
               <img :src="`/img/case/${i}.jpg`" class="w-full h-full object-cover rounded-xl" />
               <div>
                 <h2 class="uppercase font-bold">{{ $t(`title.case_${i}.name`) }}</h2>
@@ -532,71 +496,24 @@ onUnmounted(() => { cleanGsap() })
           <p>{{ $t('title.service.desc') }}</p>
         </div>
       </div>
-      <div class="flex flex-col md:flex-row gap-4 items-start justify-evenly">
-        <div class="flex flex-col items-start justify-start w-90">
-          <h2 class="uppercase text-2xl">{{ $t('text.promotion') }}</h2>
-          <SliderService service="seo" :qty="14" />
-        </div>
-        <div class="flex flex-col items-start justify-start w-90">
-          <h2 class="uppercase text-2xl">{{ $t('text.development') }}</h2>
-          <SliderService service="dev" :qty="5" />
-        </div>
-      </div>
-    </section>
-
-    <section ref="priceSection" class="relative min-h-screen overflow-hidden bg-[#d7dee8]">
-      <div id="hyper_cube" class="absolute inset-0 z-0 bg-cover bg-center scale-110" style="background-image: url('/img/hyper_cube.jpg');">
-      </div>
-      <div id="bg_vscode_1" class="absolute inset-0 z-0 bg-repeat-y bg-center bg-[length:100%_auto] animate-scroll-up xl:w-1/2 xl:bg-left-top xl:bg-[length:100%_auto] xl:animate-scroll-down" style="background-image: url('/img/bg_vscode.jpg');">
-      </div>
-      <div id="bg_vscode_2" class="hidden xl:block absolute top-0 right-0 z-0 w-1/2 h-full bg-repeat-y bg-right-top bg-[length:100%_auto] animate-scroll-up" style="background-image: url('/img/bg_vscode.jpg');">
-      </div>
-      
-      <div id="bg_blured" class="relative z-10 bg-emerald-900/30 backdrop-blur-[2px] h-screen w-full flex-col justify-center">
-        <div class="pt-8">
-          <div id="price_title" class="bg-white px-4">
-            <h1 id="price_title_text" class="text-2xl font-bold uppercase">
-              {{ $t(priceTitleKey) }}
-            </h1>
-          </div>
-        </div>
-        <div class="relative max-w-3xl mx-auto w-full h-full flex items-center">
-          <div class="absolute w-full">
-            <div v-for="i in 6" :key="`batch1-${i}`" class="overflow-hidden w-full">
-              <div :ref="el => { if (el) priceItems[i-1] = el }" class="flex items-center justify-between w-full py-2 font-bold text-white text-2xl">
-                <div class="uppercase">{{ $t(`price.seo_${i}.name`) }}</div>
-                <div class="">{{ $t(`price.seo_${i}.total`) }}</div>
-              </div>
-            </div>
-          </div>
-          <div class="absolute w-full">
-            <div v-for="i in 7" :key="`batch2-${i}`" class="overflow-hidden w-full">
-              <div :ref="el => { if (el) priceItems[i-1+6] = el }" class="flex items-center justify-between w-full py-2 font-bold text-white text-2xl">
-                <div class="uppercase">{{ $t(`price.seo_${i+6}.name`) }}</div>
-                <div class="">{{ $t(`price.seo_${i+6}.total`) }}</div>
-              </div>
-            </div>
-          </div>
-          <div class="absolute w-full">
-            <div v-for="i in 5" :key="`batch3-${i}`" class="overflow-hidden w-full">
-              <div :ref="el => { if (el) priceItems[i-1+13] = el }" class="flex items-center justify-between w-full py-3 font-bold text-white text-2xl">
-                <div class="uppercase">{{ $t(`price.dev_${i}.name`) }}</div>
-                <div class="">{{ $t(`price.dev_${i}.total`) }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="flex items-center justify-center">
+        <SliderService class="section" />
       </div>
     </section>
 
     <section id="partnership" ref="advantageSection" class="relative overflow-hidden">
-      <div class="bg-white py-10 whitespace-nowrap absolute top-0 left-0 w-full z-10">
-        <div ref="advantageTitles" class="flex items-center gap-12 text-3xl font-bold">
-          <p>{{ $t('text.design') }}</p>
-          <p class="text-primary">{{ $t('text.development') }}</p>
-          <p>{{ $t('text.promotion') }}</p>
-          <p class="text-primary">{{ $t('text.content') }}</p>
-          <p>{{ $t('text.targeted_advertising') }}</p>
+      <div class="bg-white py-10 whitespace-nowrap absolute top-0 left-0 w-full z-10 overflow-hidden">
+        <div ref="advantageTitles" class="flex items-center w-fit will-change-transform">
+          <div class="flex items-center gap-12 pr-12 text-2xl font-bold uppercase">
+            <p v-for="(item, i) in marqueeItems" :key="`set1-${i}`">
+              {{ $t(item) }}
+            </p>
+          </div>
+          <div class="flex items-center gap-12 pr-12 text-2xl font-bold uppercase">
+            <p v-for="(item, i) in marqueeItems" :key="`set2-${i}`">
+              {{ $t(item) }}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -646,7 +563,7 @@ onUnmounted(() => { cleanGsap() })
             </h1>
           </div>
           <div ref="rightGate" class="gate bg-white flex items-center justify-center border-l border-gray-300">
-            <SliderTeam service="team" :qty="4" />
+            <SliderTeam service="team" :qty="1" />
           </div>
         </div>
 
@@ -654,14 +571,52 @@ onUnmounted(() => { cleanGsap() })
           <div class="section">
             <div class="flex flex-col items-center text-center mb-4">
               <h2 class="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase z-0">
-                {{ $t('feedback.title') }}
+                {{ $t('feedback.title1') }} <br />
+                {{ $t('feedback.title2') }}
               </h2>
-              <p class="max-w-xl">
+              <p class="max-w-xl uppercase">
                 {{ $t('feedback.desc') }}
               </p>
             </div>
             <Feedback />
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-black text-white py-12">
+      <div class="section">
+        <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-8 text-sm">
+          
+          <div class="flex justify-center md:justify-start items-center gap-4">
+            <div class="flex flex-col gap-4 text-xs">
+              <span>РУБЛЬ/ДОЛЛАР</span>
+              <span>ДИРХАМ/ДОЛЛАР</span>
+              <span>BTC/USDT</span>
+              <span>ETH/USDT</span>
+              <span>XAUT/USDT</span>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-center text-center">
+            <NuxtLink to="/" class="px-8 py-2">
+              <img class="h-12 w-auto mb-2" src="/logo.svg" alt="OYSTER">
+            </NuxtLink>
+          </div>
+
+          <div class="flex flex-col items-center md:items-end gap-3 text-center md:text-right">
+            <p>©2025 Oyster Computer. All rights reserved.</p>
+            <a href="#" target="_blank" class="uppercase text-xs">
+              {{ $t('text.privacy_policy') }}
+            </a>
+            <a href="#" target="_blank" class="uppercase text-xs">
+              {{ $t('text.consent_personal_data') }}
+            </a>
+            <a href="t.me/oystercomputer" target="_blank" class="flex items-center justify-center p-2 w-44  rounded-full border border-white hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs">
+              {{ $t('text.write_to_us') }}
+            </a>
+          </div>
+
         </div>
       </div>
     </section>

@@ -1,20 +1,17 @@
 export default () => {
   return {
     menuMain: [{
-      name: 'introduction',
-      to: '/#introduction'
-    },{
       name: 'about',
       to: '/#about'
+    },{
+      name: 'numbers',
+      to: '/#numbers'
     },{
       name: 'cases',
       to: '/#cases'
     },{
       name: 'services',
       to: '/#services'
-    },{
-      name: 'partnership',
-      to: '/#partnership'
     },{
       name: 'team',
       to: '/#team'
@@ -40,13 +37,13 @@ export default () => {
     }],
     menuContacts: [{
       name: 'mail',
-      contact: 'info@gadyrlypursat.com',
-      to: 'mailto:info@gadyrlypursat.com',
+      contact: 'info@oyster.com',
+      to: 'mailto:info@oyster.com',
       icon: 'hugeicons:mail-01',
     },{
       name: 'phone',
-      contact: '+993 65 807929',
-      to: 'tel:99365807929',
+      contact: '+7 926 1234567',
+      to: 'tel:79261234567',
       icon: 'hugeicons:call-ringing-02'
     }]
   }

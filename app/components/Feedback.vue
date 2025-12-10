@@ -8,11 +8,13 @@ const toast = useToast()
 const schema = z.object({
   name: z.string().min(1, 'Name Required'),
   phone: z.string().min(8, 'Phone must be at least 10 characters'),
+  agreement: z.boolean(),
   telegram: z.string().min(1, 'Telegram or Email Required'),
 })
 const state = reactive({
   name: undefined,
   phone: undefined,
+  agreement: undefined,
   telegram: undefined,
 })
 const loading = ref(false);
@@ -45,36 +47,47 @@ async function onSubmit(event) {
   } finally {
     state.name = undefined
     state.phone = undefined
+    state.agreement = undefined
     state.telegram = undefined
     loading.value = false
   }
 }
 </script>
 <template>
-  <div class="w-full">
+  <div class="w-full md:px-32">
     <UForm :schema="schema" :state="state" @submit="onSubmit" class="space-y-4 text-center">
-      <UFormField name="name">
+      <UFormField name="name" required>
         <UInput v-model="state.name" 
           :placeholder="$t('feedback.form.name')" 
           variant="custom" 
           size="xxl" 
           class="w-full"
-          required />
+          :ui="{ base: 'placeholder:text-black/70' }" />
       </UFormField>
       <UFormField name="phone" required>
         <UInput v-model="state.phone" 
           :placeholder="$t('feedback.form.phone')" 
           size="xxl" 
           class="w-full"
-          variant="custom" />
+          variant="custom" 
+          :ui="{ base: 'placeholder:text-black/70' }" />
       </UFormField>
       <UFormField name="telegram" required>
         <UInput v-model="state.telegram" 
-          placeholder="Telegram @username" 
+          placeholder="TELEGRAM @USERNAME" 
           size="xxl" 
           class="w-full"
-          variant="custom" />
+          variant="custom" 
+          :ui="{ base: 'placeholder:text-black/70' }" />
       </UFormField>
+      <UFormField name="agreement" required class="w-80 mx-auto">
+        <UCheckbox 
+          v-model="state.agreement"
+          :label="$t('feedback.form.agreement')" 
+          :description="$t('feedback.form.agreement_desc')" 
+          color="neutral" size="xl" :ui="{ root: 'flex flex-col items-center', label: 'text-black', description: 'text-xs text-black/70' }" />
+      </UFormField>
+
       <UButton 
         type="submit" 
         :loading="loading" 

@@ -4,10 +4,12 @@ const { footerNav } = useConfig()
 
 </script>
 <template>
-  <footer class="relative h-screen">
+  <footer class="relative">
 
     <div class="lets_discuss right-0 z-20">
-      <p>{{ $t('text.lets_discuss') }}</p>
+      <a href="t.me/oystercomputer" target="_blank">
+        {{ $t('text.lets_discuss') }}
+      </a>
     </div>
 
     <div class="flex flex-col fixed md:bottom-0 right-0 px-4 z-20 transition-all duration-300" 

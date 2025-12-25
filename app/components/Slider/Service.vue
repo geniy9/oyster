@@ -12,8 +12,7 @@ const slides = computed(() => {
   for (let i = 1; i <= props.qty; i++) {
     items.push({
       index: i,
-      // Пока заглушка 1.jpg,
-      img: `/img/service/1.jpg`, 
+      img: `/img/service/${i}.jpg`, 
       titleKey: `title.service_${i}.name`,
       descKey: `title.service_${i}.desc`
     });
@@ -147,7 +146,7 @@ function onClickNext() { changeSlide('next') }
 
           <!-- IMG -->
           <div class="w-full md:w-1/2 flex justify-center md:justify-start">
-            <div class="w-64 h-96 overflow-hidden rounded-xl relative shrink-0">
+            <div class="w-72 h-128 overflow-hidden rounded-xl relative shrink-0">
               <img :ref="el => { if(el) imageRefs[index] = el }"
                 :src="item.img" 
                 :alt="$t(item.titleKey)" 

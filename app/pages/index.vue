@@ -17,7 +17,7 @@ const zoomingImages = [
   '/img/blue_face.jpg',
   '/img/hologram_abstract.jpg',
   '/img/render_3d.jpg',
-  '/img/identity_tech.jpg',
+  '/img/blue_cubes.jpg',
 ]
 const cuttingContainer = ref(null);
 const leftCurtain = ref(null);
@@ -61,7 +61,7 @@ const advantageImages = [
   '/img/advantage/1.jpg',
   '/img/advantage/2.jpg',
   '/img/advantage/3.jpg',
-  '/img/team/team_1.jpg',
+  '/img/advantage/4.jpg',
 ];
 const feedbackSection = ref(null);
 const leftGate = ref(null);
@@ -280,7 +280,7 @@ function initGsap() {
           start: "top top",
           end: `+=${totalSlides * 100}%`,
           // end: `+=600%`,
-          // end: () => "+=" + (leftAdvantage.value.scrollHeight - window.innerHeight),
+          end: () => "+=" + (leftAdvantage.value.scrollHeight - window.innerHeight),
           scrub: 1,
           pin: rightAdvantage.value,
           // pin: true,
@@ -471,13 +471,12 @@ onUnmounted(() => { cleanGsap() })
     <section id="cases" ref="caseSection" class="relative opacity-0 bg-cover bg-center bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)]">
       <div ref="caseBg" class="sticky top-0 h-screen w-full flex items-center justify-center p-4">
         <div ref="caseGrid" class="section grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-8 w-full h-full">
-          <div v-for="i in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }"
-            class="relative">
-            <div class="case_item absolute w-52 top-0 left-0 flex flex-col gap-2">
+          <div v-for="i in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }" class="relative">
+            <div class="case_item absolute w-60 top-0 left-0 flex flex-col gap-2">
               <img :src="`/img/case/${i}.jpg`" class="w-full h-full object-cover rounded-xl" />
               <div>
                 <h2 class="uppercase font-bold">{{ $t(`title.case_${i}.name`) }}</h2>
-                <p class="font-light text-sm">{{ $t(`title.case_${i}.desc`) }}</p>
+                <p class="font-light text-sm leading-4">{{ $t(`title.case_${i}.desc`) }}</p>
               </div>
             </div>
           </div>
@@ -559,11 +558,31 @@ onUnmounted(() => { cleanGsap() })
         <div class="absolute top-0 left-0 w-full h-screen flex z-5">
           <div ref="leftGate" class="gate bg-cover bg-center bg-no-repeat bg-[url(/img/team/1.jpg)] border-r border-gray-300 flex justify-center items-start">
             <h1 class="mt-10 text-3xl font-bold uppercase">
-              {{ $t('title.team_1.title') }}
+              {{ $t('title.team.name') }}
             </h1>
           </div>
           <div ref="rightGate" class="gate bg-white flex items-center justify-center border-l border-gray-300">
-            <SliderTeam service="team" :qty="1" />
+
+            <div class="flex flex-col items-center justify-center gap-2 max-w-80">
+              <div class="mb-4 overflow-hidden">
+                <img 
+                  src="/img/team/team_1.jpg" 
+                  :alt="$t(`title.team.name`)" 
+                  class="w-60 h-90 object-cover origin-center" />
+              </div>
+              <div class="flex flex-col h-36">
+                <p class="text-sm">
+                  {{ $t(`title.team.desc`) }}
+                </p>
+              </div>
+              <div class="flex justify-between gap-2">
+                <a href="t.me/oystercomputer" target="_blank" class="group flex items-center justify-center p-2 w-44 h-10 rounded-full border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs font-bold">
+                  {{ $t('text.lets_discuss') }}
+                </a>
+              </div>
+            </div>
+
+
           </div>
         </div>
 

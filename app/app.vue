@@ -1,6 +1,6 @@
 <script setup>
 import { useSmoother } from '~/composables/useSmoother'
-const { shifterBg, bgVisible } = useConfig();
+const { isPreloaded, shifterBg, bgVisible } = useConfig();
 
 const { gsap, ScrollSmoother } = useGsap()
 const { locale } = useI18n()
@@ -14,13 +14,37 @@ const onPreloaderLoaded = () => {
   if (preloaderRef.value) {
     preloaderRef.value.playPreloader();
   }
+  isPreloaded.value = true
   // isLoading = false, если нужно для других целей,
 };
 
+// function updateSmoother() {
+//   if (smoother.value) smoother.value.kill()
+//   if (ctx) ctx.revert()
+//   smoother.value = null
+
+//   setTimeout(() => {
+//     ctx = gsap.context(() => {
+//       smoother.value = ScrollSmoother.create({
+//         wrapper: "#smooth-wrapper",
+//         content: "#smooth-content",
+//         smooth: 1,
+//         effects: true,
+//       });
+
+//       // if (isLoading.value && smoother.value) {
+//       //   smoother.value.paused(true);
+//       // }
+//     });
+//   }, 100)
+// }
 function updateSmoother() {
   if (smoother.value) smoother.value.kill()
   if (ctx) ctx.revert()
   smoother.value = null
+
+  const isMobile = window.matchMedia('(max-width: 639px)').matches
+  if (isMobile) return
 
   setTimeout(() => {
     ctx = gsap.context(() => {
@@ -30,13 +54,10 @@ function updateSmoother() {
         smooth: 1,
         effects: true,
       });
-
-      // if (isLoading.value && smoother.value) {
-      //   smoother.value.paused(true);
-      // }
     });
   }, 100)
 }
+
 
 watch(() => locale.value, () => { updateSmoother() })
 onMounted(() => { 

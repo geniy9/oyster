@@ -4,10 +4,12 @@ export default () => {
   const shifterBg = useState('backgroundImage', () => '/img/bg-1.jpg')
   const bgVisible = useState('backgroundVisible', () => true)
   const footerNav = useState('isVisibleFooter', () => true)
+  const isPreloaded = useState('isPreloaded', () => false)
   return {
+    isPreloaded,
     originUrl,
     shifterBg,
     bgVisible,
-    footerNav
+    footerNav,
   }
 }

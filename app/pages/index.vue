@@ -4,7 +4,7 @@ import { useSmoother } from '~/composables/useSmoother';
 const { t } = useI18n()
 const { gsap, SplitText } = useGsap()
 const smoother = useSmoother()
-const { shifterBg, bgVisible, footerNav } = useConfig();
+const { isPreloaded, shifterBg, bgVisible, footerNav } = useConfig();
 
 let mm = null; 
 const splitTitle = ref(null)
@@ -12,29 +12,23 @@ const leftLineGrow = ref(null)
 const rightLineGrow = ref(null)
 const zoomingImgs = ref([])
 
-const zoomingImages = [
-  {
-    desktop: '/img/blue_face.jpg',
-    tablet: '/img/blue_face_tab.jpg',
-    mobile: '/img/blue_face_mob.jpg',
-  },
-  {
-    desktop: '/img/hologram_abstract.jpg',
-    tablet: '/img/hologram_abstract_tab.jpg',
-    mobile: '/img/hologram_abstract_mob.jpg',
-  },
-  {
-    desktop: '/img/render_3d.jpg',
-    tablet: '/img/render_3d_tab.jpg',
-    mobile: '/img/render_3d_mob.jpg',
-  },
-  {
-    desktop: '/img/blue_cubes.jpg',
-    tablet: '/img/blue_cubes_tab.jpg',
-    mobile: '/img/blue_cubes_mob.jpg',
-  },
-]
-
+const zoomingImages = [{
+  desktop: '/img/blue_face.jpg',
+  tablet: '/img/blue_face_tab.jpg',
+  mobile: '/img/blue_face_mob.jpg',
+},{
+  desktop: '/img/hologram_abstract.jpg',
+  tablet: '/img/hologram_abstract_tab.jpg',
+  mobile: '/img/hologram_abstract_mob.jpg',
+},{
+  desktop: '/img/render_3d.jpg',
+  tablet: '/img/render_3d_tab.jpg',
+  mobile: '/img/render_3d_mob.jpg',
+},{
+  desktop: '/img/blue_cubes.jpg',
+  tablet: '/img/blue_cubes_tab.jpg',
+  mobile: '/img/blue_cubes_mob.jpg',
+}]
 const cuttingContainer = ref(null);
 const leftCurtain = ref(null);
 const rightCurtain = ref(null);
@@ -95,21 +89,23 @@ function initGsap() {
     let { isDesktop, isTablet, isMobile } = context.conditions;
 
     // HERO TITLE
-    const titles = gsap.utils.toArray("#text_separate h1");
-    gsap.set(titles, { overflow: 'hidden' });
-    
-    splitTitle.value = new SplitText(titles, { type: "lines", linesClass: "line-child" });
-
-    gsap.from(splitTitle.value.lines, {
-      duration: 1,
-      yPercent: 100,
-      opacity: 1,
-      ease: "power3.out",
-      stagger: 0.2,
+    const titles = gsap.utils.toArray(".text_separate");
+    splitTitle.value = new SplitText(titles, {
+      type: "words,lines",
+      linesClass: "line",
+      autoSplit: true,
+      mask: "lines"
     });
-    gsap.to("#text_separate", { yPercent: 0, opacity: 1, stagger: 0.5, zIndex: 0 })
+    gsap.from(splitTitle.value.lines, {
+      yPercent: 120,
+      delay: 3.14,
+      opacity: 0,
+      ease: "expo.out",
+      stagger: 0.15,
+      zIndex: 0
+    });
 
-    // ЛИНИИ (Curtains)
+    // ЛИНИИ
     const curtainTL = gsap.timeline({
       scrollTrigger: {
         trigger: "#line_container",
@@ -117,6 +113,7 @@ function initGsap() {
         end: "+=200%",
         scrub: 1,
         pin: true,
+        pinType: isMobile ? 'fixed' : 'transform',
         // invalidateOnRefresh: true, // Полезно для ресайза
       },
     });
@@ -140,6 +137,7 @@ function initGsap() {
         end: "+=300%",
         scrub: 1,
         pin: true,
+        pinType: isMobile ? 'fixed' : 'transform',
       }
     });
 
@@ -200,6 +198,7 @@ function initGsap() {
         end: `+=${aboutItems.length * 100}%`,
         scrub: 1,
         pin: true,
+        pinType: isMobile ? 'fixed' : 'transform',
       }
     });
     aboutItems.forEach((_, i) => {
@@ -234,6 +233,7 @@ function initGsap() {
           return "+=200%";
         },
         pin: true,
+        pinType: isMobile ? 'fixed' : 'transform',
         scrub: 1,
       }
     });
@@ -278,7 +278,7 @@ function initGsap() {
       } else {
         gsap.set(slides, { position: 'relative', autoAlpha: 1, yPercent: 0 })
       }
-      gsap.set(rotatingImage.value, { rotationY: 0, transformStyle: 'preserve-3d' })
+      gsap.set(rotatingImage.value, { rotationY: 0 })
       const advantageTL = gsap.timeline({
         scrollTrigger: {
           trigger: advantageSection.value,
@@ -332,23 +332,15 @@ function cleanGsap() {
   splitTitle.value = null
   aboutSplits = []
 }
-
-watch(() => smoother.value, (newSmooth, oldSmooth) => {
-  if (newSmooth) {
-    initGsap();
-  } else if (oldSmooth) {
-    cleanGsap();
-  }
-}, { immediate: true });
-
+onMounted(() => { initGsap() })
 onUnmounted(() => { cleanGsap() })
 </script>
 <template>
   <div class="w-full relative">
 
     <section id="introduction" class="relative flex flex-col justify-center items-center h-screen">
-      <div id="text_separate" class="fixed opacity-0 lg:min-w-lg xl:min-w-2xl text-bold z-10" aria-hidden="true">
-        <h1 class="text-4xl xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase h-20 xs:h-24 sm:h-28 lg:h-36 xl:h-48">
+      <div class="fixed lg:min-w-lg xl:min-w-2xl" aria-hidden="true">
+        <h1 class="text_separate will-change-transform text-4xl xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase h-20 xs:h-24 sm:h-28 lg:h-36 xl:h-48">
           <span class="block">
             {{ $t('title.internet') }}
           </span>
@@ -485,7 +477,7 @@ onUnmounted(() => { cleanGsap() })
 
     <section ref="advantageSection" class="relative overflow-hidden bg-gray-200 h-screen">
       <div class="relative z-[5] flex flex-col sm:grid sm:grid-cols-2 min-h-screen">
-        <div class="relative overflow-hidden h-[40vh] sm:h-full flex items-center justify-center sm:block">
+        <div class="relative overflow-hidden h-[45vh] sm:h-full flex items-center justify-center sm:block">
           <div class="relative sm:block w-full">
             <div v-for="(n, i) in 4" :key="i" :ref="el => advantageSlides[i] = el"
               class="flex items-center justify-center px-6 h-full sm:h-screen">
@@ -498,9 +490,9 @@ onUnmounted(() => { cleanGsap() })
             </div>
           </div>
         </div>
-        <div class="relative h-[60vh] sm:h-screen flex items-center justify-center sm:border-l sm:border-gray-300">
+        <div class="relative h-[55vh] sm:h-screen flex items-center justify-center sm:border-l sm:border-gray-300">
           <div style="perspective: 1000px;">
-            <img ref="rotatingImage" :src="advantageImages[0]" class="w-60 xl:w-80 scale-x-[-1]" />
+            <img ref="rotatingImage" :src="advantageImages[0]" class="w-60 xl:w-80 scale-x-[-1] transform-3d" />
           </div>
         </div>
       </div>

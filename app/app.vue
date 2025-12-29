@@ -53,7 +53,7 @@ onUnmounted(() => {
     <Preloader v-if="isLoading" ref="preloaderRef" @loaded="onPreloaderLoaded" />
      
     <div :style="{ backgroundImage: bgVisible ? `url(${shifterBg})` : 'none' }" 
-      class="fixed inset-0 bg-white bg-fixed bg-no-repeat bg-cover w-full z-0 transition-all duration-500"></div>
+      class="fixed inset-0 bg-white sm:bg-fixed bg-no-repeat bg-cover w-full z-0 transition-all duration-500"></div>
 
     <div id="smooth-wrapper" class="flex flex-col min-h-screen overflow-hidden text-black">
       <Headers />

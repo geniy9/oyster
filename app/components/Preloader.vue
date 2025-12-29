@@ -8,7 +8,7 @@ const logoEl = ref(null);
 const discussEl = ref(null);
 
 onMounted(() => {
-  setTimeout(() => { emit('loaded') }, 2000);
+  setTimeout(() => { emit('loaded') }, 1000);
 });
 
 const playPreloader = () => {

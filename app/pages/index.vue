@@ -439,7 +439,7 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section id="cases" ref="caseSection" class="relative bg-cover bg-center bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)]">
+    <section id="cases" ref="caseSection" class="relative bg-cover bg-center bg-no-repeat sm:bg-fixed bg-[url(/img/bg_cases.jpg)]">
       <div class="sticky top-0 h-screen w-full flex items-center justify-center">
         <div class="section block sm:grid sm:grid-cols-2 xl:grid-cols-4 sm:gap-x-4 sm:gap-y-8 w-full h-full">
           <div v-for="(n, i) in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }" class="relative">
@@ -455,7 +455,7 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section id="services" ref="serviceSection" class="relative min-h-screen">
+    <section id="services" ref="serviceSection" class="relative min-h-screen bg-white">
       <div class="py-8">
         <div class="bg-primary px-4">
           <h1 class="text-2xl font-bold uppercase">

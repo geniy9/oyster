@@ -98,7 +98,8 @@ function initGsap() {
     });
     gsap.from(splitTitle.value.lines, {
       yPercent: 120,
-      delay: 3.14,
+      delay: 3.6,
+      duration: 1,
       opacity: 0,
       ease: "expo.out",
       stagger: 0.15,

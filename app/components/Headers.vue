@@ -4,7 +4,7 @@ const isOpen = ref(false)
 
 </script>
 <template>
-  <header class="fixed left-0 top:0 md:top-1/2 -translate-y-1/2 p-4 z-10">
+  <header class="fixed left-0 top:0 md:top-1/2 md:-translate-y-1/2 p-4 z-10">
     <div class="flex flex-col items-stretch">
         
       <div class="flex md:hidden">
@@ -19,28 +19,32 @@ const isOpen = ref(false)
               color="primary"
               variant="solid" 
               size="sm" 
-              class="font-bold uppercase min-w-40" />
+              class="font-bold uppercase w-32" />
             <ToggleLocale />
           </div>
 
           <template #header>
             <div @click="isOpen = false" class="flex items-center justify-between gap-1 w-full">
-              <UButton 
-                :label="'[ x ] ' + $t('text.close')"
-                color="primary"
-                variant="solid" 
-                size="sm" 
-                class="font-bold uppercase" />
-              <ToggleLocale />
+              <div class="flex items-center gap-1">
+                <UButton 
+                  :label="'[ x ] ' + $t('text.close')"
+                  color="primary"
+                  variant="solid" 
+                  size="sm" 
+                  class="font-bold uppercase w-32" />
+                <ToggleLocale />
+              </div>
               <div>
-                {{ $t('text.lets_discuss') }}
+                <a href="t.me/oystercomputer" target="_blank">
+                  {{ $t('text.lets_discuss') }}
+                </a>
               </div>
             </div>
           </template>
           <template #body>
-            <div class="relative flex flex-col justify-start gap-12">
+            <div class="relative flex flex-col justify-start gap-12 mb-8">
               <nav @click="isOpen = false">
-                <ul class="flex flex-col items-start gap-1">
+                <ul class="flex flex-col items-start gap-2">
                   <li v-for="(m, i) in menuMain" :key="i">
                     <NuxtLinkLocale :to="m.to" class="flex items-center gap-2 text-lg select-none p-0.5 leading-none hover:text-primary uppercase">
                       <span class="font-regular">[ {{ i + 1 }} ]</span>
@@ -61,7 +65,7 @@ const isOpen = ref(false)
             color="primary"
             variant="solid" 
             size="sm" 
-            class="font-bold uppercase min-w-40" />
+            class="font-bold uppercase w-32" />
           <template #content>
             <nav>
               <ul class="flex flex-col items-start gap-1">

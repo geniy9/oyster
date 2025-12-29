@@ -128,7 +128,7 @@ function onClickNext() { changeSlide('next') }
         <div class="flex flex-col-reverse md:flex-row justify-center items-center md:items-stretch w-full gap-6 md:gap-12">
           
           <!-- TEXT -->
-          <div class="w-full md:w-1/2 flex flex-col justify-center items-start relative z-10 px-4 md:px-0 md:pl-8 pb-20 md:pb-0">
+          <div class="w-full md:w-1/2 flex flex-col justify-center items-start relative z-10 px-4 md:px-0 md:pl-8 pb-2 md:pb-0">
             <div class="flex flex-col gap-4 max-w-80 self-end">
               <div class="overflow-hidden">
                 <h3 :ref="el => { if(el) titleRefs[index] = el }" class="uppercase font-bold text-2xl md:text-4xl leading-tight">

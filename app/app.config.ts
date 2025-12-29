@@ -42,5 +42,11 @@ export default defineAppConfig({
       }
     },
 
+    slideover: {
+      slots: {
+        overlay: 'bg-primary/10 backdrop-blur-xs',
+      }
+    }
+
   }
 })

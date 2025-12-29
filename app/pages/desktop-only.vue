@@ -6,39 +6,23 @@ const { gsap, SplitText } = useGsap()
 const smoother = useSmoother()
 const { shifterBg, bgVisible, footerNav } = useConfig();
 
-let mm = null; 
+let ctx = null
 const splitTitle = ref(null)
 const leftLineGrow = ref(null) 
 const rightLineGrow = ref(null)
 const zoomingImgs = ref([])
-
 const zoomingImages = [
-  {
-    desktop: '/img/blue_face.jpg',
-    tablet: '/img/blue_face_tab.jpg',
-    mobile: '/img/blue_face_mob.jpg',
-  },
-  {
-    desktop: '/img/hologram_abstract.jpg',
-    tablet: '/img/hologram_abstract_tab.jpg',
-    mobile: '/img/hologram_abstract_mob.jpg',
-  },
-  {
-    desktop: '/img/render_3d.jpg',
-    tablet: '/img/render_3d_tab.jpg',
-    mobile: '/img/render_3d_mob.jpg',
-  },
-  {
-    desktop: '/img/blue_cubes.jpg',
-    tablet: '/img/blue_cubes_tab.jpg',
-    mobile: '/img/blue_cubes_mob.jpg',
-  },
+  '/img/blue_face.jpg',
+  '/img/hologram_abstract.jpg',
+  '/img/render_3d.jpg',
+  '/img/blue_cubes.jpg',
 ]
-
 const cuttingContainer = ref(null);
 const leftCurtain = ref(null);
 const rightCurtain = ref(null);
+
 const aboutNitro = ref(null);
+
 const aboutFrames = ref([]);
 const aboutTextContainers = ref([]);
 let aboutSplits = [];
@@ -47,30 +31,33 @@ const aboutItems = [
   { digit: 200, progress: '200+'},
   { digit: 97, progress: '97.1%' }
 ]
+
 const caseSection = ref(null);
 const caseItems = ref([]);
 
-const marqueeSection = ref(null);
-const marqueeTitles = ref(null);
 const marqueeItems = [
-  'promotion', 
-  'design', 
-  'target', 
-  'leads', 
-  'content', 
-  'consulting', 
-  'automation', 
-  'research', 
-  'development'
+  'text.promotion', 
+  'text.design', 
+  'text.target', 
+  'text.leads', 
+  'text.content', 
+  'text.consulting', 
+  'text.automation', 
+  'text.research', 
+  'text.development'
 ];
+
 const advantageSection = ref(null);
+const advantageTitles = ref(null);
+const leftAdvantage = ref(null);
+const rightAdvantage = ref(null);
 const rotatingImage = ref(null);
-const advantageSlides = ref([]);
+const advantageTextSlides = ref([]);
 const advantageImages = [
   '/img/advantage/1.jpg',
   '/img/advantage/2.jpg',
   '/img/advantage/3.jpg',
-  '/img/advantage/4.jpg'
+  '/img/advantage/4.jpg',
 ];
 const feedbackSection = ref(null);
 const leftGate = ref(null);
@@ -82,22 +69,14 @@ onBeforeUpdate(() => {
   aboutFrames.value = []
   aboutTextContainers.value = []
   caseItems.value = [];
-  advantageSlides.value = [];
+  priceItems.value = []
+  advantageTextSlides.value = [];
 })
 
 function initGsap() {
-  mm = gsap.matchMedia();
-  mm.add({
-    isDesktop: "(min-width: 769px)",
-    isTablet: "(min-width: 640px) and (max-width: 768px)",
-    isMobile: "(max-width: 639px)",
-  }, (context) => {
-    let { isDesktop, isTablet, isMobile } = context.conditions;
-
-    // HERO TITLE
+  ctx = gsap.context(() => {
     const titles = gsap.utils.toArray("#text_separate h1");
     gsap.set(titles, { overflow: 'hidden' });
-    
     splitTitle.value = new SplitText(titles, { type: "lines", linesClass: "line-child" });
 
     gsap.from(splitTitle.value.lines, {
@@ -109,7 +88,6 @@ function initGsap() {
     });
     gsap.to("#text_separate", { yPercent: 0, opacity: 1, stagger: 0.5, zIndex: 0 })
 
-    // ЛИНИИ (Curtains)
     const curtainTL = gsap.timeline({
       scrollTrigger: {
         trigger: "#line_container",
@@ -117,22 +95,17 @@ function initGsap() {
         end: "+=200%",
         scrub: 1,
         pin: true,
-        // invalidateOnRefresh: true, // Полезно для ресайза
       },
     });
-    
     curtainTL.to([leftLineGrow.value, rightLineGrow.value], {
       height: "100vh", duration: 1, ease: "none", zIndex: 10,
     });
     curtainTL.call(() => { footerNav.value = true; }, [], ">");
     curtainTL.call(() => { footerNav.value = false; }, [], ">");
-    
     curtainTL.to([leftLineGrow.value, rightLineGrow.value], {
-      width: isMobile ? "100vw" : "50vw",
-      duration: 1, ease: "none"
+      width: "50vw", duration: 1, ease: "none"
     });
 
-    // ZOOMING
     const scalingTL = gsap.timeline({
       scrollTrigger: {
         trigger: "#zooming_section",
@@ -142,12 +115,12 @@ function initGsap() {
         pin: true,
       }
     });
-
-    gsap.set(zoomingImgs.value, { scale: 0, opacity: 1 });
+    gsap.set(zoomingImgs.value, { scale: 0 });
     gsap.set(cuttingContainer.value, { scale: 0 });
-    gsap.set(aboutNitro.value, { yPercent: 100, opacity: 0, zIndex: 4 });
 
     curtainTL.to([leftLineGrow.value, rightLineGrow.value], { opacity: 0, duration: 0.1 });
+
+    gsap.set(aboutNitro.value, { yPercent: 100, opacity: 0, zIndex: 4 });
 
     zoomingImgs.value.forEach((img, index) => {
       scalingTL.to(img, {
@@ -161,26 +134,29 @@ function initGsap() {
     });
 
     scalingTL.to(cuttingContainer.value, { scale: 1, duration: 1, ease: 'ease', delay: 0.5 }, 1.25);
-    
-    // Сдвиг шторок
     scalingTL.to([leftCurtain.value, rightCurtain.value], {
-      x: (i) => i === 0 ? (isMobile ? '-60vw' : '-50vw') : (isMobile ? '60vw' : '50vw'),
+      x: (i) => i === 0 ? '-50vw' : '50vw',
       duration: 1.5,
       ease: 'none',
     });
-    
     scalingTL.to(zoomingImgs.value, { opacity: 0, duration: 0.1 }, '<-=0.1');
     scalingTL.fromTo(aboutNitro.value, 
       { opacity: 1, duration: 0.1, ease: 'none'},
       { yPercent: 0, duration: 2, ease: 'none' }, "<");
-
+    
     // ABOUT
     aboutTextContainers.value.forEach(container => {
       const numberTargets = container.querySelectorAll('[data-split-number]');
       const textTargets = container.querySelectorAll('[data-split-text]');
       
-      const numberSplit = new SplitText(numberTargets, { type: "lines", linesClass: "split-line" });
-      const textSplit = new SplitText(textTargets, { type: "words", wordsClass: "split-word" });
+      const numberSplit = new SplitText(numberTargets, { 
+        type: "lines", 
+        linesClass: "split-line",
+      });
+      const textSplit = new SplitText(textTargets, { 
+        type: "words", 
+        wordsClass: "split-word", 
+      });
       aboutSplits.push({ numbers: numberSplit, text: textSplit });
     });
 
@@ -202,111 +178,117 @@ function initGsap() {
         pin: true,
       }
     });
+
     aboutItems.forEach((_, i) => {
       if (i < aboutItems.length - 1) {
-        aboutTL.to(aboutSplits[i].numbers.lines, { yPercent: -100, duration: 1.5, ease: "power2.in" }, `+=${i === 0 ? 0 : 0.5}`);
-        aboutTL.to(aboutSplits[i].text.words, { yPercent: -100, autoAlpha: 0, stagger: 0.03, duration: 1.5 }, `<`);
-        aboutTL.to(aboutFrames.value[i], { scale: 1.05, autoAlpha: 1, duration: 1.5, ease: "power2.in" }, "<");
-        aboutTL.to(aboutFrames.value[i + 1], { scale: 1, autoAlpha: 1, duration: 1.5, ease: "power2.in" }, "<");
-        aboutTL.to(aboutSplits[i + 1].numbers.lines, { yPercent: 0, duration: 0.8, ease: "power2.out" }, "<+=0.5");
-        aboutTL.to(aboutSplits[i + 1].text.words, { yPercent: 0, autoAlpha: 1, stagger: 0.03, duration: 1 }, "<");
+        aboutTL.to(aboutSplits[i].numbers.lines, {
+          yPercent: -100,
+          duration: 1.5,
+          ease: "power2.in",
+        }, `+=${i === 0 ? 0 : 0.5}`);
+
+        aboutTL.to(aboutSplits[i].text.words, {
+          yPercent: -100,
+          autoAlpha: 0,
+          stagger: 0.03,
+          duration: 1.5,
+        }, `<`);
+
+        aboutTL.to(aboutFrames.value[i], {
+          scale: 1.05,
+          autoAlpha: 1,
+          duration: 1.5,
+          ease: "power2.in"
+        }, "<");
+
+        aboutTL.to(aboutFrames.value[i + 1], {
+          scale: 1,
+          autoAlpha: 1,
+          duration: 1.5,
+          ease: "power2.in"
+        }, "<");
+
+        aboutTL.to(aboutSplits[i + 1].numbers.lines, {
+          yPercent: 0,
+          duration: 0.8,
+          ease: "power2.out",
+        }, "<+=0.5");
+
+        aboutTL.to(aboutSplits[i + 1].text.words, {
+          yPercent: 0,
+          autoAlpha: 1, 
+          stagger: 0.03,
+          duration: 1,
+        }, "<");
       }
     });
 
     // CASES
-    const totalCases = caseItems.value.length;
-    gsap.set(
-      caseItems.value.map(el => el.querySelector('.case_item')),
-      {
-        scale: isMobile ? 0.9 : 1,
-        y: isMobile ? "100vh" : undefined,
-        yPercent: isMobile ? 0 : (i) => (i * 10) + 100,
-        autoAlpha: 0
+    const transitionTL = gsap.timeline({
+      scrollTrigger: {
+        trigger: caseSection.value,
+        start: "top bottom",
+        end: "top top",
+        scrub: 1,
       }
-    );
+    });
+    transitionTL.to(aboutFrames.value[aboutFrames.value.length - 1], { autoAlpha: 0, ease: "none" }, 0);
+    transitionTL.to(caseSection.value, { autoAlpha: 1, ease: "none" }, 0);
+
+    gsap.set(caseItems.value.map(item => item.querySelector('.case_item')), {
+      yPercent: (i) => (i * 10) + 100,
+      autoAlpha: 0
+    });
+    
     const casesTL = gsap.timeline({
       scrollTrigger: {
         trigger: caseSection.value,
         start: "top top",
-        end: () => {
-          if (isMobile) return "+=" + (totalCases * 100) + "%";
-          if (isTablet) return "+=" + ((totalCases / 2) * 100) + "%";
-          return "+=200%";
-        },
+        end: "+=200%",
         pin: true,
         scrub: 1,
       }
     });
-    if (isMobile) {
-      caseItems.value.forEach((item, i) => {
-        const card = item.querySelector('.case_item');
-        casesTL
-          .to(card, { yPercent: 50, y: "0vh", autoAlpha: 1, duration: 0.8, ease: "none" })
-          .to(card, { duration: 0.8, scale: 1 })
-          .to(card, { yPercent: 50, y: "-100vh", autoAlpha: 0, duration: 0.8, ease: "none" });
-      });
-    }
-    if (isTablet) {
-      for (let i = 0; i < totalCases; i += 2) {
-        const cards = caseItems.value
-          .slice(i, i + 2)
-          .map(el => el.querySelector('.case_item'));
-        casesTL
-          .to(cards, { yPercent: 0, autoAlpha: 1, duration: 1, ease: "none" })
-          .to(cards, { yPercent: -100, autoAlpha: 0, duration: 1, ease: "none" });
-      }
-    }
-    if (isDesktop) {
-      casesTL.to(
-        caseItems.value.map(item => item.querySelector('.case_item')),
-        { autoAlpha: 1, yPercent: 0, stagger: 0.15, ease: "power1.inOut" }
-      );
-    }
+    casesTL.to(caseItems.value.map(item => item.querySelector('.case_item')), {
+      autoAlpha: 1,
+      yPercent: 0,
+      stagger: 0.15,
+      ease: "power1.inOut",
+    });
 
-    if (marqueeSection.value) {
-      gsap.set(marqueeTitles.value, { xPercent: 0 });
-      gsap.to(marqueeTitles.value, { xPercent: -50, ease: "none", duration: 20, repeat: -1 });
-    }
+    // ADVANTAGE
+    if (advantageSection.value && advantageTextSlides.value.length) {
+      gsap.set(advantageTitles.value, { xPercent: 0 });
+      gsap.to(advantageTitles.value, { xPercent: -50, ease: "none", duration: 20, repeat: -1 });
 
-    // ADVANTAGES
-    if (advantageSection.value) {
-      const slides = advantageSlides.value
-      const total = slides.length
-      if (isMobile) {
-        gsap.set(slides, { autoAlpha: 0, yPercent: 20, position: 'absolute', top: 0, left: 0, width: '100%' })
-        gsap.set(slides[0], { autoAlpha: 1, yPercent: 0 })
-      } else {
-        gsap.set(slides, { position: 'relative', autoAlpha: 1, yPercent: 0 })
-      }
-      gsap.set(rotatingImage.value, { rotationY: 0, transformStyle: 'preserve-3d' })
+      const totalSlides = advantageTextSlides.value.length;
+      const totalTurns = totalSlides - 1;
+
       const advantageTL = gsap.timeline({
         scrollTrigger: {
           trigger: advantageSection.value,
-          start: 'top top',
-          end: `+=${total * 100}%`,
+          start: "top top",
+          end: `+=${totalSlides * 100}%`,
+          // end: `+=600%`,
+          end: () => "+=" + (leftAdvantage.value.scrollHeight - window.innerHeight),
           scrub: 1,
-          pin: isMobile ? true : advantageSection.value,
+          pin: rightAdvantage.value,
+          // pin: true,
           anticipatePin: 1,
         }
-      })
-      for (let i = 0; i < total - 1; i++) {
-        if (isMobile) {
-          advantageTL
-            .to(slides[i], { autoAlpha: 0, yPercent: -20, ease: 'none' })
-            .to(slides[i + 1], { autoAlpha: 1 })
-            .to(slides[i + 1], { autoAlpha: 1, yPercent: 0, ease: 'none' }, '<')
-        } else {
-          advantageTL.to(slides, { yPercent: -(i + 1) * 100, ease: 'none' })
-        }
-        advantageTL.to(rotatingImage.value, { rotationY: '+=180', ease: 'none' }, '<')
-        advantageTL.set(rotatingImage.value, { attr: { src: advantageImages[i + 1] }}, '<50%')
+      });
+
+      for (let i = 0; i < totalTurns; i++) {
+        advantageTL.to(rotatingImage.value, { rotationY: `+=${180}`, ease: 'none', }, `startTurn${i}` );
+        advantageTL.set(rotatingImage.value, { attr: { src: advantageImages[i + 1] }}, `<50%`);
       }
     }
-    
+
     // FEEDBACK
     if (feedbackSection.value) {
-       gsap.set(feedbackNitro.value, { yPercent: 100, zIndex: 0 });
-       const feedbackTL = gsap.timeline({
+      gsap.set(feedbackNitro.value, { yPercent: 100, zIndex: 0 });
+
+      const feedbackTL = gsap.timeline({
         scrollTrigger: {
           trigger: feedbackSection.value,
           start: "top top",
@@ -316,21 +298,59 @@ function initGsap() {
         }
       });
       feedbackTL.to([leftGate.value, rightGate.value], {
-        x: (i) => (i === 0 ? (isMobile ? '-60vw' : '-50vw') : (isMobile ? '60vw' : '50vw')),
+        x: (i) => (i === 0 ? '-50vw' : '50vw'),
         duration: 1.5,
         ease: 'none',
       }, "+=0.5");
-      feedbackTL.to(feedbackNitro.value, { yPercent: 0, duration: 2, zIndex: 7, ease: 'none' }, "<"); 
+      feedbackTL.to(feedbackNitro.value, { 
+        yPercent: 0, 
+        duration: 2,
+        zIndex: 7, 
+        ease: 'none'
+      }, "<"); 
     }
 
-  });
+  })
 }
 
 function cleanGsap() {
-  if (mm) mm.revert();
-  mm = null
+  if (ctx) ctx.revert()
+  if (splitTitle.value) splitTitle.value.revert()
+  if (aboutSplits.length) {
+    aboutSplits.forEach(split => {
+      if(split.numbers) split.numbers.revert()
+      if(split.text) split.text.revert()
+    });
+    aboutSplits = []
+  }
+  ctx = null
   splitTitle.value = null
-  aboutSplits = []
+  zoomingImgs.value = []
+  cuttingContainer.value = null
+  leftLineGrow.value = null
+  rightLineGrow.value = null
+  leftCurtain.value = null
+  rightCurtain.value = null
+  aboutNitro.value = null
+
+  aboutFrames.value = []
+  aboutTextContainers.value = []
+
+  caseSection.value = null
+  caseItems.value = []
+
+  advantageSection.value = null
+  advantageTitles.value = null
+
+  rightAdvantage.value = null
+  leftAdvantage.value = null
+  rotatingImage.value = null
+  advantageTextSlides.value = []
+
+  feedbackSection.value = null;
+  leftGate.value = null;
+  rightGate.value = null;
+  feedbackNitro.value = null
 }
 
 watch(() => smoother.value, (newSmooth, oldSmooth) => {
@@ -370,27 +390,23 @@ onUnmounted(() => { cleanGsap() })
 
     <section id="zooming_section">
       <div class="relative w-screen h-screen overflow-hidden">
-        <picture v-for="(item, index) in zoomingImages"
-          :key="index"
+        <img v-for="(image, index) in zoomingImages"
+          :key="image"
           :ref="el => { if (el) zoomingImgs[index] = el }"
+          :src="image"
           class="zooming_img"
-          :style="{ zIndex: index + 1 }" >
-          <source media="(max-width: 639px)" :srcset="item.mobile" />
-          <source media="(max-width: 768px)" :srcset="item.tablet" />
-          <img :src="item.desktop" alt="Zooming" class="zooming_img" />
-        </picture>
+          :style="{ zIndex: index + 1 }" 
+        />
 
         <div id="about" ref="aboutNitro" class="absolute top-0 left-0 w-full h-full bg-white py-8">
-          <div class="section">
-            <div class="px-4 sm:px-20 md:px-32 mb-8">
-              <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold uppercase z-0">
-                {{ $t('title.about.name') }}
-              </h2>
-              <p class="text-lg sm:text-xl md:text-2xl ml-10 md:ml-20 uppercase">
-                {{ $t('title.about.desc') }}
-              </p>
-            </div>
-            <div class="bg-[url(/img/bg_about.jpg)] bg-no-repeat bg-contain pb-[56.25%] w-full"></div>
+          <div class="section px-32">
+            <h2 class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase z-0">
+              {{ $t('title.about.name') }}
+            </h2>
+            <p class="text-2xl ml-10 md:ml-20 uppercase">
+              {{ $t('title.about.desc') }}
+            </p>
+            <div class="bg-[url(/img/bg_about.jpg)] bg-no-repeat bg-contain pb-[56.25%]"></div>
           </div>
         </div>
 
@@ -414,7 +430,7 @@ onUnmounted(() => { cleanGsap() })
           <div :ref="el => { if(el) aboutTextContainers[i] = el }" class="relative w-full h-full p-4">
             <div class="absolute top-4 left-4 z-0">
               <div class="overflow-hidden">
-                <h2 data-split-number class="text-white/10 text-9xl sm:text-[12rem] md:text-[20rem] leading-60 font-black">
+                <h2 data-split-number class="text-white/30 text-[20rem] leading-60 font-black">
                   {{ item.digit }}
                 </h2>
               </div>
@@ -422,7 +438,7 @@ onUnmounted(() => { cleanGsap() })
             <div class="relative flex flex-col items-stretch justify-evenly h-full max-w-3xl mx-auto text-center z-5">
               <div class="flex flex-col gap-4 items-center">
                 <div class="overflow-hidden">
-                  <h2 data-split-number class="text-6xl sm:text-8xl md:text-9xl font-bold text-center uppercase text-primary">
+                  <h2 data-split-number class="text-9xl font-bold text-center uppercase text-primary">
                     {{ item.progress }}
                   </h2>
                 </div>
@@ -439,15 +455,15 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section id="cases" ref="caseSection" class="relative bg-cover bg-center bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)]">
-      <div class="sticky top-0 h-screen w-full flex items-center justify-center">
-        <div class="section block sm:grid sm:grid-cols-2 xl:grid-cols-4 sm:gap-x-4 sm:gap-y-8 w-full h-full">
-          <div v-for="(n, i) in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }" class="relative">
-            <div class="case_item absolute top-0 left-0 flex flex-col gap-2 w-full xl:w-60">
-              <img :src="`/img/case/${n}.jpg`" class="w-full h-full object-contain rounded-xl" />
+    <section id="cases" ref="caseSection" class="relative opacity-0 bg-cover bg-center bg-no-repeat bg-fixed bg-[url(/img/bg_cases.jpg)]">
+      <div class="sticky top-0 h-screen w-full flex items-center justify-center p-4">
+        <div class="section grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-8 w-full h-full">
+          <div v-for="i in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }" class="relative">
+            <div class="case_item absolute w-60 top-0 left-0 flex flex-col gap-2">
+              <img :src="`/img/case/${i}.jpg`" class="w-full h-full object-cover rounded-xl" />
               <div>
-                <h2 class="uppercase font-bold">{{ $t(`title.case_${n}.name`) }}</h2>
-                <p class="font-light text-sm leading-4">{{ $t(`title.case_${n}.desc`) }}</p>
+                <h2 class="uppercase font-bold">{{ $t(`title.case_${i}.name`) }}</h2>
+                <p class="font-light text-sm leading-4">{{ $t(`title.case_${i}.desc`) }}</p>
               </div>
             </div>
           </div>
@@ -471,41 +487,58 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section ref="marqueeSection">
-      <div class="bg-white py-10 whitespace-nowrap w-full z-10 overflow-hidden">
-        <div ref="marqueeTitles" class="flex items-center w-fit will-change-transform">
-          <div v-for="(n, k) in 2" :key="k" class="flex items-center gap-8 sm:gap-12 pr-8 sm:pr-12 text-lg sm:text-2xl font-bold uppercase">
-            <p v-for="(item, i) in marqueeItems" :key="i">
-              {{ $t(`text.${item}`) }}
+    <section id="partnership" ref="advantageSection" class="relative overflow-hidden">
+      <div class="bg-white py-10 whitespace-nowrap absolute top-0 left-0 w-full z-10 overflow-hidden">
+        <div ref="advantageTitles" class="flex items-center w-fit will-change-transform">
+          <div class="flex items-center gap-12 pr-12 text-2xl font-bold uppercase">
+            <p v-for="(item, i) in marqueeItems" :key="`set1-${i}`">
+              {{ $t(item) }}
+            </p>
+          </div>
+          <div class="flex items-center gap-12 pr-12 text-2xl font-bold uppercase">
+            <p v-for="(item, i) in marqueeItems" :key="`set2-${i}`">
+              {{ $t(item) }}
             </p>
           </div>
         </div>
       </div>
-    </section>
 
-    <section ref="advantageSection" class="relative overflow-hidden bg-gray-200 h-screen">
-      <div class="relative z-[5] flex flex-col sm:grid sm:grid-cols-2 min-h-screen">
-        <div class="relative overflow-hidden h-[40vh] sm:h-full flex items-center justify-center sm:block">
-          <div class="relative sm:block w-full">
-            <div v-for="(n, i) in 4" :key="i" :ref="el => advantageSlides[i] = el"
-              class="flex items-center justify-center px-6 h-full sm:h-screen">
-              <div class="max-w-sm text-center sm:text-left">
-                <h2 class="text-xl sm:text-3xl font-bold uppercase">
-                  {{ $t(`partner.frame_${i + 1}.name`) }}
-                </h2>
-                <p>{{ $t(`partner.frame_${i + 1}.desc`) }}</p>
-              </div>
+      <div class="grid grid-cols-2 relative z-[5] bg-gray-200">
+        <div ref="leftAdvantage" class="col-span-1 relative z-5 bg-no-repeat bg-bottom border-r border-gray-300">
+          <div :ref="el => { if(el) advantageTextSlides[0] = el }" class="h-screen flex items-center justify-center">
+            <div class="max-w-80">
+              <h1 class="text-3xl font-bold uppercase">{{ $t('partner.frame_1.name') }}</h1>
+              <p class="font-regular">{{ $t('partner.frame_1.desc') }}</p>
+            </div>
+          </div>
+          <div :ref="el => { if(el) advantageTextSlides[1] = el }" class="h-screen flex items-center justify-end">
+            <div class="max-w-80 lg:max-w-96 pr-10">
+              <h1 class="text-3xl font-bold uppercase">{{ $t('partner.frame_2.name') }}</h1>
+              <p class="font-regular">{{ $t('partner.frame_2.desc') }}</p>
+            </div>
+          </div>
+          <div :ref="el => { if(el) advantageTextSlides[2] = el }" class="h-screen flex items-center justify-start">
+            <div class="max-w-80 lg:max-w-96 pl-10">
+              <h1 class="text-3xl font-bold uppercase">{{ $t('partner.frame_3.name') }}</h1>
+              <p class="font-regular">{{ $t('partner.frame_3.desc') }}</p>
+            </div>
+          </div>
+          <div :ref="el => { if(el) advantageTextSlides[3] = el }" class="h-screen flex items-center justify-end">
+            <div class="max-w-80 lg:max-w-96 pr-10">
+              <h1 class="text-3xl font-bold uppercase">{{ $t('partner.frame_4.name') }}</h1>
+              <p class="font-regular">{{ $t('partner.frame_4.desc') }}</p>
             </div>
           </div>
         </div>
-        <div class="relative h-[60vh] sm:h-screen flex items-center justify-center sm:border-l sm:border-gray-300">
+
+        <div ref="rightAdvantage" class="relative top-0 h-screen flex items-center justify-center border-l border-gray-300">
           <div style="perspective: 1000px;">
-            <img ref="rotatingImage" :src="advantageImages[0]" class="w-60 xl:w-80 scale-x-[-1]" />
+            <img ref="rotatingImage" :src="advantageImages[0]" alt="Advantage Image" 
+              class="w-60 2xl:w-80 scale-x-[-1]" style="transform-style: preserve-3d;" />
           </div>
         </div>
       </div>
     </section>
-
 
     <section id="team" ref="feedbackSection" class="relative">
       <div class="sticky top-0 h-screen w-full overflow-hidden bg-primary">
@@ -516,9 +549,12 @@ onUnmounted(() => { cleanGsap() })
             </h1>
           </div>
           <div ref="rightGate" class="gate bg-white flex items-center justify-center border-l border-gray-300">
+
             <div class="flex flex-col items-center justify-center gap-2 max-w-80">
               <div class="mb-4 overflow-hidden">
-                <img src="/img/team/team_1.jpg" :alt="$t(`title.team.name`)" 
+                <img 
+                  src="/img/team/team_1.jpg" 
+                  :alt="$t(`title.team.name`)" 
                   class="w-60 h-90 object-cover origin-center" />
               </div>
               <div class="flex flex-col h-36">
@@ -532,6 +568,8 @@ onUnmounted(() => { cleanGsap() })
                 </a>
               </div>
             </div>
+
+
           </div>
         </div>
 

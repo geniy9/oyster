@@ -6,7 +6,7 @@ const { footerNav } = useConfig()
 <template>
   <footer class="relative">
 
-    <div class="lets_discuss right-0 z-20">
+    <div class="hidden md:block lets_discuss fixed top-1/2 -translate-y-1/2 right-0 z-20">
       <a href="t.me/oystercomputer" target="_blank">
         {{ $t('text.lets_discuss') }}
       </a>

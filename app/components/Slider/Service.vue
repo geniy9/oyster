@@ -126,11 +126,11 @@ function onClickNext() { changeSlide('next') }
         class="col-start-1 row-start-1 w-full h-full flex items-center"
         style="visibility: hidden;">
 
-        <div class="flex flex-col-reverse md:flex-row justify-center items-center md:items-stretch w-full gap-6 md:gap-12">
+        <div class="flex flex-col-reverse md:flex-row justify-center items-center md:items-stretch w-full gap-2 sm:gap-6 md:gap-12">
           
           <!-- TEXT -->
           <div class="w-full md:w-1/2 flex flex-col justify-center items-start relative z-10 px-4 md:px-0 md:pl-8 pb-2 md:pb-0">
-            <div class="flex flex-col gap-4 max-w-80 self-end">
+            <div class="flex flex-col gap-2 sm:gap-4 max-w-80 self-center sm:self-end text-center sm:text-left">
               <div class="overflow-hidden">
                 <h3 :ref="el => { if(el) titleRefs[index] = el }" class="uppercase font-bold text-2xl md:text-4xl">
                   <span v-html="$t(item.title1)"></span><br />
@@ -162,7 +162,7 @@ function onClickNext() { changeSlide('next') }
     </div>
 
     <!-- NAV (COUNTER + BUTTONS) -->
-    <div class="flex flex-col items-center md:items-start gap-4 mt-6 md:mt-0 md:absolute md:bottom-10 md:left-8 z-30">
+    <div class="flex flex-col items-center md:items-start gap-2 sm:gap-4 md:absolute md:bottom-10 md:left-8 z-30">
       
       <!-- COUNTER -->
       <div class="w-full text-center text-xl md:text-2xl font-light tabular-nums">

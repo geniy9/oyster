@@ -214,55 +214,6 @@ function initGsap() {
     });
 
     // CASES
-    // const totalCases = caseItems.value.length;
-    // gsap.set(
-    //   caseItems.value.map(el => el.querySelector('.case_item')),
-    //   {
-    //     scale: isMobile ? 0.9 : 1,
-    //     y: isMobile ? "100vh" : undefined,
-    //     yPercent: isMobile ? 0 : (i) => (i * 10) + 100,
-    //     autoAlpha: 0
-    //   }
-    // );
-    // const casesTL = gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: caseSection.value,
-    //     start: "top top",
-    //     end: () => {
-    //       if (isMobile) return "+=" + (totalCases * 100) + "%";
-    //       if (isTablet) return "+=" + ((totalCases / 2) * 100) + "%";
-    //       return "+=200%";
-    //     },
-    //     pin: true,
-    //     pinType: isMobile ? 'fixed' : 'transform',
-    //     scrub: 1,
-    //   }
-    // });
-    // if (isMobile) {
-    //   caseItems.value.forEach((item, i) => {
-    //     const card = item.querySelector('.case_item');
-    //     casesTL
-    //       .to(card, { yPercent: 50, y: "0vh", autoAlpha: 1, duration: 0.8, ease: "none" })
-    //       .to(card, { duration: 0.8, scale: 1 })
-    //       .to(card, { yPercent: 50, y: "-100vh", autoAlpha: 0, duration: 0.8, ease: "none" });
-    //   });
-    // }
-    // if (isTablet) {
-    //   for (let i = 0; i < totalCases; i += 2) {
-    //     const cards = caseItems.value
-    //       .slice(i, i + 2)
-    //       .map(el => el.querySelector('.case_item'));
-    //     casesTL
-    //       .to(cards, { yPercent: 0, autoAlpha: 1, duration: 1, ease: "none" })
-    //       .to(cards, { yPercent: -100, autoAlpha: 0, duration: 1, ease: "none" });
-    //   }
-    // }
-    // if (isDesktop) {
-    //   casesTL.to(
-    //     caseItems.value.map(item => item.querySelector('.case_item')),
-    //     { autoAlpha: 1, yPercent: 0, stagger: 0.15, ease: "power1.inOut" }
-    //   );
-    // }
 
     if (marqueeSection.value) {
       gsap.set(marqueeTitles.value, { xPercent: 0 });
@@ -340,8 +291,8 @@ onUnmounted(() => { cleanGsap() })
   <div class="w-full relative">
 
     <section id="introduction" class="relative flex flex-col justify-center items-center h-screen">
-      <div class="fixed lg:min-w-lg xl:min-w-2xl" aria-hidden="true">
-        <h1 class="text_separate will-change-transform text-4xl xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase h-20 xs:h-24 sm:h-28 lg:h-36 xl:h-48">
+      <div class="lg:min-w-lg xl:min-w-2xl" aria-hidden="true">
+        <h1 class="text_separate will-change-transform text-4xl xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black uppercase h-20 xs:h-24 sm:h-28 lg:h-36 xl:h-48">
           <span class="block">
             {{ $t('title.internet') }}
           </span>
@@ -430,21 +381,6 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <!-- <section id="cases" ref="caseSection" class="relative bg-cover bg-center bg-no-repeat sm:bg-fixed bg-[url(/img/bg_cases.jpg)]">
-      <div class="sticky top-0 h-screen w-full flex items-center justify-center">
-        <div class="section block sm:grid sm:grid-cols-2 xl:grid-cols-4 sm:gap-x-4 sm:gap-y-8 w-full h-full">
-          <div v-for="(n, i) in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }" class="relative">
-            <div class="case_item absolute top-0 left-0 flex flex-col gap-2 w-full xl:w-60">
-              <img :src="`/img/case/${n}.jpg`" class="w-full h-full object-contain rounded-xl" />
-              <div>
-                <h2 class="uppercase font-bold">{{ $t(`title.case_${n}.name`) }}</h2>
-                <p class="font-light text-sm leading-4">{{ $t(`title.case_${n}.desc`) }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
     <section id="cases" class="relative bg-cover bg-center bg-no-repeat sm:bg-fixed bg-[url(/img/bg_cases_mob.jpg)] xs:bg-[url(/img/bg_cases_tab.jpg)] lg:bg-[url(/img/bg_cases.jpg)]">
       <div class="min-h-screen w-full flex items-center justify-center py-10">
         <div class="section grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6 w-full h-full">
@@ -462,7 +398,7 @@ onUnmounted(() => { cleanGsap() })
     </section>
 
     <section id="services" ref="serviceSection" class="relative min-h-screen bg-white">
-      <div class="pb-8">
+      <div class="pb-8 text-center sm:text-left">
         <div class="bg-primary py-2">
           <h1 class="section text-2xl font-bold uppercase">
             {{ $t('title.service.name') }}

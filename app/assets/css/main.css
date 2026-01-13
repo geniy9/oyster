@@ -80,6 +80,6 @@
     @apply relative w-1/2 h-full overflow-hidden bg-primary z-10; 
   }
   .gate h2 {
-    @apply absolute top-1/2 -translate-y-1/2 text-center font-bold w-screen text-2xl sm:text-3xl md:text-4xl; 
+    @apply absolute top-1/2 -translate-y-1/2 text-center font-black w-screen text-xl xs:text-2xl sm:text-3xl md:text-4xl; 
   }
 }

@@ -20,7 +20,7 @@ const isOpen = ref(false)
               variant="solid" 
               size="sm" 
               class="font-bold uppercase w-32" />
-            <ToggleLocale />
+            <ToggleLocale class="hidden sm:block" />
           </div>
 
           <template #header>

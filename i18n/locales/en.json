@@ -17,27 +17,26 @@
     "internet": "Internet",
     "marketing": "Marketing",
     "for_your_business": "For your business and personal brand",
-    "advertising_agency": "We provide premium services <br \\/>In the field of Digital Marketing <br \\/>It’s a pleasure to work with us <br \\/>And earn money.",
+    "advertising_agency": "We provide premium services <br \\/>In the field of Digital-Marketing. <br \\/>It’s a pleasure to work with us <br \\/>And earn money",
     "about": {
       "name": "About us",
-      "desc": "We are a full-service marketing agency. Our team combines strategy, creativity, and analytics to help your business grow faster than the competition. We understand the market and speak the language of numbers, not promises."
+      "desc": "We are - A full-service marketing agency. <br \\/>Our team combines strategy, creativity and analytics, <br \\/>to help your business grow faster than the competition. <br \\/>We understand the market and speak the language of numbers, not promises"
     },
     "about_1": {
-      "name": "In the digital industry",
-      "desc": "This is our foundation. We have walked the path with the market, from the first SMM experiments to advanced analytics and automation. Now this experience works for you."
+      "name": "In the Digital-industry",
+      "desc": "And this is our foundation. Together with the market, we have traveled the path from the first <br \\/>Digital experiments to advanced analytics and automation. <br \\/>Now this experience works for you"
     },
     "about_2": {
       "name": "Completed projects in 5 countries",
-      "desc": "Over this time, we have accumulated practical experience working in various niches and with companies of all sizes-from local startups to international brands."
+      "desc": "During this time we have accumulated experience in various niches <br \\/>with companies of any scale - from local startups <br \\/>to international brands"
     },
     "about_3": {
       "name": "Customer Satisfaction Index",
-      "desc": "This indicator is the result of an individual approach and complete immersion in each project",
-      "notice": "* according to research conducted by Oyster Computer on November 24, 2023"
+      "desc": "This indicator - is the result of an individual approach <br \\/>and complete immersion in each project"
     },
     "case_1": {
-      "name": "WATCHBOX",
-      "desc": "Lead generation (Middle East)"
+      "name": "THE 1916 COMPANY <br \\/>(EX WATCHBOX)",
+      "desc": "Lead generation <br \\/>(Middle East)"
     },
     "case_2": {
       "name": "YouDo",
@@ -45,11 +44,11 @@
     },
     "case_3": {
       "name": "CETUS",
-      "desc": "Conducting a marketing campaign with onboarding elements"
+      "desc": "Conducting a marketing campaign <br \\/>with onboarding elements"
     },
     "case_4": {
       "name": "ALLU Auction",
-      "desc": "Lead generation (UAE, Hong Kong)"
+      "desc": "Lead generation <br \\/>(UAE, Hong Kong)"
     },
     "case_5": {
       "name": "GATE",
@@ -65,49 +64,57 @@
     },
     "case_8": {
       "name": "AX CAPITAL",
-      "desc": "Lead generation (CIS countries)"
+      "desc": "Lead generation <br \\/>(CIS countries)"
     },
     "service": {
       "name": "Services",
-      "desc": "A complete list of marketing tools and practices to scaling your business and promoting a personal brand"
+      "desc": "A complete list of marketing tools and practices to scaling your business <br \\/>and promoting a personal brand"
     },
     "service_1": {
-      "name": "Online Promotion",
-      "desc": "Social media, lead generation, (PPC, targeted ads), online reputation management (ORM), PR, email marketing, and other tools"
+      "name1": "Online",
+      "name2": "Promotion",
+      "desc": "Social media, lead generation, <br \\/>(PPC, targeted ads), online reputation <br \\/>management (ORM), PR, email marketing, <br \\/>and other tools"
     },
     "service_2": {
-      "name": "Full-Cycle Development",
-      "desc": "Websites, mobile apps, CRM systems, Telegram bots, web design, presentations"
+      "name1": "Full-Cycle",
+      "name2": "Development",
+      "desc": "Websites, mobile apps, <br \\/>CRM systems, Telegram bots, <br \\/>web design, presentations"
     },
     "service_3": {
-      "name": "Original Content Creation",
-      "desc": "Thematic copywriting, photo/video content, AI-generated content"
+      "name1": "Original",
+      "name2": "Content Creation",
+      "desc": "Thematic copywriting, <br \\/>photo/video content, AI-generated content"
     },
     "service_4": {
-      "name": "Digital Consulting",
-      "desc": "Marketing strategy, process automation, employee training"
+      "name1": "Digital",
+      "name2": "Consulting",
+      "desc": "Marketing strategy, <br \\/>process automation, <br \\/>employee training"
     },
     "team": {
-      "name": "Join the team",
-      "desc": "Our digital marketing expertise allows us to make quick decisions and deliver meaningful results. We have open vacancies. Leave a request with your contact details to find out more."
+      "name": "Join <br \\/>the team",
+      "desc": "Digital marketing expertise <br \\/>allows us to make decisions quickly <br \\/>and demonstrate serious results. <br \\/>We have open vacancies. Leave a request <br \\/>with your details to find out more"
     }
   },
   "partner": {
     "frame_1": {
-      "name": "Highly Recommended",
-      "desc": "We work with both large enterprises and startups."
+      "name1": "Highly",
+      "name2": "Recommended",
+      "desc": "We work with both large enterprises <br \\/>and startups"
     },
     "frame_2": {
-      "name": "Comprehensive Approach",
-      "desc": "From strategy and branding to lead generation and analytics - we cover the full digital marketing cycle."
+      "name1": "Comprehensive",
+      "name2": "Approach",
+      "desc": "From strategy and branding to lead generation <br \\/>and analytics - we cover the full <br \\/>digital marketing cycle"
     },
     "frame_3": {
-      "name": "Maximum Involvement",
-      "desc": "Complete immersion in your business niche for maximum effectiveness."
+      "name1": "Maximum",
+      "name2": "Involvement",
+      "desc": "Complete immersion in your business niche <br \\/>for maximum effectiveness"
     },
     "frame_4": {
-      "name": "Tailored Solutions",
-      "desc": "Every project is unique. We avoid cookie-cutter solutions and develop a strategy that works specifically for your business."
+      "name1": "Tailored",
+      "name2": "Solutions",
+      "desc": "Every project is unique. <br \\/>We avoid cookie-cutter solutions <br \\/>and develop a strategy that works <br \\/>specifically for your business"
     }
   },
   "feedback": {
@@ -117,8 +124,7 @@
     "form": {
       "name": "YOUR NAME *",
       "phone": "YOUR PHONE NUMBER *",
-      "agreement": "I CONSENT",
-      "agreement_desc": "FOR PROCESSING PERSONAL DATA",
+      "agreement": "I CONSENT <br \\/>FOR PROCESSING PERSONAL DATA",
       "send": "Submit"
     }
   },

@@ -13,8 +13,9 @@ const slides = computed(() => {
     items.push({
       index: i,
       img: `/img/service/${i}.jpg`, 
-      titleKey: `title.service_${i}.name`,
-      descKey: `title.service_${i}.desc`
+      title1: `title.service_${i}.name1`,
+      title2: `title.service_${i}.name2`,
+      desc: `title.service_${i}.desc`
     });
   }
   return items.slice(0, props.qty);
@@ -78,10 +79,10 @@ function changeSlide(direction) {
   });
 
   gsap.set(nextSlide, { zIndex: 2, autoAlpha: 1 }); 
-  gsap.set(currentSlide, { zIndex: 1 }); // Старый под низ
+  gsap.set(currentSlide, { zIndex: 1 });
 
-  gsap.set(nextImg, { scale: 1.2 }); // Картинка увеличена
-  gsap.set([nextTitle, nextDesc], { yPercent: 100 }); // Текст спрятан внизу
+  gsap.set(nextImg, { scale: 1.2 });
+  gsap.set([nextTitle, nextDesc], { yPercent: 100 });
 
   tl.to([currentTitle, currentDesc], {
     yPercent: -100,
@@ -99,13 +100,13 @@ function changeSlide(direction) {
 
   tl.to(nextImg, {
     scale: 1, // Zoom к нормальному размеру
-    opacity: 1, // Если нужно плавное появление
+    opacity: 1, // плавное появление
     duration: 0.8,
     ease: 'power2.out'
   }, 0.2); // Чуть раньше текста
 
   tl.to([nextTitle, nextDesc], {
-    yPercent: 0, // Всплывает снизу
+    yPercent: 0, // всплытие снизу
     duration: 0.8,
     ease: 'power2.out',
     stagger: 0.05
@@ -131,13 +132,15 @@ function onClickNext() { changeSlide('next') }
           <div class="w-full md:w-1/2 flex flex-col justify-center items-start relative z-10 px-4 md:px-0 md:pl-8 pb-2 md:pb-0">
             <div class="flex flex-col gap-4 max-w-80 self-end">
               <div class="overflow-hidden">
-                <h3 :ref="el => { if(el) titleRefs[index] = el }" class="uppercase font-bold text-2xl md:text-4xl leading-tight">
-                  {{ $t(item.titleKey) }}
+                <h3 :ref="el => { if(el) titleRefs[index] = el }" class="uppercase font-bold text-2xl md:text-4xl">
+                  <span v-html="$t(item.title1)"></span><br />
+                  <span v-html="$t(item.title2)" class="text-primary"></span>
                 </h3>
               </div>
               <div class="overflow-hidden">
-                <p :ref="el => { if(el) descriptionRefs[index] = el }" class="text-sm md:text-base font-light uppercase">
-                  {{ $t(item.descKey) }}
+                <p :ref="el => { if(el) descriptionRefs[index] = el }" 
+                  v-html="$t(item.desc)"
+                  class="text-sm md:text-base uppercase">
                 </p>
               </div>
             </div>
@@ -149,7 +152,7 @@ function onClickNext() { changeSlide('next') }
             <div class="w-72 h-128 overflow-hidden rounded-xl relative shrink-0">
               <img :ref="el => { if(el) imageRefs[index] = el }"
                 :src="item.img" 
-                :alt="$t(item.titleKey)" 
+                :alt="$t(item.title1)" 
                 class="w-full h-full object-cover origin-center absolute inset-0" />
             </div>
           </div>
@@ -170,16 +173,15 @@ function onClickNext() { changeSlide('next') }
 
       <!-- BUTTONS -->
       <div class="flex items-center gap-2">
+        <a href="t.me/oystercomputer" target="_blank" class="group flex items-center justify-center p-2 w-44 h-10 rounded-full border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs font-bold">
+          {{ $t('text.lets_discuss') }}
+        </a>
         <div @click="onClickPrev" class="group flex items-center justify-center p-2 w-10 h-10 rounded-full border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300">
           <UIcon name="mynaui:arrow-long-left" class="h-6 w-6 duration-300" />
         </div>
         <div @click="onClickNext" class="group flex items-center justify-center p-2 w-10 h-10 rounded-full border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300">
           <UIcon name="mynaui:arrow-long-right" class="h-6 w-6" />
         </div>
-
-        <a href="t.me/oystercomputer" target="_blank" class="group flex items-center justify-center p-2 w-44 h-10 rounded-full border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs font-bold">
-          {{ $t('text.lets_discuss') }}
-        </a>
       </div>
     </div>
 

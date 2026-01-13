@@ -83,9 +83,9 @@ async function onSubmit(event) {
       <UFormField name="agreement" required class="w-80 mx-auto">
         <UCheckbox 
           v-model="state.agreement"
-          :label="$t('feedback.form.agreement')" 
-          :description="$t('feedback.form.agreement_desc')" 
-          color="neutral" size="xl" :ui="{ root: 'flex flex-col items-center', label: 'text-black', description: 'text-xs text-black/70' }" />
+          color="primary" size="xl" 
+          :ui="{ root: 'flex flex-col items-center'}" />
+        <span v-html="$t('feedback.form.agreement')" class="font-bold"></span>
       </UFormField>
 
       <UButton 

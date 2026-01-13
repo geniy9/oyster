@@ -17,17 +17,17 @@ const zoomingImages = [{
   tablet: '/img/blue_face_tab.jpg',
   mobile: '/img/blue_face_mob.jpg',
 },{
-  desktop: '/img/hologram_abstract.jpg',
-  tablet: '/img/hologram_abstract_tab.jpg',
-  mobile: '/img/hologram_abstract_mob.jpg',
+  desktop: '/img/hologram_green.jpg',
+  tablet: '/img/hologram_green_tab.jpg',
+  mobile: '/img/hologram_green_mob.jpg',
 },{
   desktop: '/img/render_3d.jpg',
   tablet: '/img/render_3d_tab.jpg',
   mobile: '/img/render_3d_mob.jpg',
 },{
-  desktop: '/img/blue_cubes.jpg',
-  tablet: '/img/blue_cubes_tab.jpg',
-  mobile: '/img/blue_cubes_mob.jpg',
+  desktop: '/img/sea_water.jpg',
+  tablet: '/img/sea_water_tab.jpg',
+  mobile: '/img/sea_water_mob.jpg',
 }]
 const cuttingContainer = ref(null);
 const leftCurtain = ref(null);
@@ -214,55 +214,55 @@ function initGsap() {
     });
 
     // CASES
-    const totalCases = caseItems.value.length;
-    gsap.set(
-      caseItems.value.map(el => el.querySelector('.case_item')),
-      {
-        scale: isMobile ? 0.9 : 1,
-        y: isMobile ? "100vh" : undefined,
-        yPercent: isMobile ? 0 : (i) => (i * 10) + 100,
-        autoAlpha: 0
-      }
-    );
-    const casesTL = gsap.timeline({
-      scrollTrigger: {
-        trigger: caseSection.value,
-        start: "top top",
-        end: () => {
-          if (isMobile) return "+=" + (totalCases * 100) + "%";
-          if (isTablet) return "+=" + ((totalCases / 2) * 100) + "%";
-          return "+=200%";
-        },
-        pin: true,
-        pinType: isMobile ? 'fixed' : 'transform',
-        scrub: 1,
-      }
-    });
-    if (isMobile) {
-      caseItems.value.forEach((item, i) => {
-        const card = item.querySelector('.case_item');
-        casesTL
-          .to(card, { yPercent: 50, y: "0vh", autoAlpha: 1, duration: 0.8, ease: "none" })
-          .to(card, { duration: 0.8, scale: 1 })
-          .to(card, { yPercent: 50, y: "-100vh", autoAlpha: 0, duration: 0.8, ease: "none" });
-      });
-    }
-    if (isTablet) {
-      for (let i = 0; i < totalCases; i += 2) {
-        const cards = caseItems.value
-          .slice(i, i + 2)
-          .map(el => el.querySelector('.case_item'));
-        casesTL
-          .to(cards, { yPercent: 0, autoAlpha: 1, duration: 1, ease: "none" })
-          .to(cards, { yPercent: -100, autoAlpha: 0, duration: 1, ease: "none" });
-      }
-    }
-    if (isDesktop) {
-      casesTL.to(
-        caseItems.value.map(item => item.querySelector('.case_item')),
-        { autoAlpha: 1, yPercent: 0, stagger: 0.15, ease: "power1.inOut" }
-      );
-    }
+    // const totalCases = caseItems.value.length;
+    // gsap.set(
+    //   caseItems.value.map(el => el.querySelector('.case_item')),
+    //   {
+    //     scale: isMobile ? 0.9 : 1,
+    //     y: isMobile ? "100vh" : undefined,
+    //     yPercent: isMobile ? 0 : (i) => (i * 10) + 100,
+    //     autoAlpha: 0
+    //   }
+    // );
+    // const casesTL = gsap.timeline({
+    //   scrollTrigger: {
+    //     trigger: caseSection.value,
+    //     start: "top top",
+    //     end: () => {
+    //       if (isMobile) return "+=" + (totalCases * 100) + "%";
+    //       if (isTablet) return "+=" + ((totalCases / 2) * 100) + "%";
+    //       return "+=200%";
+    //     },
+    //     pin: true,
+    //     pinType: isMobile ? 'fixed' : 'transform',
+    //     scrub: 1,
+    //   }
+    // });
+    // if (isMobile) {
+    //   caseItems.value.forEach((item, i) => {
+    //     const card = item.querySelector('.case_item');
+    //     casesTL
+    //       .to(card, { yPercent: 50, y: "0vh", autoAlpha: 1, duration: 0.8, ease: "none" })
+    //       .to(card, { duration: 0.8, scale: 1 })
+    //       .to(card, { yPercent: 50, y: "-100vh", autoAlpha: 0, duration: 0.8, ease: "none" });
+    //   });
+    // }
+    // if (isTablet) {
+    //   for (let i = 0; i < totalCases; i += 2) {
+    //     const cards = caseItems.value
+    //       .slice(i, i + 2)
+    //       .map(el => el.querySelector('.case_item'));
+    //     casesTL
+    //       .to(cards, { yPercent: 0, autoAlpha: 1, duration: 1, ease: "none" })
+    //       .to(cards, { yPercent: -100, autoAlpha: 0, duration: 1, ease: "none" });
+    //   }
+    // }
+    // if (isDesktop) {
+    //   casesTL.to(
+    //     caseItems.value.map(item => item.querySelector('.case_item')),
+    //     { autoAlpha: 1, yPercent: 0, stagger: 0.15, ease: "power1.inOut" }
+    //   );
+    // }
 
     if (marqueeSection.value) {
       gsap.set(marqueeTitles.value, { xPercent: 0 });
@@ -379,9 +379,7 @@ onUnmounted(() => { cleanGsap() })
               <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold uppercase z-0">
                 {{ $t('title.about.name') }}
               </h2>
-              <p class="text-lg sm:text-xl md:text-2xl ml-10 md:ml-20 uppercase">
-                {{ $t('title.about.desc') }}
-              </p>
+              <p v-html="$t('title.about.desc')" class="text-lg sm:text-xl md:text-2xl ml-10 md:ml-20 uppercase"></p>
             </div>
             <div class="bg-[url(/img/bg_about.jpg)] bg-no-repeat bg-contain pb-[56.25%] w-full"></div>
           </div>
@@ -412,7 +410,7 @@ onUnmounted(() => { cleanGsap() })
                 </h2>
               </div>
             </div>
-            <div class="relative flex flex-col items-stretch justify-evenly h-full max-w-3xl mx-auto text-center z-5">
+            <div class="relative flex flex-col items-stretch justify-evenly h-full max-w-4xl mx-auto text-center z-5">
               <div class="flex flex-col gap-4 items-center">
                 <div class="overflow-hidden">
                   <h2 data-split-number class="text-6xl sm:text-8xl md:text-9xl font-bold text-center uppercase text-primary">
@@ -423,16 +421,16 @@ onUnmounted(() => { cleanGsap() })
                   {{ $t(`title.about_${i + 1}.name`) }}
                 </h3>
               </div>
-              <p data-split-text class="text-xl font-light text-white">
-                {{ $t(`title.about_${i + 1}.desc`) }}
-              </p>
+              <p data-split-text 
+                v-html="$t(`title.about_${i + 1}.desc`)" 
+                class="text-xl font-light uppercase text-white"></p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="cases" ref="caseSection" class="relative bg-cover bg-center bg-no-repeat sm:bg-fixed bg-[url(/img/bg_cases.jpg)]">
+    <!-- <section id="cases" ref="caseSection" class="relative bg-cover bg-center bg-no-repeat sm:bg-fixed bg-[url(/img/bg_cases.jpg)]">
       <div class="sticky top-0 h-screen w-full flex items-center justify-center">
         <div class="section block sm:grid sm:grid-cols-2 xl:grid-cols-4 sm:gap-x-4 sm:gap-y-8 w-full h-full">
           <div v-for="(n, i) in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }" class="relative">
@@ -446,17 +444,32 @@ onUnmounted(() => { cleanGsap() })
           </div>
         </div>
       </div>
+    </section> -->
+    <section id="cases" ref="caseSection" class="relative bg-cover bg-center bg-no-repeat sm:bg-fixed bg-[url(/img/bg_cases_mob.jpg)] xs:bg-[url(/img/bg_cases_tab.jpg)] lg:bg-[url(/img/bg_cases.jpg)]">
+      <div class="min-h-screen w-full flex items-center justify-center py-10">
+        <div class="section grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6 w-full h-full">
+          <div v-for="(n, i) in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }" class="relative flex flex-col gap-2">
+            <div class="case_item relative flex flex-col gap-2 w-full xl:w-70 rounded-xl overflow-hidden group">
+              <div class="absolute inset-0 w-full h-full px-8 cursor-pointer flex items-center justify-center bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <p v-html="$t(`title.case_${n}.desc`)" class="text-xs tracking-widest text-white font-medium text-center uppercase scale-50 group-hover:scale-100 transition-transform duration-400"></p>
+              </div>
+              <img :src="`/img/case/${n}.jpg`" class="w-full h-full object-contain" />
+            </div>
+            <h2 v-html="$t(`title.case_${n}.name`)" class="uppercase font-bold text-center"></h2>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="services" ref="serviceSection" class="relative min-h-screen bg-white">
-      <div class="py-8">
-        <div class="bg-primary px-4">
-          <h1 class="text-2xl font-bold uppercase">
+      <div class="pb-8">
+        <div class="bg-primary py-2">
+          <h1 class="section text-2xl font-bold uppercase">
             {{ $t('title.service.name') }}
           </h1>
         </div>
-        <div class="px-4 font-regular">
-          <p>{{ $t('title.service.desc') }}</p>
+        <div class="section font-regular uppercase">
+          <p v-html="$t('title.service.desc')"></p>
         </div>
       </div>
       <div class="flex items-center justify-center">
@@ -481,19 +494,23 @@ onUnmounted(() => { cleanGsap() })
         <div class="relative overflow-hidden h-[45vh] sm:h-full flex items-center justify-center sm:block">
           <div class="relative sm:block w-full">
             <div v-for="(n, i) in 4" :key="i" :ref="el => advantageSlides[i] = el"
-              class="flex items-center justify-center px-6 h-full sm:h-screen">
-              <div class="max-w-sm text-center sm:text-left">
+              class="flex items-center justify-center sm:justify-end px-6 h-full sm:h-screen">
+              <div class="max-w-md text-center sm:text-left">
                 <h2 class="text-xl sm:text-3xl font-bold uppercase">
-                  {{ $t(`partner.frame_${i + 1}.name`) }}
+                  <span v-html="$t(`partner.frame_${i + 1}.name1`)"></span><br />
+                  <span v-html="$t(`partner.frame_${i + 1}.name2`)" class="text-primary"></span>
                 </h2>
-                <p>{{ $t(`partner.frame_${i + 1}.desc`) }}</p>
+                <p v-html="$t(`partner.frame_${i + 1}.desc`)" class="uppercase"></p>
               </div>
             </div>
           </div>
         </div>
-        <div class="relative h-[55vh] sm:h-screen flex items-center justify-center sm:border-l sm:border-gray-300">
+        <div class="relative h-[55vh] sm:h-screen flex items-center justify-center sm:justify-start sm:border-l sm:border-gray-300 sm:pl-[10%] bg-cover bg-center bg-no-repeat sm:bg-fixed sm:bg-[url(/img/bg_advantage.jpg)]">
           <div style="perspective: 1000px;">
-            <img ref="rotatingImage" :src="advantageImages[0]" class="w-60 xl:w-80 scale-x-[-1] transform-3d" />
+            <img 
+              ref="rotatingImage" 
+              :src="advantageImages[0]" 
+              class="w-60 xl:w-80 scale-x-[-1] transform-3d rounded-lg" />
           </div>
         </div>
       </div>
@@ -503,23 +520,20 @@ onUnmounted(() => { cleanGsap() })
     <section id="team" ref="feedbackSection" class="relative">
       <div class="sticky top-0 h-screen w-full overflow-hidden bg-primary">
         <div class="absolute top-0 left-0 w-full h-screen flex z-5">
-          <div ref="leftGate" class="gate bg-cover bg-center bg-no-repeat bg-[url(/img/team/1.jpg)] border-r border-gray-300 flex justify-center items-start">
-            <h1 class="mt-10 text-3xl font-bold uppercase">
-              {{ $t('title.team.name') }}
+          <div ref="leftGate" class="gate bg-cover bg-center bg-no-repeat bg-[url(/img/team/bg_team.jpg)] border-r border-gray-300 flex justify-center items-start">
+            <h1 v-html="$t('title.team.name')" class="mt-[25%] text-3xl lg:text-4xl font-bold uppercase">
             </h1>
           </div>
           <div ref="rightGate" class="gate bg-white flex items-center justify-center border-l border-gray-300">
-            <div class="flex flex-col items-center justify-center gap-2 max-w-80">
-              <div class="mb-4 overflow-hidden">
-                <img src="/img/team/team_1.jpg" :alt="$t(`title.team.name`)" 
-                  class="w-60 h-90 object-cover origin-center" />
+            <div class="flex flex-col items-center sm:items-start justify-center gap-3">
+              <div class="overflow-hidden">
+                <img src="/img/team/1.jpg" :alt="$t(`title.team.name`)" 
+                  class="w-64 h-96 object-cover origin-center rounded-lg" />
               </div>
-              <div class="flex flex-col h-36">
-                <p class="text-sm">
-                  {{ $t(`title.team.desc`) }}
-                </p>
+              <div>
+                <p v-html="$t('title.team.desc')" class="text-sm uppercase"></p>
               </div>
-              <div class="flex justify-between gap-2">
+              <div>
                 <a href="t.me/oystercomputer" target="_blank" class="group flex items-center justify-center p-2 w-44 h-10 rounded-full border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs font-bold">
                   {{ $t('text.lets_discuss') }}
                 </a>

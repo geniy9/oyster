@@ -543,7 +543,7 @@ onUnmounted(() => { cleanGsap() })
     <section id="team" ref="feedbackSection" class="relative">
       <div class="sticky top-0 h-screen w-full overflow-hidden bg-primary">
         <div class="absolute top-0 left-0 w-full h-screen flex z-5">
-          <div ref="leftGate" class="gate bg-cover bg-center bg-no-repeat bg-[url(/img/team/1.jpg)] border-r border-gray-300 flex justify-center items-start">
+          <div ref="leftGate" class="gate bg-cover bg-center bg-no-repeat bg-[url(/img/team/bg_team.jpg)] border-r border-gray-300 flex justify-center items-start">
             <h1 class="mt-10 text-3xl font-bold uppercase">
               {{ $t('title.team.name') }}
             </h1>
@@ -553,7 +553,7 @@ onUnmounted(() => { cleanGsap() })
             <div class="flex flex-col items-center justify-center gap-2 max-w-80">
               <div class="mb-4 overflow-hidden">
                 <img 
-                  src="/img/team/team_1.jpg" 
+                  src="/img/team/1.jpg" 
                   :alt="$t(`title.team.name`)" 
                   class="w-60 h-90 object-cover origin-center" />
               </div>

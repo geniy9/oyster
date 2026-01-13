@@ -1,7 +1,5 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
-@tailwind utilities;
-@config "../../tailwind.config.js";
 
 @font-face {
   font-family: 'light';
@@ -39,43 +37,25 @@
   font-display: swap;
 }
 
-:root {
-  --ui-text-dimmed: var(--ui-color-neutral-400);
-  --ui-text-muted: var(--ui-color-neutral-500);
-  --ui-text-toned: var(--ui-color-neutral-600);
-  --ui-text: var(--ui-color-neutral-700);
-  --ui-text-highlighted: var(--ui-color-neutral-900);
-  --ui-text-inverted: var(--color-white);
+@theme {
+  --breakpoint-xs: 420px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1400px;
+  --breakpoint-3xl: 1600px;
 
-  --ui-bg: var(--color-white);
-  --ui-bg-muted: var(--ui-color-neutral-50);
-  --ui-bg-elevated: var(--ui-color-neutral-100);
-  --ui-bg-accented: var(--ui-color-neutral-200);
-  --ui-bg-inverted: var(--ui-color-neutral-900);
-
-  --ui-border: var(--ui-color-neutral-200);
-  --ui-border-muted: var(--ui-color-neutral-200);
-  --ui-border-accented: var(--ui-color-neutral-300);
-  --ui-border-inverted: var(--ui-color-neutral-900);
+  --font-light: 'light', sans-serif;
+  --font-regular: 'regular', sans-serif;
+  --font-medium: 'medium', sans-serif;
+  --font-bold: 'bold', sans-serif;
+  --font-black: 'black', sans-serif;
 }
-.dark {
-  --ui-text-dimmed: var(--ui-color-neutral-500);
-  --ui-text-muted: var(--ui-color-neutral-400);
-  --ui-text-toned: var(--ui-color-neutral-300);
-  --ui-text: var(--ui-color-neutral-200);
-  --ui-text-highlighted: var(--color-white);
-  --ui-text-inverted: var(--ui-color-neutral-900);
-
-  --ui-bg: var(--ui-color-neutral-900);
-  --ui-bg-muted: var(--ui-color-neutral-800);
-  --ui-bg-elevated: var(--ui-color-neutral-800);
-  --ui-bg-accented: var(--ui-color-neutral-700);
-  --ui-bg-inverted: var(--color-white);
-
-  --ui-border: var(--ui-color-neutral-800);
-  --ui-border-muted: var(--ui-color-neutral-700);
-  --ui-border-accented: var(--ui-color-neutral-700);
-  --ui-border-inverted: var(--color-white);
+@theme static {
+  --ui-primary: #47E29F;
+  --ui-secondary: #202022;
+  --ui-accent: #359F71;
 }
 
 
@@ -101,32 +81,5 @@
   }
   .gate h2 {
     @apply absolute top-1/2 -translate-y-1/2 text-center font-bold w-screen text-2xl sm:text-3xl md:text-4xl; 
-  }
-
-  .grid_lines {
-    overflow: visible;
-    width: 100%;
-    background-image: linear-gradient(
-        rgba(255, 255, 255, 0.07) 2px,
-        transparent 2px
-      ),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.07) 2px, transparent 2px),
-      linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
-    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
-  }
-  .grid_lines_dark {
-    overflow: visible;
-    width: 100%;
-    background-image: linear-gradient(
-        rgba(0, 0, 0, 0.07) 2px,
-        transparent 2px
-      ),
-      linear-gradient(90deg, rgba(0, 0, 0, 0.07) 2px, transparent 2px),
-      linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
-    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
-    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
   }
 }

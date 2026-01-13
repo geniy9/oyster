@@ -1,6 +1,12 @@
 export default defineAppConfig({
   ui: {
 
+    colors: {
+      primary: '#47E29F',
+      secondary: '#003D99',
+      accent: '#359F71'
+    },
+
     icons: {
       loading: 'line-md:loading-loop'
     },

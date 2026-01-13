@@ -1,5 +1,3 @@
-import tailwindcss from '@tailwindcss/vite'
-
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
@@ -48,10 +46,10 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  vite: {
-    plugins: [
-      tailwindcss()
-    ],
+  ui: {
+    theme: {
+      colors: ['primary', 'secondary', 'accent']
+    }
   },
 
 })

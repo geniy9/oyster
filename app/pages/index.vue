@@ -3,8 +3,8 @@ import { useSmoother } from '~/composables/useSmoother';
 
 const { t } = useI18n()
 const { gsap, SplitText } = useGsap()
-const smoother = useSmoother()
-const { isPreloaded, shifterBg, bgVisible, footerNav } = useConfig();
+// const smoother = useSmoother()
+const { shifterBg, bgVisible, footerNav } = useConfig();
 
 let mm = null; 
 const splitTitle = ref(null)
@@ -41,7 +41,7 @@ const aboutItems = [
   { digit: 200, progress: '200+'},
   { digit: 97, progress: '97.1%' }
 ]
-const caseSection = ref(null);
+// const caseSection = ref(null);
 const caseItems = ref([]);
 
 const marqueeSection = ref(null);
@@ -144,7 +144,7 @@ function initGsap() {
 
     gsap.set(zoomingImgs.value, { scale: 0, opacity: 1 });
     gsap.set(cuttingContainer.value, { scale: 0 });
-    gsap.set(aboutNitro.value, { yPercent: 100, opacity: 0, zIndex: 4 });
+    gsap.set(aboutNitro.value, { yPercent: 100, zIndex: 4 });
 
     curtainTL.to([leftLineGrow.value, rightLineGrow.value], { opacity: 0, duration: 0.1 });
 
@@ -445,7 +445,7 @@ onUnmounted(() => { cleanGsap() })
         </div>
       </div>
     </section> -->
-    <section id="cases" ref="caseSection" class="relative bg-cover bg-center bg-no-repeat sm:bg-fixed bg-[url(/img/bg_cases_mob.jpg)] xs:bg-[url(/img/bg_cases_tab.jpg)] lg:bg-[url(/img/bg_cases.jpg)]">
+    <section id="cases" class="relative bg-cover bg-center bg-no-repeat sm:bg-fixed bg-[url(/img/bg_cases_mob.jpg)] xs:bg-[url(/img/bg_cases_tab.jpg)] lg:bg-[url(/img/bg_cases.jpg)]">
       <div class="min-h-screen w-full flex items-center justify-center py-10">
         <div class="section grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6 w-full h-full">
           <div v-for="(n, i) in 8" :key="i" :ref="el => { if (el) caseItems[i] = el }" class="relative flex flex-col gap-2">

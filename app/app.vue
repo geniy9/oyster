@@ -18,26 +18,6 @@ const onPreloaderLoaded = () => {
   // isLoading = false, если нужно для других целей,
 };
 
-// function updateSmoother() {
-//   if (smoother.value) smoother.value.kill()
-//   if (ctx) ctx.revert()
-//   smoother.value = null
-
-//   setTimeout(() => {
-//     ctx = gsap.context(() => {
-//       smoother.value = ScrollSmoother.create({
-//         wrapper: "#smooth-wrapper",
-//         content: "#smooth-content",
-//         smooth: 1,
-//         effects: true,
-//       });
-
-//       // if (isLoading.value && smoother.value) {
-//       //   smoother.value.paused(true);
-//       // }
-//     });
-//   }, 100)
-// }
 function updateSmoother() {
   if (smoother.value) smoother.value.kill()
   if (ctx) ctx.revert()
@@ -55,9 +35,8 @@ function updateSmoother() {
         effects: true,
       });
     });
-  }, 100)
+  }, 1000)
 }
-
 
 watch(() => locale.value, () => { updateSmoother() })
 onMounted(() => { 
@@ -76,9 +55,9 @@ onUnmounted(() => {
     <div :style="{ backgroundImage: bgVisible ? `url(${shifterBg})` : 'none' }" 
       class="fixed inset-0 bg-white sm:bg-fixed bg-no-repeat bg-cover w-full z-0 transition-all duration-500"></div>
 
-    <div id="smooth-wrapper" class="flex flex-col min-h-screen overflow-hidden text-black">
+    <div id="smooth-wrapper" class="flex flex-col min-h-screen w-full overflow-hidden text-black">
       <Headers />
-      <div id="smooth-content" class="flex-grow overflow-visible w-full">
+      <div id="smooth-content" class="grow overflow-visible w-full">
         <NuxtLayout>
           <NuxtPage />
         </NuxtLayout>

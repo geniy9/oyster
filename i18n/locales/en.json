@@ -20,7 +20,7 @@
     "advertising_agency": "We provide <br \\/>premium services <br \\/>In the field <br \\/>of Digital-Marketing. <br \\/>It’s a pleasure <br \\/>to work with us <br \\/>And earn money",
     "about": {
       "name": "About us",
-      "desc": "We are - A full-service marketing agency. <br \\/>Our team combines strategy, creativity and analytics, <br \\/>to help your business grow faster than the competition. <br \\/>We understand the market and speak the language of numbers, not promises"
+      "desc": "We are - A full-service marketing agency. <br \\/>Our team combines strategy, creativity and analytics, <br \\/>to help your business grow faster than the competition. <br \\/>We understand the market and speak the language of numbers, <br \\/>not promises"
     },
     "about_1": {
       "name": "In the Digital-industry",
@@ -43,7 +43,7 @@
       "desc": "Software development"
     },
     "case_3": {
-      "name": "CETUS",
+      "name": "CETUS PROTOCOL",
       "desc": "Conducting a marketing campaign <br \\/>with onboarding elements"
     },
     "case_4": {
@@ -51,7 +51,7 @@
       "desc": "Lead generation <br \\/>(UAE, Hong Kong)"
     },
     "case_5": {
-      "name": "GATE",
+      "name": "GATE WEB3",
       "desc": "Conducting a marketing campaign"
     },
     "case_6": {
@@ -59,7 +59,7 @@
       "desc": "Creating financial product presentations"
     },
     "case_7": {
-      "name": "WISE TRANSFER",
+      "name": "WISE",
       "desc": "Conducting a marketing campaign"
     },
     "case_8": {
@@ -83,7 +83,7 @@
     "service_3": {
       "name1": "Original",
       "name2": "Content Creation",
-      "desc": "Thematic copywriting, <br \\/>photo/video content, AI-generated content"
+      "desc": "Thematic copywriting, <br \\/>photo and video content, <br \\/>AI-Generated content"
     },
     "service_4": {
       "name1": "Digital",
@@ -97,23 +97,19 @@
   },
   "partner": {
     "frame_1": {
-      "name1": "Highly",
-      "name2": "Recommended",
+      "name": "Highly <br/><span class=\"text-primary\">Recommended</span>",
       "desc": "We work with both large enterprises <br \\/>and startups"
     },
     "frame_2": {
-      "name1": "Comprehensive",
-      "name2": "Approach",
+      "name": "<span class=\"text-primary\">Comprehensive</span><br/>Approach",
       "desc": "From strategy and branding to lead generation <br \\/>and analytics - we cover the full <br \\/>digital marketing cycle"
     },
     "frame_3": {
-      "name1": "Maximum",
-      "name2": "Involvement",
+      "name": "<span class=\"text-primary\">Maximum <br/>involvement</span><br/>in the project",
       "desc": "Complete immersion in your business niche <br \\/>for maximum effectiveness"
     },
     "frame_4": {
-      "name1": "Tailored",
-      "name2": "Solutions",
+      "name": "<span class=\"text-primary\">Tailored</span><br/>Solutions",
       "desc": "Every project is unique. <br \\/>We avoid cookie-cutter solutions <br \\/>and develop a strategy that works <br \\/>specifically for your business"
     }
   },
@@ -125,7 +121,21 @@
       "name": "YOUR NAME *",
       "phone": "YOUR PHONE NUMBER *",
       "agreement": "I CONSENT <br \\/>FOR PROCESSING PERSONAL DATA",
-      "send": "Submit"
+      "send": "Submit",
+      "field_error": {
+        "name": "Please enter your name",
+        "phone": "Enter at least 10 digits",
+        "telegram": "Use English characters without spaces",
+        "agreement": "Consent to data processing is required"
+      },
+      "success": {
+        "title": "Success!",
+        "desc": "A personal assistant will contact you shortly"
+      },
+      "error": {
+        "title": "Something went wrong :(",
+        "desc": "Please try submitting the form again"
+      }
     }
   },
   "text": {

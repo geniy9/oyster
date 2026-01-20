@@ -15,12 +15,24 @@ export default defineNuxtConfig({
         { rel: "icon", type: "image/ico", sizes: "32x32", href: "/favicon.ico" },
         { rel: "icon", type: "image/png", sizes: "32x32", href: "/32.png" },
         { rel: "apple-touch-icon", type: "image/png", sizes: "180x180", href: "/180.png" },
+      ],
+      script: [
+        { 
+          src: 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js', 
+          type: 'module' 
+        }
       ]
     },
     // pageTransition: { name: 'page', mode: 'out-in' },
     // layoutTransition: { name: 'slide', mode: 'out-in' }
     layoutTransition: false,
     pageTransition: true,
+  },
+
+  vue: {
+    compilerOptions: {
+      isCustomElement: (tag) => tag === 'model-viewer'
+    }
   },
 
   build: {
@@ -35,7 +47,10 @@ export default defineNuxtConfig({
     langDir: './locales',
     strategy: 'prefix_except_default',
     defaultLocale: 'ru',
-    baseUrl: process.env.ORIGIN
+    baseUrl: process.env.ORIGIN,
+    compilation: {
+      strictMessage: false
+    }
   },
 
   runtimeConfig: {

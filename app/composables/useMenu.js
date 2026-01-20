@@ -21,19 +21,19 @@ export default () => {
     }],
     menuSecond: [{
       name: 'web_development',
-      to: '/#web_development'
+      to: '/#feedback'
     },{
       name: 'lidogenation',
-      to: '/#lidogenation'
+      to: '/#feedback'
     },{
       name: 'automation',
-      to: '/#automation'
+      to: '/#feedback'
     },{
       name: 'web_design',
-      to: '/#web_design'
+      to: '/#feedback'
     },{
       name: 'consulting',
-      to: '/#consulting'
+      to: '/#feedback'
     }],
     menuContacts: [{
       name: 'mail',

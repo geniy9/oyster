@@ -1,56 +1,69 @@
 <script setup>
 import { z } from 'zod'
-
-const config = useRuntimeConfig()
-const apiUrl = config.public.ORIGIN
+const { t } = useI18n()
 const toast = useToast()
 
 const schema = z.object({
-  name: z.string().min(1, 'Name Required'),
-  phone: z.string().min(8, 'Phone must be at least 10 characters'),
-  agreement: z.boolean(),
-  telegram: z.string().min(1, 'Telegram or Email Required'),
+  name: z.string().min(1, t('feedback.form.field_error.name')),
+  phone: z.string().min(10, t('feedback.form.field_error.phone')),
+  agreement: z.boolean().refine((val) => val === true, {
+    message: t('feedback.form.field_error.agreement')
+  }),
+  telegram: z.string().regex(/^[a-zA-Z0-9_@]*$/, t('feedback.form.field_error.telegram')).optional()
 })
+const loading = ref(false);
 const state = reactive({
   name: undefined,
   phone: undefined,
   agreement: undefined,
   telegram: undefined,
 })
-const loading = ref(false);
 
-async function onSubmit(event) {
-  return
+async function onSubmit() {
   loading.value = true;
   try {
-    const payload = { ...event.data }
-    await $fetch(`${apiUrl}/api/feedback`, {
+    const formData = {
+      name: state.name,
+      phone: state.phone,
+      telegram: state.telegram || '',
+    }
+    const idForm = 'xykkddkn'
+    const response = await fetch(`https://formspree.io/f/${idForm}`, {
       method: 'POST',
-      body: payload,
-    });
-
-    toast.add({
-      title: 'Successful',
-      description: 'Your contacts was successfully sent.',
-      icon: 'i-heroicons-check-circle',
-      color: 'success'
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
     })
+
+    if (response.ok) {
+      toast.add({
+        title: t('feedback.form.success.title'),
+        description: t('feedback.form.success.desc'),
+        color: 'success'
+      })
+    } else {
+      toast.add({
+        title: t('feedback.form.error.title'),
+        description: error.data?.message || t('feedback.form.error.desc'),
+        color: 'error'
+      });
+    }
 
   } catch (error) {
     console.error('Submission error:', error);
     toast.add({
-      title: 'Error',
-      description: error.data?.message || 'Failed to send.',
-      icon: 'i-heroicons-x-circle',
+      title: t('feedback.form.error.title'),
+      description: error.data?.message || t('feedback.form.error.desc'),
       color: 'error'
     });
   } finally {
-    state.name = undefined
-    state.phone = undefined
-    state.agreement = undefined
-    state.telegram = undefined
+    clearForm()
     loading.value = false
   }
+}
+
+function clearForm() {
+  state.name = state.phone = state.agreement = state.telegram = undefined
+  loading.value = false
 }
 </script>
 <template>
@@ -72,7 +85,7 @@ async function onSubmit(event) {
           variant="custom" 
           :ui="{ base: 'placeholder:text-black/70' }" />
       </UFormField>
-      <UFormField name="telegram" required>
+      <UFormField name="telegram">
         <UInput v-model="state.telegram" 
           placeholder="TELEGRAM @USERNAME" 
           size="xxl" 
@@ -83,7 +96,7 @@ async function onSubmit(event) {
       <UFormField name="agreement" required class="w-80 mx-auto">
         <UCheckbox 
           v-model="state.agreement"
-          color="primary" size="xl" 
+          color="primary" size="xxl" 
           :ui="{ root: 'flex flex-col items-center'}" />
         <span v-html="$t('feedback.form.agreement')" class="font-bold"></span>
       </UFormField>

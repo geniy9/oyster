@@ -8,7 +8,8 @@ export default defineAppConfig({
     },
 
     icons: {
-      loading: 'line-md:loading-loop'
+      loading: 'line-md:loading-loop',
+      check: 'material-symbols:check-rounded'
     },
 
     button: {
@@ -16,6 +17,12 @@ export default defineAppConfig({
         base: [
           'cursor-pointer',
         ]
+      }
+    },
+
+    formField: {
+      slots: {
+        error: 'italic',
       }
     },
 
@@ -52,7 +59,26 @@ export default defineAppConfig({
       slots: {
         overlay: 'bg-primary/10 backdrop-blur-xs',
       }
+    },
+
+    checkbox: {
+      variants: {
+        color: {
+          primary: {
+            base: 'focus-visible:outline-primary',
+            indicator: 'bg-primary ring ring-inset ring-black rounded-sm '
+          },
+        },
+        size: {
+          xxl: {
+            base: 'size-5.5',
+            container: 'h-6',
+            wrapper: 'text-base'
+          }
+        }
+      }
     }
+    
 
   }
 })

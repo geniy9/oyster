@@ -8,7 +8,7 @@ const logoEl = ref(null);
 const discussEl = ref(null);
 
 onMounted(() => {
-  setTimeout(() => { emit('loaded') }, 1000);
+  setTimeout(() => { emit('loaded') }, 1200);
 });
 
 const playPreloader = () => {
@@ -66,9 +66,9 @@ const playPreloader = () => {
 defineExpose({ playPreloader });
 </script>
 <template>
-  <div ref="preloaderRef" class="fixed inset-0 w-screen h-screen bg-black z-[999] text-white">
+  <div ref="preloaderRef" class="fixed inset-0 w-screen h-screen bg-black z-999 text-white">
     
-    <div ref="navEl" class="fixed opacity-0 p-4 z-[1000]">
+    <div ref="navEl" class="fixed opacity-0 p-4 z-1000">
       <UButton
         :label="'[ _ ] ' + $t('nav.navigation')"
         color="primary"
@@ -82,7 +82,7 @@ defineExpose({ playPreloader });
       <p>{{ $t('text.lets_discuss') }}</p>
     </div>
     <div ref="logoEl" 
-      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2 z-[1000]">
+      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2 z-1000">
       <img src="/logo.svg" alt="Logo" class="w-10">
     </div>
 

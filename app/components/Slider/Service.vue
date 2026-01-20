@@ -117,7 +117,7 @@ function onClickPrev() { changeSlide('prev') }
 function onClickNext() { changeSlide('next') }
 </script>
 <template>
-  <div class="relative w-full min-h-[500px] flex flex-col">
+  <div class="relative w-full min-h-125 flex flex-col">
     
     <div class="relative grid grid-cols-1 w-full grow">
       <div v-for="(item, index) in slides" 

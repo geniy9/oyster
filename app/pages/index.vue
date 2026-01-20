@@ -1,9 +1,6 @@
 <script setup>
-import { useSmoother } from '~/composables/useSmoother';
-
 const { t } = useI18n()
 const { gsap, SplitText } = useGsap()
-// const smoother = useSmoother()
 const { shifterBg, bgVisible, footerNav } = useConfig();
 
 let mm = null; 
@@ -41,7 +38,7 @@ const aboutItems = [
   { digit: 200, progress: '200+'},
   { digit: 97, progress: '97.1%' }
 ]
-// const caseSection = ref(null);
+
 const caseItems = ref([]);
 
 const marqueeSection = ref(null);
@@ -106,7 +103,7 @@ function initGsap() {
       zIndex: 0
     });
 
-    // ЛИНИИ
+    // VERTICAL LINES
     const curtainTL = gsap.timeline({
       scrollTrigger: {
         trigger: "#line_container",
@@ -161,7 +158,7 @@ function initGsap() {
 
     scalingTL.to(cuttingContainer.value, { scale: 1, duration: 1, ease: 'ease', delay: 0.5 }, 1.25);
     
-    // Сдвиг шторок
+    // CURTAINS
     scalingTL.to([leftCurtain.value, rightCurtain.value], {
       x: (i) => i === 0 ? (isMobile ? '-60vw' : '-50vw') : (isMobile ? '60vw' : '50vw'),
       duration: 1.5,
@@ -194,7 +191,7 @@ function initGsap() {
 
     const aboutTL = gsap.timeline({
       scrollTrigger: {
-        trigger: "#digital_section",
+        trigger: "#numbers",
         start: "top top",
         end: `+=${aboutItems.length * 100}%`,
         scrub: 1,
@@ -214,7 +211,6 @@ function initGsap() {
     });
 
     // CASES
-
     if (marqueeSection.value) {
       gsap.set(marqueeTitles.value, { xPercent: 0 });
       gsap.to(marqueeTitles.value, { xPercent: -50, ease: "none", duration: 20, repeat: -1 });
@@ -230,7 +226,7 @@ function initGsap() {
       } else {
         gsap.set(slides, { position: 'relative', autoAlpha: 1, yPercent: 0 })
       }
-      gsap.set(rotatingImage.value, { rotationY: 0 })
+      gsap.set(rotatingImage.value, { rotationY: 0, scaleX: 1 })
       const advantageTL = gsap.timeline({
         scrollTrigger: {
           trigger: advantageSection.value,
@@ -239,19 +235,34 @@ function initGsap() {
           scrub: 1,
           pin: isMobile ? true : advantageSection.value,
           anticipatePin: 1,
+          invalidateOnRefresh: true
         }
       })
       for (let i = 0; i < total - 1; i++) {
+        const nextIndex = i + 1;
         if (isMobile) {
           advantageTL
             .to(slides[i], { autoAlpha: 0, yPercent: -20, ease: 'none' })
-            .to(slides[i + 1], { autoAlpha: 1 })
-            .to(slides[i + 1], { autoAlpha: 1, yPercent: 0, ease: 'none' }, '<')
-        } else {
-          advantageTL.to(slides, { yPercent: -(i + 1) * 100, ease: 'none' })
+            .to(slides[nextIndex], { autoAlpha: 1 })
+            .to(slides[nextIndex], { autoAlpha: 1, yPercent: 0, ease: 'none' }, '<')
+        } 
+        else {
+          advantageTL.to(slides, { yPercent: -(nextIndex) * 100, ease: 'none' })
         }
-        advantageTL.to(rotatingImage.value, { rotationY: '+=180', ease: 'none' }, '<')
-        advantageTL.set(rotatingImage.value, { attr: { src: advantageImages[i + 1] }}, '<50%')
+
+        const label = `slideTransition_${i}`;
+        advantageTL.addLabel(label, '<'); 
+        advantageTL.to(rotatingImage.value, { 
+          rotationY: '+=180', 
+          ease: 'none' 
+        }, label)
+        const isBackSide = nextIndex % 2 !== 0;
+        advantageTL.set(rotatingImage.value, { 
+          attr: { src: advantageImages[nextIndex] },
+          scaleX: isBackSide ? -1 : 1, 
+          immediateRender: false 
+        }, '<50%')
+
       }
     }
     
@@ -273,7 +284,7 @@ function initGsap() {
         ease: 'none',
       }, "+=0.5");
       feedbackTL.to(feedbackNitro.value, { yPercent: 0, duration: 2, zIndex: 7, ease: 'none' }, "<"); 
-    }
+    }    
 
   });
 }
@@ -292,7 +303,7 @@ onUnmounted(() => { cleanGsap() })
 
     <section id="introduction" class="relative flex flex-col justify-center items-center h-screen">
       <div class="lg:min-w-lg xl:min-w-2xl" aria-hidden="true">
-        <h1 class="text_separate will-change-transform text-4xl xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black uppercase h-20 xs:h-24 sm:h-28 lg:h-36 xl:h-48">
+        <h1 class="text_separate will-change-transform text-4xl xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase h-20 xs:h-24 sm:h-28 lg:h-36 xl:h-48">
           <span class="block">
             {{ $t('title.internet') }}
           </span>
@@ -336,18 +347,18 @@ onUnmounted(() => { cleanGsap() })
           </div>
         </div>
 
-        <div ref="cuttingContainer" class="absolute top-0 left-0 w-screen h-screen flex overflow-hidden z-[5]">
-          <div ref="leftCurtain" class="gate z-[5]">
+        <div ref="cuttingContainer" class="absolute top-0 left-0 w-screen h-screen flex overflow-hidden z-5">
+          <div ref="leftCurtain" class="gate z-5">
             <h2 class="left-full -translate-x-1/2 uppercase" v-html="$t('title.advertising_agency')"></h2>
           </div>
-          <div ref="rightCurtain" class="gate z-[5]">
+          <div ref="rightCurtain" class="gate z-5">
             <h2 class="right-full translate-x-1/2 uppercase" v-html="$t('title.advertising_agency')"></h2>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="digital_section" class="relative">
+    <section id="numbers" class="relative">
       <div class="sticky top-0 h-screen w-full overflow-hidden">
         <div v-for="(item, i) in aboutItems" :key="i" 
           :ref="el => { if(el) aboutFrames[i] = el }"
@@ -426,32 +437,27 @@ onUnmounted(() => { cleanGsap() })
     </section>
 
     <section ref="advantageSection" class="relative overflow-hidden bg-gray-200 h-screen">
-      <div class="relative z-[5] flex flex-col sm:grid sm:grid-cols-2 min-h-screen">
+      <div class="relative z-5 flex flex-col sm:grid sm:grid-cols-2 min-h-screen">
         <div class="relative overflow-hidden h-[45vh] sm:h-full flex items-center justify-center sm:block">
           <div class="relative sm:block w-full">
             <div v-for="(n, i) in 4" :key="i" :ref="el => advantageSlides[i] = el"
               class="flex items-center justify-center sm:justify-end px-6 h-full sm:h-screen">
               <div class="max-w-md text-center sm:text-left">
-                <h2 class="text-xl sm:text-3xl font-bold uppercase">
-                  <span v-html="$t(`partner.frame_${i + 1}.name1`)"></span><br />
-                  <span v-html="$t(`partner.frame_${i + 1}.name2`)" class="text-primary"></span>
-                </h2>
-                <p v-html="$t(`partner.frame_${i + 1}.desc`)" class="uppercase"></p>
+                <h2 v-html="$t(`partner.frame_${n}.name`)" class="text-xl sm:text-3xl font-bold uppercase"></h2>
+                <p v-html="$t(`partner.frame_${n}.desc`)" class="uppercase"></p>
               </div>
             </div>
           </div>
         </div>
         <div class="relative h-[55vh] sm:h-screen flex items-center justify-center sm:justify-start sm:border-l sm:border-gray-300 sm:pl-[10%] bg-cover bg-center bg-no-repeat sm:bg-fixed sm:bg-[url(/img/bg_advantage.jpg)]">
-          <div style="perspective: 1000px;">
-            <img 
-              ref="rotatingImage" 
+          <div style="perspective: 1000px;" class="transform-3d">
+            <img ref="rotatingImage" 
               :src="advantageImages[0]" 
-              class="w-60 xl:w-80 scale-x-[-1] transform-3d rounded-lg" />
+              class="w-60 xl:w-80 transform-3d rounded-lg" />
           </div>
         </div>
       </div>
     </section>
-
 
     <section id="team" ref="feedbackSection" class="relative">
       <div class="sticky top-0 h-screen w-full overflow-hidden bg-primary">
@@ -478,7 +484,7 @@ onUnmounted(() => { cleanGsap() })
           </div>
         </div>
 
-        <div id="contacts" ref="feedbackNitro" class="absolute top-0 left-0 w-full h-full py-8">
+        <div ref="feedbackNitro" class="absolute top-0 left-0 w-full h-full py-8">
           <div class="section">
             <div class="flex flex-col items-center text-center mb-4">
               <h2 class="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase z-0">
@@ -489,18 +495,18 @@ onUnmounted(() => { cleanGsap() })
                 {{ $t('feedback.desc') }}
               </p>
             </div>
-            <Feedback />
+            <Feedback id="feedback" />
           </div>
         </div>
       </div>
     </section>
 
-    <section class="bg-black text-white py-12">
+    <section ref="footerSection" id="footerSection" class="bg-black text-white py-24 min-h-[50vh] max-h-screen w-full relative">
       <div class="section">
-        <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-8 text-sm">
+        <div class="grid grid-cols-1 md:grid-cols-3 items-end gap-8 text-sm">
           
-          <div class="flex justify-center md:justify-start items-center gap-4">
-            <div class="flex flex-col gap-4 text-xs">
+          <div class="flex justify-center md:justify-start items-center">
+            <div class="flex flex-col gap-3 text-xs opacity-80">
               <span>РУБЛЬ/ДОЛЛАР</span>
               <span>ДИРХАМ/ДОЛЛАР</span>
               <span>BTC/USDT</span>
@@ -509,29 +515,29 @@ onUnmounted(() => { cleanGsap() })
             </div>
           </div>
 
-          <div class="flex items-center justify-center text-center">
-            <NuxtLink to="/" class="px-8 py-2">
-              <img class="h-12 w-auto mb-2" src="/logo.svg" alt="OYSTER">
-            </NuxtLink>
+          <div class="flex flex-col gap-1 text-xs text-center opacity-80 uppercase tracking-widest">
+            <p>&copy; {{ new Date().getFullYear() }}</p>
+            <p>Oyster Computer.</p>
+            <p>All rights reserved.</p>
           </div>
 
-          <div class="flex flex-col items-center md:items-end gap-3 text-center md:text-right">
-            <p>©2025 Oyster Computer. All rights reserved.</p>
-            <a href="#" target="_blank" class="uppercase text-xs">
-              {{ $t('text.privacy_policy') }}
-            </a>
-            <a href="#" target="_blank" class="uppercase text-xs">
-              {{ $t('text.consent_personal_data') }}
-            </a>
+          <div class="flex flex-col items-center md:items-end gap-4 text-center md:text-right">
             <a href="t.me/oystercomputer" target="_blank" class="flex items-center justify-center p-2 w-44  rounded-full border border-white hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs">
               {{ $t('text.write_to_us') }}
             </a>
+            <div class="flex flex-col gap-1 text-xs text-center md:text-right opacity-80 uppercase tracking-widest">
+              <a href="#" target="_blank" class="uppercase text-xs">
+                {{ $t('text.consent_personal_data') }}
+              </a>
+              <a href="#" target="_blank" class="uppercase text-xs">
+                {{ $t('text.privacy_policy') }}
+              </a>
+            </div>
           </div>
 
         </div>
       </div>
     </section>
-
 
   </div>
 </template>

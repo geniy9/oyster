@@ -301,7 +301,7 @@ onUnmounted(() => { cleanGsap() })
 <template>
   <div class="w-full relative">
 
-    <section id="introduction" class="relative flex flex-col justify-center items-center h-screen">
+    <section id="hero" class="relative flex flex-col justify-center items-center h-screen">
       <div class="lg:min-w-lg xl:min-w-2xl" aria-hidden="true">
         <h1 class="text_separate will-change-transform text-4xl xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase h-20 xs:h-24 sm:h-28 lg:h-36 xl:h-48">
           <span class="block">
@@ -501,12 +501,12 @@ onUnmounted(() => { cleanGsap() })
       </div>
     </section>
 
-    <section ref="footerSection" id="footerSection" class="bg-black text-white py-24 min-h-[50vh] max-h-screen w-full relative">
+    <footer ref="footerSection" id="footerSection" class="relative bg-black text-white py-8 md:py-24 min-h-[45vh] max-h-screen w-full">
       <div class="section">
         <div class="grid grid-cols-1 md:grid-cols-3 items-end gap-8 text-sm">
           
           <div class="flex justify-center md:justify-start items-center">
-            <div class="flex flex-col gap-3 text-xs opacity-80">
+            <div class="flex flex-col gap-2 text-xs text-center md:text-left tracking-wider opacity-80">
               <span>РУБЛЬ/ДОЛЛАР</span>
               <span>ДИРХАМ/ДОЛЛАР</span>
               <span>BTC/USDT</span>
@@ -515,17 +515,17 @@ onUnmounted(() => { cleanGsap() })
             </div>
           </div>
 
-          <div class="flex flex-col gap-1 text-xs text-center opacity-80 uppercase tracking-widest">
+          <div class="flex flex-col gap-1 text-xs text-center opacity-80 uppercase tracking-wider">
             <p>&copy; {{ new Date().getFullYear() }}</p>
             <p>Oyster Computer.</p>
             <p>All rights reserved.</p>
           </div>
 
-          <div class="flex flex-col items-center md:items-end gap-4 text-center md:text-right">
-            <a href="t.me/oystercomputer" target="_blank" class="flex items-center justify-center p-2 w-44  rounded-full border border-white hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs">
+          <div class="flex flex-col items-center md:items-end gap-6 text-center md:text-right">
+            <NuxtLinkLocale to='/#feedback' class="flex items-center justify-center p-2 w-44  rounded-full border border-white hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs">
               {{ $t('text.write_to_us') }}
-            </a>
-            <div class="flex flex-col gap-1 text-xs text-center md:text-right opacity-80 uppercase tracking-widest">
+            </NuxtLinkLocale>
+            <div class="flex flex-col gap-2 text-xs text-center md:text-right opacity-80 uppercase tracking-wider">
               <a href="#" target="_blank" class="uppercase text-xs">
                 {{ $t('text.consent_personal_data') }}
               </a>
@@ -537,7 +537,7 @@ onUnmounted(() => { cleanGsap() })
 
         </div>
       </div>
-    </section>
+    </footer>
 
   </div>
 </template>

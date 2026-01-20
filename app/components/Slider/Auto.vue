@@ -238,9 +238,9 @@ function onClickNext() {
 
       <!-- BUTTONS -->
       <div class="flex items-center gap-2">
-        <a href="t.me/oystercomputer" target="_blank" class="group flex items-center justify-center p-2 w-44 h-10 rounded-full border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs font-bold">
+        <NuxtLinkLocale to='/#feedback' class="group flex items-center justify-center p-2 w-44 h-10 rounded-full border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs font-bold">
           {{ $t('text.lets_discuss') }}
-        </a>
+        </NuxtLinkLocale>
         <div @click="onClickPrev" class="group flex items-center justify-center p-2 w-10 h-10 rounded-full border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300">
           <UIcon name="mynaui:arrow-long-left" class="h-6 w-6 duration-300" />
         </div>

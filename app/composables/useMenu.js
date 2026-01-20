@@ -17,7 +17,7 @@ export default () => {
       to: '/#team'
     },{
       name: 'contact',
-      to: '/#contact'
+      to: '/#feedback'
     }],
     menuSecond: [{
       name: 'web_development',

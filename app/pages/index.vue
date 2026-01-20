@@ -260,7 +260,7 @@ function initGsap() {
         advantageTL.set(rotatingImage.value, { 
           attr: { src: advantageImages[nextIndex] },
           scaleX: isBackSide ? -1 : 1, 
-          immediateRender: false 
+          immediateRender: true 
         }, '<50%')
 
       }
@@ -420,7 +420,7 @@ onUnmounted(() => { cleanGsap() })
         </div>
       </div>
       <div class="flex items-center justify-center">
-        <SliderService class="section" />
+        <SliderAuto class="section" />
       </div>
     </section>
 

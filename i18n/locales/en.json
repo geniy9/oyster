@@ -139,6 +139,8 @@
     }
   },
   "text": {
+    "page_not_found": "Page not found",
+    "go_back_home": "Go back home",
     "close": "Close",
     "lets_discuss": "Contact us",
     "write_to_us": "Write to us",

@@ -65,7 +65,7 @@ onUnmounted(() => {
     </div>
   </UApp>
 </template>
-<!-- <style>
+<style>
 .page-enter-active,
 .page-leave-active {
   transition: all 0.5s;
@@ -73,6 +73,6 @@ onUnmounted(() => {
 .page-enter-from,
 .page-leave-to {
   opacity: 0;
-  transform: translateY(24px);
+  /* transform: translateY(24px); */
 }
-</style> -->
+</style>

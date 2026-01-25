@@ -2,84 +2,93 @@
 @import "@nuxt/ui";
 
 @font-face {
-  font-family: 'light';
-  src: url('/fonts/HelveticaNeueCyr-Light.woff2') format('woff2'), url('/fonts/HelveticaNeueCyr-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
+    font-family: "light";
+    src:
+        url("/fonts/HelveticaNeueCyr-Light.woff2") format("woff2"),
+        url("/fonts/HelveticaNeueCyr-Light.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
 }
 @font-face {
-  font-family: 'regular';
-  src: url('/fonts/HelveticaNeueCyr-Roman.woff2') format('woff2'), url('/fonts/HelveticaNeueCyr-Roman.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+    font-family: "regular";
+    src:
+        url("/fonts/HelveticaNeueCyr-Roman.woff2") format("woff2"),
+        url("/fonts/HelveticaNeueCyr-Roman.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
 @font-face {
-  font-family: 'medium';
-  src: url('/fonts/HelveticaNeueCyr-Medium.woff2') format('woff2'), url('/fonts/HelveticaNeueCyr-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
+    font-family: "medium";
+    src:
+        url("/fonts/HelveticaNeueCyr-Medium.woff2") format("woff2"),
+        url("/fonts/HelveticaNeueCyr-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
 }
 @font-face {
-  font-family: 'bold';
-  src: url('/fonts/HelveticaNeueCyr-Bold.woff2') format('woff2'), url('/fonts/HelveticaNeueCyr-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+    font-family: "bold";
+    src:
+        url("/fonts/HelveticaNeueCyr-Bold.woff2") format("woff2"),
+        url("/fonts/HelveticaNeueCyr-Bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
 }
 @font-face {
-  font-family: 'black';
-  src: url('/fonts/HelveticaNeueCyr-Black.woff2') format('woff2'), url('/fonts/HelveticaNeueCyr-Black.woff') format('woff');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
+    font-family: "black";
+    src:
+        url("/fonts/HelveticaNeueCyr-Black.woff2") format("woff2"),
+        url("/fonts/HelveticaNeueCyr-Black.woff") format("woff");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
 }
 
 @theme {
-  --breakpoint-xs: 420px;
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1400px;
-  --breakpoint-3xl: 1600px;
+    --breakpoint-xs: 420px;
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1400px;
+    --breakpoint-3xl: 1600px;
 
-  --font-light: 'light', sans-serif;
-  --font-regular: 'regular', sans-serif;
-  --font-medium: 'medium', sans-serif;
-  --font-bold: 'bold', sans-serif;
-  --font-black: 'black', sans-serif;
+    --font-light: "light", sans-serif;
+    --font-regular: "regular", sans-serif;
+    --font-medium: "medium", sans-serif;
+    --font-bold: "bold", sans-serif;
+    --font-black: "black", sans-serif;
 }
 @theme static {
-  --ui-primary: #47E29F;
-  --ui-secondary: #202022;
-  --ui-accent: #359F71;
+    --ui-primary: #47e29f;
+    --ui-secondary: #202022;
+    --ui-accent: #359f71;
 }
 
-
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  .section {
-    @apply relative w-full xs:max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto px-4 xs:px-6 lg:px-0;
-  }
-  .main_title {
-    @apply text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase;
-  }
-  .lets_discuss {
-    @apply text-sm font-bold uppercase text-nowrap p-4;
-  }
+    html {
+        scroll-behavior: smooth;
+    }
+    .section {
+        @apply relative w-full xs:max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto px-4 xs:px-6 lg:px-0;
+    }
+    .main_title {
+        @apply text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase;
+    }
+    .lets_discuss {
+        @apply text-sm font-bold uppercase text-nowrap p-4;
+    }
 
-  .zooming_img {
-    @apply absolute top-1/2 left-1/2 -translate-1/2 w-full h-full bg-cover; 
-  }
-  .gate {
-    @apply relative w-1/2 h-full overflow-hidden bg-primary z-10; 
-  }
-  .gate h2 {
-    @apply absolute top-1/2 -translate-y-1/2 text-center font-bold w-screen text-4xl; 
-  }
+    .zooming_img {
+        @apply absolute top-1/2 left-1/2 -translate-1/2 w-full h-full bg-cover;
+    }
+    .gate {
+        @apply relative w-1/2 h-full overflow-hidden bg-primary z-10;
+    }
+    .gate h2 {
+        @apply absolute top-1/2 -translate-y-1/2 text-center font-black w-screen text-4xl;
+    }
 }

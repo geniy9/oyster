@@ -26,7 +26,7 @@ function logoCenter(toCenter) {
   const isMobile = window.matchMedia('(max-width: 639px)').matches
   gsap.to(logo3DContainer.value, {
     left: toCenter ? '50%' : '',
-    top: toCenter ? '50%' : '',
+    top: toCenter ? isMobile ? '33%' : '50%' : '',
     right: toCenter ? '' : isMobile ? '4px' : '80px',
     bottom: toCenter ? '' : '4px',
     xPercent: toCenter ? -50 : 0,

@@ -1,7 +1,7 @@
 <script setup>
 const { gsap } = useGsap()
 const props = defineProps({
-  src: { type: String, default: '/logo.glb' }
+  src: { type: String, default: '/logo_glossy_primary.glb' }
 })
 
 const modelRef = ref(null)

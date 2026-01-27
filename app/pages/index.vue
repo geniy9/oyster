@@ -141,34 +141,50 @@ function initGsap() {
     aboutTextContainers.value.forEach((container) => {
       const numberTargets = container.querySelectorAll("[data-split-number]");
       const textTargets = container.querySelectorAll("[data-split-text]");
-      const numberSplit = new SplitText(numberTargets, { type: "lines", linesClass: "split-line" });
+      const numberSplit = new SplitText(numberTargets, { type: "lines", linesClass: "split-line" }); 
       const textSplit = new SplitText(textTargets, { type: "words", wordsClass: "split-word" });
       aboutSplits.push({ numbers: numberSplit, text: textSplit });
     });
 
     aboutSplits.forEach((split, index) => {
       if (index > 0) {
-        gsap.set(split.numbers.lines, { yPercent: 100, autoAlpha: 1 });
+        gsap.set(split.numbers.lines, { yPercent: 100, autoAlpha: 0 }); 
         gsap.set(split.text.words, { yPercent: 100, autoAlpha: 0 });
+      } else {
+        gsap.set(split.numbers.lines, { yPercent: 0, autoAlpha: 1 });
+        gsap.set(split.text.words, { yPercent: 0, autoAlpha: 1 });
       }
     });
+    gsap.set(aboutFrames.value, { zIndex: (i) => i + 1 });
     gsap.set(aboutFrames.value.slice(1), { autoAlpha: 0 });
     gsap.set(aboutFrames.value[0], { autoAlpha: 1 });
 
     const aboutTL = gsap.timeline({
       scrollTrigger: {
-        trigger: "#numbers", start: "top top", end: `+=${aboutItems.length * 66}%`, scrub: 1, pin: true, pinType: isMobile ? "fixed" : "transform",
+        trigger: "#numbers", 
+        start: "top top", 
+        end: `+=${aboutItems.length * 100}%`, 
+        scrub: 1, // 0.5 для сглаживания рывков мыши
+        pin: true, 
+        pinType: isMobile ? "fixed" : "transform",
       },
     });
 
+    const TRANSITION_DURATION = 0.5;
+    const HOLD_DURATION = 1;
+
     aboutItems.forEach((_, i) => {
       if (i < aboutItems.length - 1) {
-        aboutTL.to(aboutSplits[i].numbers.lines, { yPercent: -100, duration: 1, ease: "power2.in" }, `+=${i === 0 ? 0 : 0.5}`);
-        aboutTL.to(aboutSplits[i].text.words, { yPercent: -100, autoAlpha: 0, stagger: 0.03, duration: 1 }, `<`);
-        aboutTL.to(aboutFrames.value[i], { autoAlpha: 1, duration: 1, ease: "power2.in" }, "<");
-        aboutTL.to(aboutFrames.value[i + 1], { autoAlpha: 1, duration: 1, ease: "power2.in" }, "<");
-        aboutTL.to(aboutSplits[i + 1].numbers.lines, { yPercent: 0, duration: 1, ease: "power2.out" }, "<+=0.5");
-        aboutTL.to(aboutSplits[i + 1].text.words, { yPercent: 0, autoAlpha: 1, stagger: 0.03, duration: 1 }, "<");
+        const nextIndex = i + 1;
+        const currentSplit = aboutSplits[i];
+        const nextSplit = aboutSplits[nextIndex];
+        
+        aboutTL.addLabel(`step_${i}`, `+=${HOLD_DURATION}`);
+        aboutTL.to(currentSplit.numbers.lines, { yPercent: -100, autoAlpha: 0, duration: TRANSITION_DURATION, ease: "power2.in" }, `step_${i}`);
+        aboutTL.to(currentSplit.text.words, { yPercent: -100, autoAlpha: 0, stagger: 0.02, duration: TRANSITION_DURATION, ease: "power2.in" }, `<`);
+        aboutTL.to(aboutFrames.value[nextIndex], { autoAlpha: 1, duration: TRANSITION_DURATION, ease: "none" }, `<`);
+        aboutTL.to(nextSplit.numbers.lines, { yPercent: 0, autoAlpha: 1, duration: TRANSITION_DURATION, ease: "power2.out" }, `step_${i}`);
+        aboutTL.to(nextSplit.text.words, { yPercent: 0, autoAlpha: 1, stagger: 0.02, duration: TRANSITION_DURATION, ease: "power2.out" }, `<`);
       }
     });
 
@@ -191,7 +207,11 @@ function initGsap() {
       gsap.set(rotatingImage.value, { rotationY: 0, scaleX: 1 });
       const advantageTL = gsap.timeline({
         scrollTrigger: {
-          trigger: advantageSection.value, start: "top top", end: `+=${total * 100}%`, scrub: 1, pin: isMobile ? true : advantageSection.value, anticipatePin: 1, invalidateOnRefresh: true,
+          trigger: advantageSection.value, 
+          start: "top top", 
+          end: isMobile ? `+=${total * 50}%` : `+=${total * 100}%`, 
+          scrub: 1, pin: isMobile ? true : advantageSection.value, 
+          anticipatePin: 1, invalidateOnRefresh: true,
         },
       });
       for (let i = 0; i < total - 1; i++) {

@@ -236,16 +236,43 @@ function initGsap() {
 
     // FEEDBACK
     if (feedbackSection.value) {
-      gsap.set(feedbackNitro.value, { yPercent: 100, zIndex: 0 });
-      const feedbackTL = gsap.timeline({
-        scrollTrigger: { trigger: feedbackSection.value, start: "top top", end: "+=200%", scrub: 1, pin: true },
-      });
-      feedbackTL.to([leftGate.value, rightGate.value], {
-        x: (i) => i === 0 ? (isMobile ? "-60vw" : "-50vw") : (isMobile ? "60vw" : "50vw"),
-        duration: 1.5, ease: "none",
-      }, "+=0.5");
-      feedbackTL.to(feedbackNitro.value, { yPercent: 0, duration: 2, zIndex: 7, ease: "none" }, "<");
+      if (isDesktop) {
+        gsap.set(feedbackNitro.value, { yPercent: 100, zIndex: 0, autoAlpha: 1 });
+        gsap.set([leftGate.value, rightGate.value], { x: 0, autoAlpha: 1 });
+
+        const feedbackTL = gsap.timeline({
+          scrollTrigger: { 
+            trigger: feedbackSection.value, 
+            start: "top top", 
+            end: "+=200%", 
+            scrub: 1, 
+            pin: true 
+          },
+        });
+        feedbackTL.to([leftGate.value, rightGate.value], {
+          x: (i) => i === 0 ? "-50vw" : "50vw",
+          duration: 1.5, 
+          ease: "none",
+        }, "+=0.5");
+
+        feedbackTL.to(feedbackNitro.value, { yPercent: 0, duration: 2, zIndex: 7, ease: "none" }, "<");
+      } else {
+        gsap.set(feedbackNitro.value, { yPercent: 0, zIndex: "auto", clearProps: "all" });
+        gsap.set(rightGate.value, { x: 0, clearProps: "all" });
+      }
     }
+
+    // if (feedbackSection.value) {
+    //   gsap.set(feedbackNitro.value, { yPercent: 100, zIndex: 0 });
+    //   const feedbackTL = gsap.timeline({
+    //     scrollTrigger: { trigger: feedbackSection.value, start: "top top", end: "+=200%", scrub: 1, pin: true },
+    //   });
+    //   feedbackTL.to([leftGate.value, rightGate.value], {
+    //     x: (i) => i === 0 ? (isMobile ? "-60vw" : "-50vw") : (isMobile ? "60vw" : "50vw"),
+    //     duration: 1.5, ease: "none",
+    //   }, "+=0.5");
+    //   feedbackTL.to(feedbackNitro.value, { yPercent: 0, duration: 2, zIndex: 7, ease: "none" }, "<");
+    // }
   });
 }
 
@@ -414,18 +441,20 @@ onUnmounted(() => { cleanGsap(); });
     </section>
 
     <section id="team" ref="feedbackSection" class="relative">
-      <div class="sticky top-0 h-screen w-full overflow-hidden bg-primary">
-        <div class="absolute top-0 left-0 w-full h-screen flex z-5">
-          <div ref="leftGate" class="gate bg-cover bg-center bg-no-repeat bg-[url(/img/team/bg_team.jpg)] border-r border-gray-300 flex justify-center items-start">
+      <div class="relative w-full bg-primary md:sticky md:top-0 md:h-screen md:overflow-hidden">
+        
+        <div class="relative z-5 flex flex-col w-full md:absolute md:top-0 md:left-0 md:h-screen md:flex-row">
+          <div ref="leftGate" class="hidden w-1/2 justify-center items-start border-r border-gray-300 bg-cover bg-center bg-no-repeat bg-[url(/img/team/bg_team.jpg)] md:flex gate">
             <h1 v-html="$t('title.team.name')" class="mt-[25%] text-3xl lg:text-4xl font-bold uppercase"></h1>
           </div>
-          <div ref="rightGate" class="gate bg-white flex items-center justify-center border-l border-gray-300">
-            <div class="flex flex-col items-center sm:items-start justify-center gap-3">
+          <div ref="rightGate" class="flex w-full items-center justify-center border-l border-gray-300 bg-white py-10 md:h-full md:w-1/2 md:py-0 gate">
+            <div class="flex flex-col items-center justify-center gap-3 sm:items-start">
+              <h1 v-html="$t('title.team.name')" class="block md:hidden text-3xl font-bold uppercase mb-4 text-center"></h1>
               <div class="overflow-hidden">
                 <img src="/img/team/1.jpg" :alt="$t(`title.team.name`)" class="w-64 h-96 object-cover origin-center rounded-lg" />
               </div>
               <div>
-                <p v-html="$t('title.team.desc')" class="text-sm uppercase"></p>
+                <p v-html="$t('title.team.desc')" class="text-center md:text-left text-sm uppercase"></p>
               </div>
               <div>
                 <a href="https://t.me/oystercomputer" target="_blank" class="group flex items-center justify-center p-2 w-44 h-10 rounded-full border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs font-bold">
@@ -436,10 +465,10 @@ onUnmounted(() => { cleanGsap(); });
           </div>
         </div>
 
-        <div ref="feedbackNitro" class="absolute top-0 left-0 w-full h-full py-8">
+        <div ref="feedbackNitro" id="feedback" class="relative left-0 top-0 w-full py-8 md:absolute min-h-screen md:h-full">
           <div class="section">
             <div class="flex flex-col items-center text-center mb-4">
-              <h2 class="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase z-0">
+              <h2 class="text-xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase z-0">
                 {{ $t("feedback.title1") }} <br />
                 {{ $t("feedback.title2") }}
               </h2>
@@ -447,7 +476,7 @@ onUnmounted(() => { cleanGsap(); });
                 {{ $t("feedback.desc") }}
               </p>
             </div>
-            <Feedback id="feedback" />
+            <Feedback />
           </div>
         </div>
       </div>

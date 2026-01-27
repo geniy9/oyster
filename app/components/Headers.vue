@@ -35,8 +35,8 @@ const isOpen = ref(false)
                 <ToggleLocale />
               </div>
               <div>
-                <a href="t.me/oystercomputer" target="_blank">
-                  {{ $t('text.lets_discuss') }}
+                <a href="https://t.me/oystercomputer" target="_blank" class="flex items-center justify-center px-2 py-1 rounded-full border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300 uppercase text-xs font-bold">
+                  {{ $t("text.lets_discuss") }}
                 </a>
               </div>
             </div>
@@ -48,7 +48,7 @@ const isOpen = ref(false)
                   <li v-for="(m, i) in menuMain" :key="i">
                     <NuxtLinkLocale :to="m.to" class="flex items-center gap-2 text-lg select-none p-0.5 leading-none hover:text-primary uppercase">
                       <span class="font-regular">[ {{ i + 1 }} ]</span>
-                      <span class="font-bold">{{ $t(`nav.${m.name}`) }}</span>
+                      <span class="font-bold tracking-widest">{{ $t(`nav.${m.name}`) }}</span>
                     </NuxtLinkLocale>
                   </li>
                 </ul>
